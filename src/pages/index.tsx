@@ -140,8 +140,10 @@ function Map() {
                     <div className={styles.button}>
                         <Button className={styles.button1} title="AUJOURD'HUI" onClick={() => {}} />
                         <Button className={styles.button2} title="DEMAIN" onClick={() => {}} />
-                        <Button className={styles.button2} title="XXXXXXX" onClick={() => {}} />
-                        <Button className={styles.button2} title="XXXXXXX" onClick={() => {}} />
+                        <Button className={styles.button2} title="WEEK-END" onClick={() => {}} />
+                        <Button className={styles.button2} title="7 JOURS" onClick={() => {}} />
+                        <Button className={styles.button2} title="15 JOURS" onClick={() => {}} />
+                        <Button className={styles.button2} title="TENDANCES" onClick={() => {}} />
                         <Button
                             className={styles.button2}
                             title="XXXXXXX"
