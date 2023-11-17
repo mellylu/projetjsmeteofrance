@@ -106,7 +106,7 @@ function Map() {
                 elementType: "labels",
                 stylers: [
                     {
-                        visibility: "off",
+                        visibility: "on",
                     },
                 ],
             },
@@ -116,13 +116,13 @@ function Map() {
                 elementType: "geometry",
                 stylers: [
                     {
-                        visibility: "off",
+                        visibility: "on",
                     },
                 ],
             },
         ],
-        draggable: false,
-        zoomControl: false,
+        draggable: true,
+        zoomControl: true,
         disableDefaultUI: true,
     }
     return (
