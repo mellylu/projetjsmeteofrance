@@ -64,19 +64,19 @@ function Map() {
         fetchData()
     }, [])
 
-    // const test = async () => {
-    //     await axios
-    //         .get(
-    //             // `https://api.openweathermap.org/data/2.5/weather?lat=49.6339308&lon=-1.622137&date=2023-11-21&tz=+16:00&units=metric&appid=95ac755812151c92c3f2191d0124d8d2`,
-    //             `https://api.openweathermap.org/data/2.5/onecall?lat=49.6339308&lon=-1.622137&units=metric&exclude=current,minutely,hourly&appid=95ac755812151c92c3f2191d0124d8d2`,
-    //         )
-    //         .then((data: any) => {
-    //             console.log(data)
-    //         })
-    //         .catch((err: any) => {
-    //             console.log(err)
-    //         })
-    // }
+    const test = async () => {
+        await axios
+            .get(
+                `https://api.openweathermap.org/data/2.5/weather?lat=49.6339308&lon=-1.622137&date=2023-11-21&exclude=current,minutely,hourly&units=metric&appid=95ac755812151c92c3f2191d0124d8d2`,
+                // `https://api.openweathermap.org/data/2.5/onecall?lat=49.6339308&lon=-1.622137&units=metric&exclude=current,minutely,hourly&appid=95ac755812151c92c3f2191d0124d8d2`,
+            )
+            .then((data: any) => {
+                console.log(data)
+            })
+            .catch((err: any) => {
+                console.log(err)
+            })
+    }
 
     return (
         <>
@@ -90,7 +90,7 @@ function Map() {
             <Button
                 title="TEST"
                 onClick={() => {
-                    // test()
+                    test()
                 }}
             />
             <main className={styles.main}>
