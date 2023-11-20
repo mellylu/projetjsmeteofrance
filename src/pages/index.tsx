@@ -1,14 +1,19 @@
 import Head from "next/head"
-import Image from "next/image"
-// import Map from "../components/map"
-import styles2 from "../components/map/index.module.scss"
 import React, { useState, useEffect } from "react"
 import { GoogleMap, useLoadScript, Marker, Polygon, OverlayView } from "@react-google-maps/api"
 import axios from "axios"
-import Button from "../components/button"
-import Navbar from "../components/navbar"
+
+import Navbar from "@/components/navbar"
+import BarButtons from "@/components/barButtons"
+import Button from "@/components/button"
+
+import COORDONNEES_REGION from "@/utils/coordonnees_region"
+import OPTIONS from "@/utils/optionsMap"
+import MAPCONTAINERSTYLES from "@/utils/styleMap"
+import { chooseDate } from "@/utils/chooseDate"
 
 import styles from "./index.module.scss"
+import { Flex } from "@chakra-ui/react"
 
 export default function Index() {
     const { isLoaded } = useLoadScript({
@@ -21,58 +26,35 @@ export default function Index() {
 
 function Map() {
     const [temps, setTemps] = useState<any>([])
-    const coordonnees_region = [
-        { lat: 49.6337308, lng: -1.622137 }, //Cherbourg-Octeville
-        { lat: 48.400002, lng: -4.48333 }, //Brest
-        { lat: 48.083328, lng: -1.68333 }, //Rennes
-        { lat: 48.432856, lng: 0.091266 }, //Alençon
-        { lat: 49.433331, lng: 1.08333 }, //Rouen
-        { lat: 49.900002, lng: 2.3 }, //Amiens
-        { lat: 50.633333, lng: 3.066667 }, //Lille
-        { lat: 49.2577886, lng: 4.031926 }, //Reims
-        { lat: 48.8588897, lng: 2.320041 }, //Paris
-        { lat: 49.1196964, lng: 6.1763552 }, //Metz
-        { lat: 48.584614, lng: 7.7507127 }, //Strasbourg
-        { lat: 48.1111324, lng: 5.1395849 }, //Chaumont
-        { lat: 47.6379599, lng: 6.8628942 }, //Belfort
-        { lat: 47.7961287, lng: 3.570579 }, //Auxerre
-        { lat: 47.3900474, lng: 0.6889268 }, //Tours
-        { lat: 47.0811658, lng: 2.399125 }, //Bourges
-        { lat: 47.2186371, lng: -1.5541362 }, //Nantes
-        { lat: 46.1591126, lng: -1.1520434 }, //La Rochelle
-        { lat: 44.841225, lng: -0.5800364 }, //Bordeaux
-        { lat: 43.4832523, lng: -1.5592776 }, //Biarritz
-        { lat: 43.232858, lng: 0.0781021 }, //Tarbes
-        { lat: 43.6044622, lng: 1.4442469 }, //Toulouse
-        { lat: 45.8354243, lng: 1.2644847 }, //Limoges
-        { lat: 46.1239268, lng: 3.4203712 }, //Vichy
-        { lat: 42.6985304, lng: 2.8953121 }, //Perpignan
-        { lat: 44.9285441, lng: 2.4433101 }, //Aurillac
-        { lat: 46.7888997, lng: 4.8529605 }, //Chalon-sur-Saône
-        { lat: 45.6185284, lng: 6.7694313 }, //Bourg-Saint-Maurice
-        { lat: 45.7578137, lng: 4.8320114 }, //Lyon
-        { lat: 43.6112422, lng: 3.8767337 }, //Montpellier
-        { lat: 44.5579391, lng: 4.750318 }, //Montélimar
-        { lat: 44.5612032, lng: 6.0820639 }, //Gap
-        { lat: 43.7009358, lng: 7.2683912 }, //Nice
-        { lat: 43.2961743, lng: 5.3699525 }, //Marseille
-        { lat: 41.9263991, lng: 8.7376029 }, //Ajaccio
-    ]
+    const [previsionsDate, setPrevisionsDate] = useState<any>({})
+    const [boutons, setBoutons] = useState<any>({})
     useEffect(() => {
+        setPrevisionsDate(chooseDate())
+        setBoutons({
+            bouton1: true,
+            bouton2: false,
+            button3: false,
+            button4: false,
+            button5: false,
+            button6: false,
+        })
+
         const fetchData = async () => {
             try {
-                const requests = coordonnees_region.map(async element => {
+                const requests = COORDONNEES_REGION.map(async element => {
                     const response = await axios.get(
-                        `https://api.openweathermap.org/data/2.5/weather?lat=${element.lat}&lon=${element.lng}&units=metric&appid=95ac755812151c92c3f2191d0124d8d2`,
+                        `https://api.openweathermap.org/data/2.5/weather?lat=${element.lat}&lon=${element.lng}&date=2023-11-21&units=metric&appid=95ac755812151c92c3f2191d0124d8d2`,
                     )
                     return {
                         lat: element.lat,
                         lng: element.lng,
                         temps: response.data.weather[0].icon,
+                        degres: Math.floor(response.data.main.temp),
                     }
                 })
 
                 const results = await Promise.all(requests)
+
                 setTemps(results)
             } catch (error) {
                 console.error(error)
@@ -82,12 +64,19 @@ function Map() {
         fetchData()
     }, [])
 
-    const mapContainerStyle = {
-        height: "90%",
-        width: "90%",
-        borderRadius: "1%",
-        margin: "auto",
-    }
+    // const test = async () => {
+    //     await axios
+    //         .get(
+    //             // `https://api.openweathermap.org/data/2.5/weather?lat=49.6339308&lon=-1.622137&date=2023-11-21&tz=+16:00&units=metric&appid=95ac755812151c92c3f2191d0124d8d2`,
+    //             `https://api.openweathermap.org/data/2.5/onecall?lat=49.6339308&lon=-1.622137&units=metric&exclude=current,minutely,hourly&appid=95ac755812151c92c3f2191d0124d8d2`,
+    //         )
+    //         .then((data: any) => {
+    //             console.log(data)
+    //         })
+    //         .catch((err: any) => {
+    //             console.log(err)
+    //         })
+    // }
 
     const options = {
         styles: [
@@ -134,44 +123,80 @@ function Map() {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <Navbar />
+            <Button
+                title="TEST"
+                onClick={() => {
+                    // test()
+                }}
+            />
             <main className={styles.main}>
                 <div className={styles.map}>
                     <h1 className={styles.h1}>METEO FRANCE</h1>
-                    <div className={styles.button}>
-                        <Button className={styles.button1} title="AUJOURD'HUI" onClick={() => {}} />
-                        <Button className={styles.button2} title="DEMAIN" onClick={() => {}} />
-                        <Button className={styles.button2} title="WEEK-END" onClick={() => {}} />
-                        <Button className={styles.button2} title="7 JOURS" onClick={() => {}} />
-                        <Button className={styles.button2} title="15 JOURS" onClick={() => {}} />
-                        <Button className={styles.button2} title="TENDANCES" onClick={() => {}} />
-                    </div>
+                    <BarButtons
+                        boutons={boutons}
+                        setBoutons={setBoutons}
+                        dateAujourdhui={previsionsDate.datePlus0}
+                        dateDemain={previsionsDate.datePlus1}
+                        datePlus2={previsionsDate.datePlus2}
+                        datePlus3={previsionsDate.datePlus3}
+                        datePlus4={previsionsDate.datePlus4}
+                        datePlus5={previsionsDate.datePlus5}
+                        datePlus6={previsionsDate.datePlus6}
+                        setTemps={setTemps}
+                    />
+
                     <GoogleMap
                         zoom={6}
                         center={{ lat: 46.6167, lng: 1.85 }}
-                        mapContainerStyle={mapContainerStyle}
-                        options={options}
+                        mapContainerStyle={MAPCONTAINERSTYLES}
+                        options={OPTIONS}
                     >
+                        {/* <OverlayView
+                            position={{ lat: 49.6337308, lng: -1.622137 }}
+                            mapPaneName={OverlayView.OVERLAY_LAYER}
+                        >
+                            <div style={{ width: 100 }}>
+                                <p>Matin</p>
+                                <p>Après midi</p>
+                                <p>Soirée</p>
+                            </div>
+                        </OverlayView> */}
+
                         {temps
                             ? temps.map((v: any, k: any) => (
-                                  <>
+                                  <div key={k}>
                                       {/* <Marker position={{ lat: v.lat, lng: v.lng }} /> */}
                                       <OverlayView
-                                          key={k}
                                           position={{ lat: v.lat, lng: v.lng }}
                                           mapPaneName={OverlayView.OVERLAY_LAYER}
                                           getPixelPositionOffset={(width, height) => ({
-                                              x: -25,
-                                              y: -25,
+                                              x: -30,
+                                              y: -30,
                                           })}
                                       >
                                           <img
                                               src={`https://openweathermap.org/img/wn/${v.temps}@4x.png`}
                                               alt="Green double couch with wooden legs"
-                                              width={50}
-                                              height={50}
+                                              width={60}
+                                              height={60}
                                           />
                                       </OverlayView>
-                                  </>
+                                      <OverlayView
+                                          key={k}
+                                          position={{ lat: v.lat, lng: v.lng }}
+                                          mapPaneName={OverlayView.OVERLAY_LAYER}
+                                          getPixelPositionOffset={(width, height) => ({
+                                              x: 10,
+                                              y: -30,
+                                          })}
+                                      >
+                                          <Flex>
+                                              <p className={styles.degres}>
+                                                  {v.degres.toString()}°
+                                              </p>
+                                          </Flex>
+                                      </OverlayView>
+                                  </div>
                               ))
                             : ""}
                     </GoogleMap>
