@@ -43,7 +43,7 @@ function Map() {
             try {
                 const requests = COORDONNEES_REGION.map(async element => {
                     const response = await axios.get(
-                        `https://api.openweathermap.org/data/2.5/weather?lat=${element.lat}&lon=${element.lng}&date=2023-11-21&units=metric&appid=95ac755812151c92c3f2191d0124d8d2`,
+                        `https://api.openweathermap.org/data/2.5/weather?lat=${element.lat}&lon=${element.lng}&date=2023-11-21&units=metric&appid=63ccd367e391125bbf9a581aab9e0ae5`,
                     )
                     return {
                         lat: element.lat,
@@ -65,9 +65,10 @@ function Map() {
     }, [])
 
     const test = async () => {
+        console.log(temps);
         await axios
             .get(
-                `https://api.openweathermap.org/data/2.5/weather?lat=49.6339308&lon=-1.622137&date=2023-11-21&exclude=current,minutely,hourly&units=metric&appid=95ac755812151c92c3f2191d0124d8d2`,
+                `https://api.openweathermap.org/data/2.5/weather?lat=49.6339308&lon=-1.622137&date=2023-11-21&exclude=current,minutely,hourly&units=metric&appid=63ccd367e391125bbf9a581aab9e0ae5`,
                 // `https://api.openweathermap.org/data/2.5/onecall?lat=49.6339308&lon=-1.622137&units=metric&exclude=current,minutely,hourly&appid=95ac755812151c92c3f2191d0124d8d2`,
             )
             .then((data: any) => {
