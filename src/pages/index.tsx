@@ -26,6 +26,7 @@ export default function Index() {
 
 function Map() {
     const [temps, setTemps] = useState<any>([])
+    const [temps2, setTemps2] = useState<any>([])
     const [previsionsDate, setPrevisionsDate] = useState<any>({})
     const [boutons, setBoutons] = useState<any>({})
     useEffect(() => {
@@ -43,13 +44,22 @@ function Map() {
             try {
                 const requests = COORDONNEES_REGION.map(async element => {
                     const response = await axios.get(
-                        `https://api.openweathermap.org/data/2.5/weather?lat=${element.lat}&lon=${element.lng}&date=2023-11-21&units=metric&appid=63ccd367e391125bbf9a581aab9e0ae5`,
+                        // `https://api.openweathermap.org/data/2.5/weather?lat=${element.lat}&lon=${element.lng}&date=2023-11-21&units=metric&appid=63ccd367e391125bbf9a581aab9e0ae5`,
+                        `https://api.openweathermap.org/data/2.5/weather?q=${element.ville}&units=metric&lang=fr&appid=63ccd367e391125bbf9a581aab9e0ae5`,
                     )
-                    return {
+                    if (response.data.name === 'Brest') return {
                         lat: element.lat,
                         lng: element.lng,
                         temps: response.data.weather[0].icon,
                         degres: Math.floor(response.data.main.temp),
+                        ville: response.data.name,
+                    }
+                    else return {
+                        lat: response.data.coord.lat,
+                        lng: response.data.coord.lon,
+                        temps: response.data.weather[0].icon,
+                        degres: Math.floor(response.data.main.temp),
+                        ville: response.data.name,
                     }
                 })
 
@@ -193,7 +203,7 @@ function Map() {
                                       >
                                           <Flex>
                                               <p className={styles.degres}>
-                                                  {v.degres.toString()}°
+                                                  {v.degres.toString()}° {v.ville}
                                               </p>
                                           </Flex>
                                       </OverlayView>
