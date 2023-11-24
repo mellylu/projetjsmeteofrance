@@ -1,6 +1,6 @@
 import Head from "next/head"
 import React, { useState, useEffect } from "react"
-import { GoogleMap, useLoadScript, OverlayView } from "@react-google-maps/api"
+import { GoogleMap, useLoadScript, OverlayView, Marker } from "@react-google-maps/api"
 import axios from "axios"
 
 import Navbar from "@/components/navbar"
@@ -109,6 +109,28 @@ function Map() {
         disableDefaultUI: true,
     }
 
+    const [hoverInfo, setHoverInfo] = useState({ show: false, x: 0, y: 0, ville: '', temperature: '', icon: '' });
+
+    const handleMouseOver = (e: any, ville: string, temperature: any, icon: string) => {
+        // Positionnement de la boîte d'informations par rapport au marqueur
+        const x = e.domEvent.x;
+        const y = e.domEvent.y;
+        // const x = e.pageX;
+        // const y = e.pageY;
+        setHoverInfo({
+            show: true,
+            x,
+            y,
+            ville,
+            temperature,
+            icon,
+        });
+    };
+
+    const handleMouseLeave = () => {
+        setHoverInfo({ ...hoverInfo, show: false });
+    };
+
     return (
         <>
             <Head>
@@ -156,43 +178,42 @@ function Map() {
                             </div>
                         </OverlayView> */}
 
-                        {temps
-                            ? temps.map((v: any, k: any) => (
-                                <div key={k}>
-                                    {/* <Marker position={{ lat: v.lat, lng: v.lng }} /> */}
-                                    <OverlayView
-                                        position={{ lat: v.lat, lng: v.lng }}
-                                        mapPaneName={OverlayView.OVERLAY_LAYER}
-                                        getPixelPositionOffset={(width, height) => ({
-                                            x: -30,
-                                            y: -30,
-                                        })}
-                                    >
-                                        <img
-                                            src={`https://openweathermap.org/img/wn/${v.temps}@4x.png`}
-                                            alt="Green double couch with wooden legs"
-                                            width={60}
-                                            height={60}
-                                        />
-                                    </OverlayView>
-                                    <OverlayView
-                                        key={k}
-                                        position={{ lat: v.lat, lng: v.lng }}
-                                        mapPaneName={OverlayView.OVERLAY_LAYER}
-                                        getPixelPositionOffset={(width, height) => ({
-                                            x: 10,
-                                            y: -30,
-                                        })}
-                                    >
-                                        <Flex>
-                                            <p className={styles.degres}>
-                                                {v.degres.toString()}°
-                                            </p>
-                                        </Flex>
-                                    </OverlayView>
-                                </div>
-                            ))
-                            : ""}
+                        {temps && temps.map((v: any, k: any) => (
+                            <Marker
+                                key={k}
+                                position={{ lat: v.lat, lng: v.lng }}
+                                icon={{
+                                    url: `https://openweathermap.org/img/wn/${v.temps}@2x.png`,
+                                    scaledSize: new window.google.maps.Size(60, 60), // Taille de l'image
+                                    anchor: new window.google.maps.Point(30, 30) // Le point d'ancrage au bas de l'image
+                                }}
+                                label={{
+                                    text: `${v.degres}°`, // Texte à afficher sur le marqueur
+                                    fontWeight: '500',
+                                    className: styles.marker__label
+                                }}
+                                onMouseOver={(e) => handleMouseOver(e, v.ville, v.degres, v.temps)}
+                                onMouseOut={handleMouseLeave}
+                            />
+                        ))}
+                        {hoverInfo.show && (
+                            <div
+                                style={{
+                                    left: hoverInfo.x,
+                                    top: hoverInfo.y,
+                                }}
+                                className={styles.overlay}
+                            >
+                                <p>{hoverInfo.ville}</p>
+                                <img
+                                    src={`https://openweathermap.org/img/wn/${hoverInfo.icon}@4x.png`}
+                                    alt="Green double couch with wooden legs"
+                                    width={60}
+                                    height={60}
+                                />
+                                <p>{hoverInfo.temperature}°</p>
+                            </div>
+                        )}
                     </GoogleMap>
                 </div>
             </main>
