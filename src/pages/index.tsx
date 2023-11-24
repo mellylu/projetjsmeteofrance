@@ -1,13 +1,12 @@
 import Head from "next/head"
 import React, { useState, useEffect } from "react"
-import { GoogleMap, useLoadScript, Marker, Polygon, OverlayView } from "@react-google-maps/api"
+import { GoogleMap, useLoadScript, OverlayView } from "@react-google-maps/api"
 import axios from "axios"
 
 import Navbar from "@/components/navbar"
 import BarButtons from "@/components/barButtons"
 import Button from "@/components/button"
 
-import COORDONNEES_REGION from "@/utils/coordonnees_region"
 import OPTIONS from "@/utils/optionsMap"
 import MAPCONTAINERSTYLES from "@/utils/styleMap"
 import { chooseDate } from "@/utils/chooseDate"
@@ -48,14 +47,14 @@ function Map() {
         fetchData(setActualTemp)
     }, [])
 
-    useEffect(()=>{
+    useEffect(() => {
         if (boutons.bouton1) setTemps(actualTemp)
         else if (boutons.bouton2) setTemps(dayChoice(tempsFiveDay, 1))
         if (boutons.bouton3) setTemps(dayChoice(tempsFiveDay, 2))
         if (boutons.bouton4) setTemps(dayChoice(tempsFiveDay, 3))
         if (boutons.bouton5) setTemps(dayChoice(tempsFiveDay, 4))
         if (boutons.bouton6) setTemps(dayChoice(tempsFiveDay, 5))
-    },[actualTemp, boutons])
+    }, [actualTemp, boutons])
 
     const test = async () => {
         console.log(boutons)
@@ -159,40 +158,40 @@ function Map() {
 
                         {temps
                             ? temps.map((v: any, k: any) => (
-                                  <div key={k}>
-                                      {/* <Marker position={{ lat: v.lat, lng: v.lng }} /> */}
-                                      <OverlayView
-                                          position={{ lat: v.lat, lng: v.lng }}
-                                          mapPaneName={OverlayView.OVERLAY_LAYER}
-                                          getPixelPositionOffset={(width, height) => ({
-                                              x: -30,
-                                              y: -30,
-                                          })}
-                                      >
-                                          <img
-                                              src={`https://openweathermap.org/img/wn/${v.temps}@4x.png`}
-                                              alt="Green double couch with wooden legs"
-                                              width={60}
-                                              height={60}
-                                          />
-                                      </OverlayView>
-                                      <OverlayView
-                                          key={k}
-                                          position={{ lat: v.lat, lng: v.lng }}
-                                          mapPaneName={OverlayView.OVERLAY_LAYER}
-                                          getPixelPositionOffset={(width, height) => ({
-                                              x: 10,
-                                              y: -30,
-                                          })}
-                                      >
-                                          <Flex>
-                                              <p className={styles.degres}>
-                                                  {v.degres.toString()}°
-                                              </p>
-                                          </Flex>
-                                      </OverlayView>
-                                  </div>
-                              ))
+                                <div key={k}>
+                                    {/* <Marker position={{ lat: v.lat, lng: v.lng }} /> */}
+                                    <OverlayView
+                                        position={{ lat: v.lat, lng: v.lng }}
+                                        mapPaneName={OverlayView.OVERLAY_LAYER}
+                                        getPixelPositionOffset={(width, height) => ({
+                                            x: -30,
+                                            y: -30,
+                                        })}
+                                    >
+                                        <img
+                                            src={`https://openweathermap.org/img/wn/${v.temps}@4x.png`}
+                                            alt="Green double couch with wooden legs"
+                                            width={60}
+                                            height={60}
+                                        />
+                                    </OverlayView>
+                                    <OverlayView
+                                        key={k}
+                                        position={{ lat: v.lat, lng: v.lng }}
+                                        mapPaneName={OverlayView.OVERLAY_LAYER}
+                                        getPixelPositionOffset={(width, height) => ({
+                                            x: 10,
+                                            y: -30,
+                                        })}
+                                    >
+                                        <Flex>
+                                            <p className={styles.degres}>
+                                                {v.degres.toString()}°
+                                            </p>
+                                        </Flex>
+                                    </OverlayView>
+                                </div>
+                            ))
                             : ""}
                     </GoogleMap>
                 </div>

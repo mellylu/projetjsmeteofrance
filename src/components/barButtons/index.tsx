@@ -41,12 +41,12 @@ const Index = (props: {
     
     const formatDate = (dateString: string) => {
         const options: Intl.DateTimeFormatOptions = {
-          weekday: 'short', // 'short' | 'long' | 'narrow'
-          day: 'numeric', // 'numeric' | '2-digit'
-          month: 'short', // 'short' | 'long' | 'narrow'
+          weekday: 'short', // 'short' = lun.
+          day: 'numeric', // 'numeric' = 10
+          month: 'short', // 'short' = nov.
         };
         const date = new Date(dateString);
-        return date.toLocaleDateString('fr-FR', options); // Supprime tous les points après les abréviations
+        return date.toLocaleDateString('fr-FR', options);
     };
       
     return (
