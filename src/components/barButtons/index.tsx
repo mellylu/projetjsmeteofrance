@@ -13,7 +13,6 @@ const Index = (props: {
     datePlus3: string
     datePlus4: string
     datePlus5: string
-    datePlus6: string
     setTemps: any
 }) => {
     const previsions = (date: string) => {
@@ -136,22 +135,6 @@ const Index = (props: {
                         bouton7: false,
                     })
                     previsions(props.datePlus5)
-                }}
-            />
-            <Button
-                className={props.boutons.bouton7 ? styles.buttonClic : styles.buttonNonClic}
-                title={`${props.datePlus6}`}
-                onClick={() => {
-                    props.setBoutons({
-                        bouton1: false,
-                        bouton2: false,
-                        bouton3: false,
-                        bouton4: false,
-                        bouton5: false,
-                        bouton6: false,
-                        bouton7: true,
-                    })
-                    previsions(props.datePlus6)
                 }}
             />
         </div>

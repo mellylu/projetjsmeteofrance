@@ -4,7 +4,7 @@ export const chooseDate = () => {
     let today = new Date()
     let objDate: { [key: string]: string } = {}
 
-    for (let i = 0; i <= 6; i++) {
+    for (let i = 0; i <= 5; i++) {
         let currentDate = new Date(today)
         currentDate.setDate(today.getDate() + i)
 
