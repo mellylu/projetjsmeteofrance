@@ -136,18 +136,16 @@ function Map() {
                     });
 
                     if (response.data.name === 'Brest') return {
+                        ville: response.data.city.name,
                         lat: element.lat,
                         lng: element.lng,
-                        temps: response.data.weather[0].icon,
-                        degres: Math.floor(response.data.main.temp),
-                        ville: response.data.name,
+                        forecast: dailyAverages
                     }
                     else return {
-                        lat: response.data.coord.lat,
-                        lng: response.data.coord.lon,
-                        temps: response.data.weather[0].icon,
-                        degres: Math.floor(response.data.main.temp),
-                        ville: response.data.name,
+                        ville: response.data.city.name,
+                        lat: response.data.city.coord.lat,
+                        lng: response.data.city.coord.lon,
+                        forecast: dailyAverages
                     }
                 })
 
