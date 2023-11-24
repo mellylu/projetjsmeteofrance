@@ -15,7 +15,7 @@ const Index = (props: {
     datePlus5: string
     setTemps: any
 }) => {
-    const previsions = (date: string) => {
+/*     const previsions = (date: string) => {
         const fetchData = async () => {
             try {
                 const requests = COORDONNEES_REGION.map(async element => {
@@ -37,7 +37,7 @@ const Index = (props: {
             }
         }
         fetchData()
-    }
+    } */
     return (
         <div className={styles.button}>
             <Button
@@ -51,9 +51,8 @@ const Index = (props: {
                         bouton4: false,
                         bouton5: false,
                         bouton6: false,
-                        bouton7: false,
                     })
-                    previsions(props.dateAujourdhui)
+                    // previsions(props.dateAujourdhui)
                 }}
             />
 
@@ -68,9 +67,8 @@ const Index = (props: {
                         bouton4: false,
                         bouton5: false,
                         bouton6: false,
-                        bouton7: false,
                     })
-                    previsions(props.dateDemain)
+                    // previsions(props.dateDemain)
                 }}
             />
             <Button
@@ -84,9 +82,8 @@ const Index = (props: {
                         bouton4: false,
                         bouton5: false,
                         bouton6: false,
-                        bouton7: false,
                     })
-                    previsions(props.datePlus2)
+                    // previsions(props.datePlus2)
                 }}
             />
             <Button
@@ -100,9 +97,8 @@ const Index = (props: {
                         bouton4: true,
                         bouton5: false,
                         bouton6: false,
-                        bouton7: false,
                     })
-                    previsions(props.datePlus3)
+                    // previsions(props.datePlus3)
                 }}
             />
             <Button
@@ -116,9 +112,8 @@ const Index = (props: {
                         bouton4: false,
                         bouton5: true,
                         bouton6: false,
-                        bouton7: false,
                     })
-                    previsions(props.datePlus4)
+                    // previsions(props.datePlus4)
                 }}
             />
             <Button
@@ -132,9 +127,8 @@ const Index = (props: {
                         bouton4: false,
                         bouton5: false,
                         bouton6: true,
-                        bouton7: false,
                     })
-                    previsions(props.datePlus5)
+                    // previsions(props.datePlus5)
                 }}
             />
         </div>

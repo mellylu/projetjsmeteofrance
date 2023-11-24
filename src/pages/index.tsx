@@ -26,9 +26,16 @@ export default function Index() {
 
 function Map() {
     const [temps, setTemps] = useState<any>([])
+    const [actualTemp, setActualTemp] = useState<any>([])
     const [tempsFiveDay, setTempsFiveDay] = useState<any>([])
+    const [tempsDayPlusOne, setTempsDayPlusOne] = useState<any>([])
+    const [tempsDayPlusTwo, setTempsDayPlusTwo] = useState<any>([])
+    const [tempsDayPlusThree, setTempsDayPlusThree] = useState<any>([])
+    const [tempsDayPlusFour, setTempsDayPlusFour] = useState<any>([])
+    const [tempsDayPlusFive, setTempsDayPlusFive] = useState<any>([])
     const [previsionsDate, setPrevisionsDate] = useState<any>({})
     const [boutons, setBoutons] = useState<any>({})
+
     useEffect(() => {
         setPrevisionsDate(chooseDate())
         setBoutons({
@@ -65,7 +72,7 @@ function Map() {
 
                 const results = await Promise.all(requests)
 
-                setTemps(results)
+                setActualTemp(results)
             } catch (error) {
                 console.error(error)
             }
@@ -78,6 +85,9 @@ function Map() {
             };
           }
           
+          
+
+        
 
         const fetchDataFiveday = async () => {
             try {
@@ -118,9 +128,9 @@ function Map() {
                           acc[icon] = (acc[icon] || 0) + 1;
                           return acc;
                         }, {});
-                        // Trouver l'icône la plus fréquente
+                        // Trouver l'icône le plus fréquent
                         let mostFrequentIcon = dayIcon[0];
-                        let maxCount = 1; // Nous commençons à 1 car une icône apparaît au moins une fois
+                        let maxCount = 1;
                       
                         for (const icon of Object.keys(counts)) {
                           if (counts[icon] > maxCount) {
@@ -128,7 +138,7 @@ function Map() {
                             maxCount = counts[icon];
                           }
                         }
-                        // Si aucune icône n'apparaît plus de deux fois, `mostFrequentIcon` restera le premier élément
+                        // Si aucun icône n'apparaît plus de deux fois, `mostFrequentIcon` restera le premier élément
                         return mostFrequentIcon;
                       };
                       const icon = getMostFrequentIcon(dayIcon)
@@ -148,9 +158,9 @@ function Map() {
                         forecast: dailyAverages
                     }
                 })
-
+                
                 const results = await Promise.all(requests)
-
+                
                 setTempsFiveDay(results)
             } catch (error) {
                 console.error(error)
@@ -161,8 +171,46 @@ function Map() {
         fetchData()
     }, [])
 
+    useEffect(()=>{
+        // Création des fonctions pour les boutouns de choix de jour
+        if (tempsFiveDay.length > 0) {
+            let tempsplus: any =[]
+            tempsFiveDay.map((tempsDay:any)=>tempsplus.push({
+                ville: tempsDay.name,
+                lat: tempsDay.lat,
+                lng: tempsDay.lon,
+                temps: tempsDay.forecast[1].icon,
+                degres: tempsDay.forecast[1].average,
+            }))
+            setTempsDayPlusOne(tempsplus)
+        }
+
+        // Création des fonctions pour les boutouns de choix de jour
+        const tempsChoice = (day:number)=> {
+            if (tempsFiveDay.length > 0) {
+                let tempsplus: any =[]
+                tempsFiveDay.map((tempsDay:any)=>tempsplus.push({
+                    ville: tempsDay.name,
+                    lat: tempsDay.lat,
+                    lng: tempsDay.lon,
+                    temps: tempsDay.forecast[day].icon,
+                    degres: tempsDay.forecast[day].average,
+                }))
+                return tempsplus
+            }
+        }
+        
+        if (boutons.bouton1) setTemps(actualTemp)
+        else if (boutons.bouton2) setTemps(tempsChoice(1))
+        if (boutons.bouton3) setTemps(tempsChoice(2))
+        if (boutons.bouton4) setTemps(tempsChoice(3))
+        if (boutons.bouton5) setTemps(tempsChoice(4))
+        if (boutons.bouton6) setTemps(tempsChoice(5))
+    },[actualTemp, boutons])
+
     const test = async () => {
-        console.log(tempsFiveDay);
+        console.log(boutons)
+        console.log(temps)
         await axios
             .get(
                 `https://api.openweathermap.org/data/2.5/weather?lat=49.6339308&lon=-1.622137&date=2023-11-21&exclude=current,minutely,hourly&units=metric&appid=63ccd367e391125bbf9a581aab9e0ae5`,
@@ -212,6 +260,7 @@ function Map() {
         zoomControl: true,
         disableDefaultUI: true,
     }
+
     return (
         <>
             <Head>
