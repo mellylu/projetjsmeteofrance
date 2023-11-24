@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 import Button from "../button"
 import styles from "./index.module.scss"
 import COORDONNEES_REGION from "@/utils/coordonnees_region"
@@ -38,6 +38,17 @@ const Index = (props: {
         }
         fetchData()
     } */
+    
+    const formatDate = (dateString: string) => {
+        const options: Intl.DateTimeFormatOptions = {
+          weekday: 'short', // 'short' | 'long' | 'narrow'
+          day: 'numeric', // 'numeric' | '2-digit'
+          month: 'short', // 'short' | 'long' | 'narrow'
+        };
+        const date = new Date(dateString);
+        return date.toLocaleDateString('fr-FR', options); // Supprime tous les points après les abréviations
+    };
+      
     return (
         <div className={styles.button}>
             <Button
@@ -73,7 +84,8 @@ const Index = (props: {
             />
             <Button
                 className={props.boutons.bouton3 ? styles.buttonClic : styles.buttonNonClic}
-                title={`${props.datePlus2}`}
+                // title={`${props.datePlus2}`}
+                title={formatDate(props.datePlus2)}
                 onClick={() => {
                     props.setBoutons({
                         bouton1: false,
@@ -88,7 +100,8 @@ const Index = (props: {
             />
             <Button
                 className={props.boutons.bouton4 ? styles.buttonClic : styles.buttonNonClic}
-                title={`${props.datePlus3}`}
+                // title={`${props.datePlus3}`}
+                title={formatDate(props.datePlus3)}
                 onClick={() => {
                     props.setBoutons({
                         bouton1: false,
@@ -103,7 +116,8 @@ const Index = (props: {
             />
             <Button
                 className={props.boutons.bouton5 ? styles.buttonClic : styles.buttonNonClic}
-                title={`${props.datePlus4}`}
+                // title={`${props.datePlus4}`}
+                title={formatDate(props.datePlus4)}
                 onClick={() => {
                     props.setBoutons({
                         bouton1: false,
@@ -118,7 +132,8 @@ const Index = (props: {
             />
             <Button
                 className={props.boutons.bouton6 ? styles.buttonClic : styles.buttonNonClic}
-                title={`${props.datePlus5}`}
+                // title={`${props.datePlus5}`}
+                title={formatDate(props.datePlus5)}
                 onClick={() => {
                     props.setBoutons({
                         bouton1: false,

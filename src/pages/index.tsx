@@ -11,6 +11,9 @@ import COORDONNEES_REGION from "@/utils/coordonnees_region"
 import OPTIONS from "@/utils/optionsMap"
 import MAPCONTAINERSTYLES from "@/utils/styleMap"
 import { chooseDate } from "@/utils/chooseDate"
+import { fetchDataFiveday } from "@/utils/fetchDataFiveDay"
+import { dayChoice } from "@/utils/dayChoice"
+import { fetchData } from "@/utils/fetchData"
 
 import styles from "./index.module.scss"
 import { Flex } from "@chakra-ui/react"
@@ -28,11 +31,6 @@ function Map() {
     const [temps, setTemps] = useState<any>([])
     const [actualTemp, setActualTemp] = useState<any>([])
     const [tempsFiveDay, setTempsFiveDay] = useState<any>([])
-    const [tempsDayPlusOne, setTempsDayPlusOne] = useState<any>([])
-    const [tempsDayPlusTwo, setTempsDayPlusTwo] = useState<any>([])
-    const [tempsDayPlusThree, setTempsDayPlusThree] = useState<any>([])
-    const [tempsDayPlusFour, setTempsDayPlusFour] = useState<any>([])
-    const [tempsDayPlusFive, setTempsDayPlusFive] = useState<any>([])
     const [previsionsDate, setPrevisionsDate] = useState<any>({})
     const [boutons, setBoutons] = useState<any>({})
 
@@ -46,166 +44,17 @@ function Map() {
             button5: false,
             button6: false,
         })
-
-        const fetchData = async () => {
-            try {
-                const requests = COORDONNEES_REGION.map(async element => {
-                    const response = await axios.get(
-                        // `https://api.openweathermap.org/data/2.5/weather?lat=${element.lat}&lon=${element.lng}&date=2023-11-21&units=metric&appid=63ccd367e391125bbf9a581aab9e0ae5`,
-                        `https://api.openweathermap.org/data/2.5/weather?q=${element.ville}&units=metric&lang=fr&appid=63ccd367e391125bbf9a581aab9e0ae5`,
-                    )
-                    if (response.data.name === 'Brest') return {
-                        lat: element.lat,
-                        lng: element.lng,
-                        temps: response.data.weather[0].icon,
-                        degres: Math.floor(response.data.main.temp),
-                        ville: response.data.name,
-                    }
-                    else return {
-                        lat: response.data.coord.lat,
-                        lng: response.data.coord.lon,
-                        temps: response.data.weather[0].icon,
-                        degres: Math.floor(response.data.main.temp),
-                        ville: response.data.name,
-                    }
-                })
-
-                const results = await Promise.all(requests)
-
-                setActualTemp(results)
-            } catch (error) {
-                console.error(error)
-            }
-        }
-
-        interface DailyInfo {
-            [key: string]: {
-              temps: number[];
-              weather: string[];
-            };
-          }
-          
-          
-
-        
-
-        const fetchDataFiveday = async () => {
-            try {
-                const requests = COORDONNEES_REGION.map(async element => {
-                    const response = await axios.get(
-                        // `https://api.openweathermap.org/data/2.5/forecast?lat=${element.lat}&lon=${element.lng}&date=2023-11-21&units=metric&appid=63ccd367e391125bbf9a581aab9e0ae5`,
-                        `https://api.openweathermap.org/data/2.5/forecast?q=${element.ville}&units=metric&lang=fr&appid=63ccd367e391125bbf9a581aab9e0ae5`,
-                        )
-                    const dailyInfo: DailyInfo = {};
-                        
-                    // Regroupe les températures par jour
-                    response.data.list.forEach((item: { dt: number; main: { temp: any }; weather: {icon:string}[] }) => {
-                        const date = new Date(item.dt * 1000);
-                        const day = date.toISOString().split('T')[0]; // Récupère la date au format YYYY-MM-DD
-                        if (!dailyInfo[day]) {
-                            dailyInfo[day] = {
-                                temps: [],
-                                weather: []
-                              };
-                        }
-                        dailyInfo[day].temps.push(item.main.temp);
-                        dailyInfo[day].weather.push(item.weather[0].icon);
-                    });
-
-                    // Calcule la moyenne des températures et icônes pour chaque jour
-                    const dailyAverages = Object.keys(dailyInfo).map(day => {
-                        // Température
-                      const temps = dailyInfo[day].temps;
-                      const sum = temps.reduce((a, b) => a + b, 0);
-                      const average = Math.floor(sum / temps.length);
-                        // Icône
-                      const icons = dailyInfo[day].weather
-                      let dayIcon = icons.filter((icon)=>icon.includes('d'))
-                      if (dayIcon.length === 0) dayIcon = icons
-                      const getMostFrequentIcon = (dayIcon: any[]) => {
-                        // Compter la fréquence de chaque icône
-                        const counts = dayIcon.reduce((acc, icon) => {
-                          acc[icon] = (acc[icon] || 0) + 1;
-                          return acc;
-                        }, {});
-                        // Trouver l'icône le plus fréquent
-                        let mostFrequentIcon = dayIcon[0];
-                        let maxCount = 1;
-                      
-                        for (const icon of Object.keys(counts)) {
-                          if (counts[icon] > maxCount) {
-                            mostFrequentIcon = icon;
-                            maxCount = counts[icon];
-                          }
-                        }
-                        // Si aucun icône n'apparaît plus de deux fois, `mostFrequentIcon` restera le premier élément
-                        return mostFrequentIcon;
-                      };
-                      const icon = getMostFrequentIcon(dayIcon)
-                      return { day, average, icon };
-                    });
-
-                    if (response.data.name === 'Brest') return {
-                        ville: response.data.city.name,
-                        lat: element.lat,
-                        lng: element.lng,
-                        forecast: dailyAverages
-                    }
-                    else return {
-                        ville: response.data.city.name,
-                        lat: response.data.city.coord.lat,
-                        lng: response.data.city.coord.lon,
-                        forecast: dailyAverages
-                    }
-                })
-                
-                const results = await Promise.all(requests)
-                
-                setTempsFiveDay(results)
-            } catch (error) {
-                console.error(error)
-            }
-        }
-
-        fetchDataFiveday()
-        fetchData()
+        fetchDataFiveday(setTempsFiveDay)
+        fetchData(setActualTemp)
     }, [])
 
     useEffect(()=>{
-        // Création des fonctions pour les boutouns de choix de jour
-        if (tempsFiveDay.length > 0) {
-            let tempsplus: any =[]
-            tempsFiveDay.map((tempsDay:any)=>tempsplus.push({
-                ville: tempsDay.name,
-                lat: tempsDay.lat,
-                lng: tempsDay.lon,
-                temps: tempsDay.forecast[1].icon,
-                degres: tempsDay.forecast[1].average,
-            }))
-            setTempsDayPlusOne(tempsplus)
-        }
-
-        // Création des fonctions pour les boutouns de choix de jour
-        const tempsChoice = (day:number)=> {
-            if (tempsFiveDay.length > 0) {
-                let tempsplus: any =[]
-                tempsFiveDay.map((tempsDay:any)=>tempsplus.push({
-                    ville: tempsDay.name,
-                    lat: tempsDay.lat,
-                    lng: tempsDay.lon,
-                    temps: tempsDay.forecast[day].icon,
-                    degres: tempsDay.forecast[day].average,
-                }))
-                return tempsplus
-            }
-        }
-        
         if (boutons.bouton1) setTemps(actualTemp)
-        else if (boutons.bouton2) setTemps(tempsChoice(1))
-        if (boutons.bouton3) setTemps(tempsChoice(2))
-        if (boutons.bouton4) setTemps(tempsChoice(3))
-        if (boutons.bouton5) setTemps(tempsChoice(4))
-        if (boutons.bouton6) setTemps(tempsChoice(5))
+        else if (boutons.bouton2) setTemps(dayChoice(tempsFiveDay, 1))
+        if (boutons.bouton3) setTemps(dayChoice(tempsFiveDay, 2))
+        if (boutons.bouton4) setTemps(dayChoice(tempsFiveDay, 3))
+        if (boutons.bouton5) setTemps(dayChoice(tempsFiveDay, 4))
+        if (boutons.bouton6) setTemps(dayChoice(tempsFiveDay, 5))
     },[actualTemp, boutons])
 
     const test = async () => {
