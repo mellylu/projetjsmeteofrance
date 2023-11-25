@@ -204,14 +204,16 @@ function Map() {
                                 className={styles.overlay}
                             >
                                 <div>{hoverInfo.ville}</div>
-                                <img
-                                    src={`https://openweathermap.org/img/wn/${hoverInfo.icon}@4x.png`}
-                                    alt="Green double couch with wooden legs"
-                                    width={60}
-                                    height={60}
-                                />
+                                <div className={styles.overlay__container}>
+                                    <img
+                                        src={`https://openweathermap.org/img/wn/${hoverInfo.icon}@4x.png`}
+                                        alt="Green double couch with wooden legs"
+                                        width={60}
+                                        height={60}
+                                    />
+                                    <div className={styles.ovelay__temp}>{hoverInfo.temperature}°</div>
+                                </div>
                                 <div>{weatherDescription(hoverInfo.icon)}</div>
-                                <div>{hoverInfo.temperature}°</div>
                             </div>
                         )}
                     </GoogleMap>

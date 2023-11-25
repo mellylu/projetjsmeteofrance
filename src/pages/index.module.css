@@ -38,4 +38,15 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-weight: 600;
+}
+
+.overlay__container {
+  margin-bottom: -5px;
+  display: flex;
+}
+
+.ovelay__temp {
+  justify-content: center;
+  margin-left: -15px;
 }/*# sourceMappingURL=index.module.css.map */
