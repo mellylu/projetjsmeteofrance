@@ -16,6 +16,7 @@ import { fetchData } from "@/utils/fetchData"
 
 import styles from "./index.module.scss"
 import { Flex } from "@chakra-ui/react"
+import { weatherDescription } from "@/utils/weatherDescription"
 
 export default function Index() {
     const { isLoaded } = useLoadScript({
@@ -57,8 +58,7 @@ function Map() {
     }, [actualTemp, boutons])
 
     const test = async () => {
-        console.log(boutons)
-        console.log(temps)
+        console.log(tempsFiveDay)
         await axios
             .get(
                 `https://api.openweathermap.org/data/2.5/weather?lat=49.6339308&lon=-1.622137&date=2023-11-21&exclude=current,minutely,hourly&units=metric&appid=63ccd367e391125bbf9a581aab9e0ae5`,
@@ -160,7 +160,6 @@ function Map() {
                         datePlus5={previsionsDate.datePlus5}
                         setTemps={setTemps}
                     />
-
                     <GoogleMap
                         zoom={6}
                         center={{ lat: 46.6167, lng: 1.85 }}
@@ -204,14 +203,15 @@ function Map() {
                                 }}
                                 className={styles.overlay}
                             >
-                                <p>{hoverInfo.ville}</p>
+                                <div>{hoverInfo.ville}</div>
                                 <img
                                     src={`https://openweathermap.org/img/wn/${hoverInfo.icon}@4x.png`}
                                     alt="Green double couch with wooden legs"
                                     width={60}
                                     height={60}
                                 />
-                                <p>{hoverInfo.temperature}°</p>
+                                <div>{weatherDescription(hoverInfo.icon)}</div>
+                                <div>{hoverInfo.temperature}°</div>
                             </div>
                         )}
                     </GoogleMap>
