@@ -14,7 +14,7 @@ import { chooseDate } from "@/utils/chooseDate"
 
 import styles from "./index.module.scss"
 import { Flex } from "@chakra-ui/react"
-import SearchBar from "@/components/ResearchBar"
+import ResearchBar from "@/components/ResearchBar"
 
 export default function Index() {
     const { isLoaded } = useLoadScript({
@@ -126,7 +126,7 @@ function Map() {
                 <script src={`https://maps.googleapis.com/maps/api/js?key=AIzaSyDbr6FgqPsctO5kXmIFoYL7X7TuaXAGX_o&libraries=places`}></script>
             </Head>
             <Navbar />
-            <SearchBar/>
+            <ResearchBar/>
             <Button
                 title="TEST"
                 onClick={() => {
