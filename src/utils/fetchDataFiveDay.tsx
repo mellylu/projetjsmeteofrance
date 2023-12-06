@@ -14,7 +14,7 @@ export const fetchDataFiveday = async (setTempsFiveDay: any) => {
     const requests = COORDONNEES_REGION.map(async element => {
       const response = await axios.get(
         // `https://api.openweathermap.org/data/2.5/forecast?lat=${element.lat}&lon=${element.lng}&date=2023-11-21&units=metric&appid=63ccd367e391125bbf9a581aab9e0ae5`,
-        `https://api.openweathermap.org/data/2.5/forecast?q=${element.ville}&units=metric&lang=fr&appid=63ccd367e391125bbf9a581aab9e0ae5`,
+        `https://api.openweathermap.org/data/2.5/forecast?q=${element.ville}&units=metric&lang=fr&appid=dcea80cba359684c8af702c1b42982ba`,
       )
       const dailyInfo: DailyInfo = {};
 
@@ -64,7 +64,7 @@ export const fetchDataFiveday = async (setTempsFiveDay: any) => {
         const icon = getMostFrequentIcon(dayIcon)
         return { day, average, icon };
       });
-      console.log(response.data.city.name)
+      // console.log(response.data.city.name)
 
       if (response.data.city.name === 'Brest') return {
         ville: response.data.city.name,

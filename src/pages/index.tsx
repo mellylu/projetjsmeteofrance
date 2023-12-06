@@ -6,6 +6,7 @@ import axios from "axios"
 import Navbar from "@/components/navbar"
 import BarButtons from "@/components/barButtons"
 import Button from "@/components/button"
+import ResearchBar from "@/components/researchBar"
 
 import OPTIONS from "@/utils/optionsMap"
 import MAPCONTAINERSTYLES from "@/utils/styleMap"
@@ -17,22 +18,27 @@ import { fetchData } from "@/utils/fetchData"
 import styles from "./index.module.scss"
 import { Flex } from "@chakra-ui/react"
 import { weatherDescription } from "@/utils/weatherDescription"
+import { useRouter } from "next/router"
 
 export default function Index() {
     const { isLoaded } = useLoadScript({
         googleMapsApiKey: "AIzaSyDbr6FgqPsctO5kXmIFoYL7X7TuaXAGX_o",
+        libraries: ["places"],
     })
 
     if (!isLoaded) return <div>Loading...</div>
-    return <Map />
+
+    return <Map isLoaded={isLoaded} />
 }
 
-function Map() {
+function Map(props: { isLoaded: any }) {
     const [temps, setTemps] = useState<any>([])
     const [actualTemp, setActualTemp] = useState<any>([])
     const [tempsFiveDay, setTempsFiveDay] = useState<any>([])
     const [previsionsDate, setPrevisionsDate] = useState<any>({})
     const [boutons, setBoutons] = useState<any>({})
+    const [searchVille, setSearchVille] = useState<any>("")
+    const router = useRouter();
 
     useEffect(() => {
         setPrevisionsDate(chooseDate())
@@ -48,6 +54,8 @@ function Map() {
         fetchData(setActualTemp)
     }, [])
 
+
+
     useEffect(() => {
         if (boutons.bouton1) setTemps(actualTemp)
         else if (boutons.bouton2) setTemps(dayChoice(tempsFiveDay, 1))
@@ -56,58 +64,6 @@ function Map() {
         if (boutons.bouton5) setTemps(dayChoice(tempsFiveDay, 4))
         if (boutons.bouton6) setTemps(dayChoice(tempsFiveDay, 5))
     }, [actualTemp, boutons])
-
-    const test = async () => {
-        console.log(tempsFiveDay)
-        await axios
-            .get(
-                `https://api.openweathermap.org/data/2.5/weather?lat=49.6339308&lon=-1.622137&date=2023-11-21&exclude=current,minutely,hourly&units=metric&appid=63ccd367e391125bbf9a581aab9e0ae5`,
-                // `https://api.openweathermap.org/data/2.5/onecall?lat=49.6339308&lon=-1.622137&units=metric&exclude=current,minutely,hourly&appid=95ac755812151c92c3f2191d0124d8d2`,
-            )
-            .then((data: any) => {
-                console.log(data)
-            })
-            .catch((err: any) => {
-                console.log(err)
-            })
-    }
-
-    const options = {
-        styles: [
-            {
-                featureType: "administrative",
-                elementType: "geometry.stroke",
-                stylers: [
-                    {
-                        color: "black",
-                    },
-                ],
-            },
-            // Enlever les noms des villes et pays
-            {
-                featureType: "administrative",
-                elementType: "labels",
-                stylers: [
-                    {
-                        visibility: "on",
-                    },
-                ],
-            },
-            // Masquer les routes et les lignes
-            {
-                featureType: "road",
-                elementType: "geometry",
-                stylers: [
-                    {
-                        visibility: "on",
-                    },
-                ],
-            },
-        ],
-        draggable: true,
-        zoomControl: true,
-        disableDefaultUI: true,
-    }
 
     const [hoverInfo, setHoverInfo] = useState({ show: false, x: 0, y: 0, ville: '', temperature: '', icon: '' });
 
@@ -131,6 +87,10 @@ function Map() {
         setHoverInfo({ ...hoverInfo, show: false });
     };
 
+    const rechercherVilleMeteo = () => {
+        router.push(`/${searchVille}`)
+    }
+
     return (
         <>
             <Head>
@@ -140,12 +100,14 @@ function Map() {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <Navbar />
-            <Button
+            {/* <Button
                 title="TEST"
                 onClick={() => {
                     test()
                 }}
-            />
+            /> */}
+            <ResearchBar isLoaded={props.isLoaded} setSearchVille={setSearchVille} />
+            <button onClick={() => { rechercherVilleMeteo() }}>Rechercher</button>
             <main className={styles.main}>
                 <div className={styles.map}>
                     <h1 className={styles.h1}>METEO FRANCE</h1>
