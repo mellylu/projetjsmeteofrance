@@ -1,33 +1,28 @@
 import React, { useEffect, useContext, useState } from 'react';
 import { useRouter } from "next/router";
 import { AiOutlineHeart } from "react-icons/ai";
-import FavorisContext from '@/context/favorisCountryContext';
+
+import Favoris from '@/components/favoris';
+
 const Index = () => {
     const router = useRouter();
-    const { setFavorisCountryContext, favorisCountryContext } = useContext(FavorisContext)
     const [url, setUrl] = useState<any>("")
 
     useEffect(() => {
-        // console.log(router.query)
-        setUrl(router.query.ville)
-        console.log(favorisCountryContext, "bbbbbbbbbbb")
+        setUrl(window.location.pathname.split("/")[1])
 
     }, [])
 
-    const ajouterFavoris = () => {
-        // setFavorisCountryContext({ ...favorisCountryContext, x: url })
-        setFavorisCountryContext([...favorisCountryContext, url])
-    }
-
-    useEffect(() => {
-        console.log(favorisCountryContext)
-    }, [favorisCountryContext])
-
     return (
         <div>
-            <h1>AFFICHER METEO VILLE {router.query.ville}</h1>
-            <AiOutlineHeart color={"red"} onClick={() => { ajouterFavoris() }} />
+
+            {/* <AiOutlineHeart color={"red"} onClick={() => { ajouterFavoris() }} /> */}
+            {url ? <div>
+                <h1>AFFICHER METEO VILLE {router.query.ville}</h1>
+                <Favoris ville={url} />
+            </div> : ""}
         </div>
+
     );
 };
 
