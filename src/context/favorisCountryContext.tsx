@@ -1,86 +1,62 @@
 import React, { createContext, useState, useEffect } from "react"
+import Cookies from "js-cookie"
 
 const FavorisContext = createContext({
-    favorisCountryContext: [],
-    setFavorisCountryContext: (x: any) => [],
+    favoris: [],
+    addFavoris: (ville: any) => { },
+    isExist: false,
+    setIsExist: (x: any) => { }
+    //fonction pour remove un favoris
+    //fonction pour remove tous les favoris
 })
 
 export const FavorisCountryContextProvider = (props: { children: any }) => {
-    const [favorisCountryContext, setFavorisCountryContext] = useState<any>([])
 
-    const creerCookie = () => {
-        // var e = null
-        // var date = new Date()
-        // date.setTime(date.getTime() + 1 * 24 * 60 * 60 * 1000)
-        // e = "; expires=" + date.toISOString()
-        document.cookie = "favorisCountry" + "=" + favorisCountryContext + "; path=/"
+    const getFavorisCookieValue = (): any[] => {
+        const cookieValue = Cookies.get('favoris');
+        return cookieValue !== undefined ? JSON.parse(cookieValue) : [];
+    };
 
+    const [favoris, setFavoris] = useState<any>(typeof window !== "undefined" ? getFavorisCookieValue() : [])
+    const [isExist, setIsExist] = useState<any>(false)
+    const count = favoris && favoris.length || 0;
+
+    const addFavoris = (ville: any) => {
+        if (count > 0) {
+            let isExist = false
+            favoris.forEach((element: any) => {
+                if (element == ville) {
+                    isExist = true
+                }
+            });
+            if (isExist) {
+                setFavoris(favoris.filter((element: any) => element !== ville))
+                setIsExist(false)
+            }
+
+            else {
+                setFavoris([...favoris, ville])
+                setIsExist(true)
+            }
+
+        }
+        else {
+            setFavoris([ville])
+            setIsExist(true)
+        }
     }
 
+    const context = { addFavoris, favoris, isExist, setIsExist }
+
     useEffect(() => {
-        creerCookie()
-        let nom = "favorisCountry"
-        nom = nom + "="
-        var liste = document.cookie.split(";")
-        let token
-        for (var i = 0; i < liste.length; i++) {
-            var c = liste[i]
-            while (c.charAt(0) == " ") c = c.substring(1, c.length)
-            if (c.indexOf(nom) == 0) {
-                token = c.substring(nom.length, c.length)
-            }
-        }
-        // console.log(token, "token")
-        console.log(favorisCountryContext, "fff")
-        console.log(typeof favorisCountryContext, "gggg")
-        let tab = []
+        console.log(favoris)
+        Cookies.set('favoris', JSON.stringify(favoris), { expires: 7 }) //si il y a rien dans mon cookie storage
+        return () => {
+            Cookies.set('favoris', JSON.stringify(favoris), { expires: 7 })
+        };
+    }, [favoris])
 
-        let b = token?.split(",")
-        for (let pas = 0; pas < b?.length; pas++) {
-            b ? tab.push(b[pas]) : ""
-        }
-        token ?
-
-            setFavorisCountryContext([...favorisCountryContext, tab])
-            : ""
-        // console.log(typeof token, "typoof token")
-        // localStorage.getItem("filtre") !== "undefined"
-        // ? JSON.parse(localStorage.getItem("filtre"))
-        // : {}
-        // setFilterContext(
-        // localStorage.getItem("filtre") !== "undefined"
-        //     ? JSON.parse(localStorage.getItem("filtre"))
-        //     : {},
-        // )
-
-    }, [])
-    // useEffect(() => {
-    //     localStorage.getItem("filtre") !== "undefined"
-    //         ? JSON.parse(localStorage.getItem("filtre"): "")
-    //         : {}
-    //     setFavorisCountryContext(
-    //         localStorage.getItem("filtre") !== "undefined"
-    //             ? JSON.parse(localStorage.getItem("filtre"))
-    //             : {},
-    //     )
-
-
-    // }, [])
-
-    // console.log(JSON.parse(localStorage.getItem("filter")), "FILTER")
-    // const context = {
-    //     favorisCountryContext,
-    //     setFavorisCountryContext,
-    // }
-    useEffect(() => {
-        console.log(favorisCountryContext, "favorisCountryContext")
-        // localStorage.setItem("filtre", JSON.stringify(favorisCountryContext))
-        // return () => {
-        //     localStorage.setItem("filtre", JSON.stringify(favorisCountryContext))
-        // }
-    }, [favorisCountryContext])
-
-    return <FavorisContext.Provider value={{ favorisCountryContext, setFavorisCountryContext }}>{props.children}</FavorisContext.Provider>
+    return <FavorisContext.Provider value={context}>{props.children}</FavorisContext.Provider>
 }
 
 export default FavorisContext
