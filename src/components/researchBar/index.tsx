@@ -74,13 +74,9 @@ const PlacesAutocomplete = (props: { selected: any; setSelected: any, setSearchV
                                 types.includes("locality")
                             )
 
-                            // .filter(({ terms }) => {
-                            //     terms.some(obj => obj.value === 'France') == true 
-
-                            // }
-
-
-                            // )
+                            .filter(({ terms }) =>
+                                terms.some(obj => obj.value === 'France') == true
+                            )
 
                             .map(({ place_id, description }) => (
                                 <ComboboxOption key={place_id} value={description} />
