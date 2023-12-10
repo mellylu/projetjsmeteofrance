@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 import Button from "../button"
 import styles from "./index.module.scss"
 import COORDONNEES_REGION from "@/utils/coordonnees_region"
@@ -13,10 +13,9 @@ const Index = (props: {
     datePlus3: string
     datePlus4: string
     datePlus5: string
-    datePlus6: string
     setTemps: any
 }) => {
-    const previsions = (date: string) => {
+/*     const previsions = (date: string) => {
         const fetchData = async () => {
             try {
                 const requests = COORDONNEES_REGION.map(async element => {
@@ -38,7 +37,18 @@ const Index = (props: {
             }
         }
         fetchData()
-    }
+    } */
+    
+    const formatDate = (dateString: string) => {
+        const options: Intl.DateTimeFormatOptions = {
+          weekday: 'short', // 'short' = lun.
+          day: 'numeric', // 'numeric' = 10
+          month: 'short', // 'short' = nov.
+        };
+        const date = new Date(dateString);
+        return date.toLocaleDateString('fr-FR', options);
+    };
+      
     return (
         <div className={styles.button}>
             <Button
@@ -52,9 +62,8 @@ const Index = (props: {
                         bouton4: false,
                         bouton5: false,
                         bouton6: false,
-                        bouton7: false,
                     })
-                    previsions(props.dateAujourdhui)
+                    // previsions(props.dateAujourdhui)
                 }}
             />
 
@@ -69,14 +78,14 @@ const Index = (props: {
                         bouton4: false,
                         bouton5: false,
                         bouton6: false,
-                        bouton7: false,
                     })
-                    previsions(props.dateDemain)
+                    // previsions(props.dateDemain)
                 }}
             />
             <Button
                 className={props.boutons.bouton3 ? styles.buttonClic : styles.buttonNonClic}
-                title={`${props.datePlus2}`}
+                // title={`${props.datePlus2}`}
+                title={formatDate(props.datePlus2)}
                 onClick={() => {
                     props.setBoutons({
                         bouton1: false,
@@ -85,14 +94,14 @@ const Index = (props: {
                         bouton4: false,
                         bouton5: false,
                         bouton6: false,
-                        bouton7: false,
                     })
-                    previsions(props.datePlus2)
+                    // previsions(props.datePlus2)
                 }}
             />
             <Button
                 className={props.boutons.bouton4 ? styles.buttonClic : styles.buttonNonClic}
-                title={`${props.datePlus3}`}
+                // title={`${props.datePlus3}`}
+                title={formatDate(props.datePlus3)}
                 onClick={() => {
                     props.setBoutons({
                         bouton1: false,
@@ -101,14 +110,14 @@ const Index = (props: {
                         bouton4: true,
                         bouton5: false,
                         bouton6: false,
-                        bouton7: false,
                     })
-                    previsions(props.datePlus3)
+                    // previsions(props.datePlus3)
                 }}
             />
             <Button
                 className={props.boutons.bouton5 ? styles.buttonClic : styles.buttonNonClic}
-                title={`${props.datePlus4}`}
+                // title={`${props.datePlus4}`}
+                title={formatDate(props.datePlus4)}
                 onClick={() => {
                     props.setBoutons({
                         bouton1: false,
@@ -117,14 +126,14 @@ const Index = (props: {
                         bouton4: false,
                         bouton5: true,
                         bouton6: false,
-                        bouton7: false,
                     })
-                    previsions(props.datePlus4)
+                    // previsions(props.datePlus4)
                 }}
             />
             <Button
                 className={props.boutons.bouton6 ? styles.buttonClic : styles.buttonNonClic}
-                title={`${props.datePlus5}`}
+                // title={`${props.datePlus5}`}
+                title={formatDate(props.datePlus5)}
                 onClick={() => {
                     props.setBoutons({
                         bouton1: false,
@@ -133,25 +142,8 @@ const Index = (props: {
                         bouton4: false,
                         bouton5: false,
                         bouton6: true,
-                        bouton7: false,
                     })
-                    previsions(props.datePlus5)
-                }}
-            />
-            <Button
-                className={props.boutons.bouton7 ? styles.buttonClic : styles.buttonNonClic}
-                title={`${props.datePlus6}`}
-                onClick={() => {
-                    props.setBoutons({
-                        bouton1: false,
-                        bouton2: false,
-                        bouton3: false,
-                        bouton4: false,
-                        bouton5: false,
-                        bouton6: false,
-                        bouton7: true,
-                    })
-                    previsions(props.datePlus6)
+                    // previsions(props.datePlus5)
                 }}
             />
         </div>
