@@ -100,12 +100,6 @@ function Map(props: { isLoaded: any }) {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <Navbar />
-            {/* <Button
-                title="TEST"
-                onClick={() => {
-                    test()
-                }}
-            /> */}
             <ResearchBar isLoaded={props.isLoaded} setSearchVille={setSearchVille} />
             <button onClick={() => { rechercherVilleMeteo() }}>Rechercher</button>
             <main className={styles.main}>
