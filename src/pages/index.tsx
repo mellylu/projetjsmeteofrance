@@ -101,12 +101,6 @@ function Map(props: { isLoaded: any }) {
                 <script src={`https://maps.googleapis.com/maps/api/js?key=AIzaSyDbr6FgqPsctO5kXmIFoYL7X7TuaXAGX_o&libraries=places`}></script>
             </Head>
             <Navbar />
-            {/* <Button
-                title="TEST"
-                onClick={() => {
-                    test()
-                }}
-            /> */}
             <ResearchBar isLoaded={props.isLoaded} setSearchVille={setSearchVille} />
             <button onClick={() => { rechercherVilleMeteo() }}>Rechercher</button>
             <main className={styles.main}>
