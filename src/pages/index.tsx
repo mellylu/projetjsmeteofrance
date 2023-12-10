@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react"
 import { GoogleMap, useLoadScript, OverlayView, Marker } from "@react-google-maps/api"
 import axios from "axios"
 
-import Navbar from "@/components/navbar"
+import Navbar from "@/components/navbar1"
 import BarButtons from "@/components/barButtons"
 import Button from "@/components/button"
 import ResearchBar from "@/components/researchBar"
@@ -99,9 +99,9 @@ function Map(props: { isLoaded: any }) {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <Navbar />
-            <ResearchBar isLoaded={props.isLoaded} setSearchVille={setSearchVille} />
-            <button onClick={() => { rechercherVilleMeteo() }}>Rechercher</button>
+            <Navbar isLoaded={props.isLoaded} />
+            {/* <ResearchBar isLoaded={props.isLoaded} setSearchVille={setSearchVille} /> */}
+            {/* <button onClick={() => { rechercherVilleMeteo() }}>Rechercher</button> */}
             <main className={styles.main}>
                 <div className={styles.map}>
                     <h1 className={styles.h1}>METEO FRANCE</h1>

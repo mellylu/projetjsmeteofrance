@@ -10,6 +10,7 @@ import {
 } from "@reach/combobox"
 import "@reach/combobox/styles.css"
 
+
 export default function Index(props: { setSearchVille: any, isLoaded: any }) {
     // const { isLoaded } = useLoadScript({
     //     // googleMapsApiKey: "AIzaSyDbr6FgqPsctO5kXmIFoYL7X7TuaXAGX_o",
@@ -64,7 +65,8 @@ const PlacesAutocomplete = (props: { selected: any; setSelected: any, setSearchV
                 value={value}
                 onChange={e => setValue(e.target.value)}
                 disabled={!ready}
-                placeholder="Search an adress"
+                placeholder="Rechercher une ville ...."
+                style={{ width: "300px", padding: "3%", border: "1px solid grey", borderRadius: 5, fontSize: 12, paddingRight: "100%" }}
             />
             <ComboboxPopover>
                 <ComboboxList>
@@ -83,6 +85,7 @@ const PlacesAutocomplete = (props: { selected: any; setSelected: any, setSearchV
                             ))}
                 </ComboboxList>
             </ComboboxPopover>
+
         </Combobox>
     )
 }

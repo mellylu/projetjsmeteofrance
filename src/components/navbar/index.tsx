@@ -18,6 +18,7 @@ import {
 } from "@chakra-ui/react"
 import { HamburgerIcon, CloseIcon, ChevronDownIcon, ChevronRightIcon } from "@chakra-ui/icons"
 import Logo from "../../../public/logo.png"
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai"
 
 export default function Index() {
     const { isOpen, onToggle } = useDisclosure()
@@ -51,6 +52,7 @@ export default function Index() {
                 <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
                     <Flex display={{ base: "none", md: "flex" }} ml={10}>
                         <DesktopNav />
+
                     </Flex>
                 </Flex>
             </Flex>
@@ -108,6 +110,28 @@ const DesktopNav = () => {
                     </Popover>
                 </Box>
             ))}
+            <Box>
+                <Popover trigger={"hover"} placement={"bottom-start"}>
+                    <PopoverTrigger>
+                        <Box
+                            as="a"
+                            p={2}
+                            fontSize={"sm"}
+                            fontWeight={500}
+                            color={linkColor}
+                            _hover={{
+                                textDecoration: "none",
+                                color: linkHoverColor,
+                            }}
+                        >
+                            <AiFillHeart color={"black"} size={25} />
+                            Liste des favoris
+                        </Box>
+                    </PopoverTrigger>
+
+
+                </Popover>
+            </Box>
         </Stack>
     )
 }
