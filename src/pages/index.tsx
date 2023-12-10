@@ -6,7 +6,7 @@ import axios from "axios"
 import Navbar from "@/components/navbar"
 import BarButtons from "@/components/barButtons"
 import Button from "@/components/button"
-import ResearchBar from "@/components/researchBar"
+import ResearchBar from "@/components/ResearchBar"
 
 import OPTIONS from "@/utils/optionsMap"
 import MAPCONTAINERSTYLES from "@/utils/styleMap"
