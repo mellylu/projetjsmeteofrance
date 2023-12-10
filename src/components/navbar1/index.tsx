@@ -45,8 +45,6 @@ export default function WithSubnavigation(props: { username?: string, isLoaded: 
                 py={{ base: 2 }}
                 px={{ base: 4 }}
                 borderBottom={1}
-                borderStyle={"solid"}
-                borderColor={useColorModeValue("black", "black")}
                 align={"center"}
                 mr={"15%"}
                 ml={"15%"}
@@ -86,13 +84,13 @@ export default function WithSubnavigation(props: { username?: string, isLoaded: 
                 <Flex id="ppp" flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
                     {/* <Flex display={{ base: "none", md: "flex" }} style={{ margin: "auto" }}> */}
                     {/* <DesktopNav /> */}
-                    <div style={{ display: "flex", position: "relative" }}>
+                    <div style={{ display: "flex", position: "relative", marginLeft: "auto", marginRight: "auto" }}>
                         <ResearchBar isLoaded={props.isLoaded} setSearchVille={setSearchVille} />
                         <AiOutlineSearch onClick={() => { rechercherVilleMeteo() }} size={25} style={{ position: "absolute", right: 0, marginTop: "2%" }} />
                     </div>
                     {/* </Flex> */}
                 </Flex>
-                <Stack flex={{ base: 1 }} justify={"flex-end"} direction={"row"} spacing={6}>{/* , md: 5  */}
+                <Stack justify={"flex-end"} direction={"row"} spacing={6}>{/* , md: 5  */}
                     <button
                         id="buttonhome"
                         style={{
@@ -112,7 +110,7 @@ export default function WithSubnavigation(props: { username?: string, isLoaded: 
             {/* <Collapse in={isOpen} animateOpacity>
                 <MobileNav />
             </Collapse> */}
-            <div style={{ width: "100%", height: "20px", backgroundColor: "#2e129d" }}></div>
+            <div style={{ width: "100%", height: "20px", backgroundColor: "#036ba1" }}></div>
         </Box>
     )
 }
