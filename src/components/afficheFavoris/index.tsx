@@ -3,13 +3,14 @@ import React, { useContext } from 'react';
 import { AiFillHeart } from "react-icons/ai"
 import FavorisContext from "@/context/favorisCountryContext"
 
-const Index = () => {
+import styles from "./index.module.scss"
+
+const Index = (props: { isVisible: any, setIsVisible: any }) => {
     const { favoris } = useContext(FavorisContext)
 
 
     return (
-        <div>
-            <AiFillHeart color={"black"} size={25} />
+        <div className={styles.div}>
             <h1>Liste de favoris</h1>
             {favoris ? favoris.map((el: any) => (
                 <div key={el}>

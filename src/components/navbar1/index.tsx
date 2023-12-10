@@ -22,15 +22,16 @@ import { AiFillHeart, AiOutlineHeart } from "react-icons/ai"
 import ResearchBar from "@/components/researchBar"
 import React, { useState } from "react"
 import { AiOutlineSearch } from "react-icons/ai";
+import AfficherFavoris from "@/components/afficheFavoris"
 
 export default function WithSubnavigation(props: { username?: string, isLoaded: any }) {
     const { isOpen, onToggle } = useDisclosure()
     const router = useRouter()
     const afficheFavoris = async () => {
-
+        setIsVisible(true)
     }
     const [searchVille, setSearchVille] = useState<any>("")
-
+    const [isVisible, setIsVisible] = useState<any>(false)
     const rechercherVilleMeteo = () => {
         router.push(`/${searchVille}`)
     }
@@ -105,6 +106,7 @@ export default function WithSubnavigation(props: { username?: string, isLoaded: 
                     </button>
 
                 </Stack>
+                {isVisible ? <AfficherFavoris isVisible={isVisible} setIsVisible={setIsVisible} /> : ""}
             </Flex>
 
             {/* <Collapse in={isOpen} animateOpacity>
