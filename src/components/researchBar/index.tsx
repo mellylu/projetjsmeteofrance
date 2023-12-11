@@ -66,8 +66,7 @@ const PlacesAutocomplete = (props: { selected: any; setSelected: any, setSearchV
                 onChange={e => setValue(e.target.value)}
                 disabled={!ready}
                 placeholder="Rechercher une ville ...."
-                style={{ width: "300px", padding: "3%", border: "1px solid grey", borderRadius: 5, fontSize: 12 }}
-            // className={styles.placeholderBlack}
+                style={{ width: "300px", padding: "3%", border: "1px solid grey", borderRadius: 5, fontSize: 12, color: "grey" }}
             />
             <ComboboxPopover>
                 <ComboboxList>

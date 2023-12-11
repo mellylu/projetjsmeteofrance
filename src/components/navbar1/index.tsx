@@ -90,7 +90,7 @@ export default function WithSubnavigation(props: { username?: string, isLoaded: 
                     {/* <DesktopNav /> */}
                     <div style={{ display: "flex", position: "relative", marginLeft: "auto", marginRight: "auto" }}>
                         <ResearchBar isLoaded={props.isLoaded} setSearchVille={setSearchVille} />
-                        <AiOutlineSearch onClick={() => { rechercherVilleMeteo() }} size={25} style={{ position: "absolute", right: 0, marginTop: "2%" }} />
+                        <AiOutlineSearch onClick={() => { rechercherVilleMeteo() }} size={25} style={{ position: "absolute", right: 0, marginTop: "2%", marginRight: "2%" }} color={"grey"} />
                     </div>
                     {/* </Flex> */}
                 </Flex>
