@@ -28,7 +28,13 @@ export default function WithSubnavigation(props: { username?: string, isLoaded: 
     const { isOpen, onToggle } = useDisclosure()
     const router = useRouter()
     const afficheFavoris = async () => {
-        setIsVisible(true)
+        if (isVisible) {
+            setIsVisible(false)
+        }
+        else {
+            setIsVisible(true)
+        }
+
     }
     const [searchVille, setSearchVille] = useState<any>("")
     const [isVisible, setIsVisible] = useState<any>(false)
@@ -101,7 +107,7 @@ export default function WithSubnavigation(props: { username?: string, isLoaded: 
                         }}
                         onClick={() => afficheFavoris()}
                     >
-                        <AiFillHeart color={"black"} size={40} style={{ marginRight: "auto", marginLeft: "auto" }} />
+                        <AiFillHeart color={isVisible ? "red" : "black"} size={40} style={{ marginRight: "auto", marginLeft: "auto" }} />
                         <p style={{ fontVariantCaps: "small-caps" }}>liste des favoris</p>
                     </button>
 
