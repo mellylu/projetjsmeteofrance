@@ -1,14 +1,15 @@
 .div {
-    background-color: rgb(135, 130, 130);
+    background-color: #036ba1; //rgb(217, 220, 221)
     padding: 3%;
     // border-radius: 10px;
-    width: 18%;
+    width: 15%;
     height: 100%;
     position: absolute;
     top: 0%;
     right: 0%;
     list-style: none;
     padding: 0;
+    // margin-top: 8.3%;
     // display: flex;
     // flex-wrap: wrap;
     // justify-content: space-around;
@@ -16,9 +17,21 @@
     // z-index: 9999;
 }
 
+.divTitre {
+    margin-top: 10%;
+    margin-bottom: 27%;
+    display: flex;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
 .h1 {
-    font-variant-caps: small-caps;
+    // font-variant-caps: small-caps;
     color: white;
+    font-weight: bold;
+    // text-align: center;
+    font-size: 24px;
+    margin-left: 2%;
 }
 
 .p {

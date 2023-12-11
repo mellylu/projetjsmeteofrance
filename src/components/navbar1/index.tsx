@@ -1,24 +1,17 @@
 import {
     Box,
     Flex,
-    Text,
     IconButton,
     Stack,
-    Collapse,
-    Icon,
-    Popover,
-    PopoverTrigger,
-    PopoverContent,
     useColorModeValue,
     useDisclosure,
 } from "@chakra-ui/react"
 import { HamburgerIcon, CloseIcon, ChevronDownIcon, ChevronRightIcon } from "@chakra-ui/icons"
 import Logo from "../logo"
 import { useRouter } from "next/router"
-import { AiOutlineLogin } from "react-icons/ai"
 import LogoMeteoFrance from "../../../public/logo.png"
 import LogoRepublique from "../../../public/logo2.png"
-import { AiFillHeart, AiOutlineHeart } from "react-icons/ai"
+import { AiFillHeart } from "react-icons/ai"
 import ResearchBar from "@/components/researchBar"
 import React, { useState } from "react"
 import { AiOutlineSearch } from "react-icons/ai";
@@ -27,21 +20,25 @@ import AfficherFavoris from "@/components/afficheFavoris"
 export default function WithSubnavigation(props: { username?: string, isLoaded: any }) {
     const { isOpen, onToggle } = useDisclosure()
     const router = useRouter()
+    const [searchVille, setSearchVille] = useState<any>("")
+    const [isVisible, setIsVisible] = useState<any>(false)
+    const [isVisibleIcon, setIsVisibleIcon] = useState<any>(true)
+
+    const rechercherVilleMeteo = () => {
+        router.push(`/${searchVille}`)
+    }
+
     const afficheFavoris = async () => {
+        if (isVisibleIcon) {
+            setIsVisibleIcon(false)
+        }
         if (isVisible) {
             setIsVisible(false)
         }
         else {
             setIsVisible(true)
         }
-
     }
-    const [searchVille, setSearchVille] = useState<any>("")
-    const [isVisible, setIsVisible] = useState<any>(false)
-    const rechercherVilleMeteo = () => {
-        router.push(`/${searchVille}`)
-    }
-
 
     return (
         <Box>
@@ -98,21 +95,23 @@ export default function WithSubnavigation(props: { username?: string, isLoaded: 
                     {/* </Flex> */}
                 </Flex>
                 <Stack justify={"flex-end"} direction={"row"} spacing={6}>{/* , md: 5  */}
-                    <button
-                        id="buttonhome"
-                        style={{
-                            padding: "5%",
-                            fontSize: "13px",
-                            fontFamily: "'Raleway', sans-serif",
-                        }}
-                        onClick={() => afficheFavoris()}
-                    >
-                        <AiFillHeart color={isVisible ? "red" : "black"} size={40} style={{ marginRight: "auto", marginLeft: "auto" }} />
-                        <p style={{ fontVariantCaps: "small-caps" }}>liste des favoris</p>
-                    </button>
+                    {isVisibleIcon ?
+                        <button
+                            id="buttonhome"
+                            style={{
+                                padding: "5%",
+                                fontSize: "13px",
+                                fontFamily: "'Raleway', sans-serif",
+                            }}
+                            onClick={() => afficheFavoris()}
+                        >
+                            <AiFillHeart color={isVisible ? "red" : "#036ba1"} size={40} style={{ marginRight: "auto", marginLeft: "auto" }} />
+                            <p style={{ fontVariantCaps: "small-caps" }}>liste des favoris</p>
+                        </button>
+                        : ""}
 
                 </Stack>
-                {isVisible ? <AfficherFavoris isVisible={isVisible} setIsVisible={setIsVisible} /> : ""}
+                {isVisible ? <AfficherFavoris isVisible={isVisible} setIsVisible={setIsVisible} setIsVisibleIcon={setIsVisibleIcon} /> : ""}
             </Flex>
 
             {/* <Collapse in={isOpen} animateOpacity>
