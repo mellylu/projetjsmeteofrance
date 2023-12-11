@@ -10,6 +10,7 @@ const Index = () => {
 
     useEffect(() => {
         // Obtenez la dernière partie de l'URL en tant que ville
+        // window.location.reload()
         const villeFromURL = window.location.pathname.split('/').pop();
 
         // Mettez à jour l'état de la ville
@@ -21,6 +22,10 @@ const Index = () => {
             fetchWeatherData(villeFromURL);
         }
     }, []);
+
+    useEffect(() => {
+        console.log(ville, "ville")
+    }, [ville])
 
     const fetchWeatherData = async (city: string) => {
         const apiKey = 'dcea80cba359684c8af702c1b42982ba';

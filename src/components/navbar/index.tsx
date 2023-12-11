@@ -90,7 +90,7 @@ export default function WithSubnavigation(props: { username?: string, isLoaded: 
                 <Flex id="ppp" flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
                     <div style={{ display: "flex", position: "relative", marginLeft: "auto", marginRight: "auto" }}>
                         <ResearchBar isLoaded={props.isLoaded} setSearchVille={setSearchVille} />
-                        <AiOutlineSearch onClick={() => { rechercherVilleMeteo() }} size={25} style={{ position: "absolute", right: 0, marginTop: "2%", marginRight: "2%" }} color={"grey"} />
+                        <AiOutlineSearch onClick={() => { rechercherVilleMeteo() }} size={25} style={{ position: "absolute", right: 0, marginTop: "2%", marginRight: "2%", cursor: "pointer" }} color={"grey"} />
                     </div>
                 </Flex>
                 <Stack justify={"flex-end"} direction={"row"} spacing={6}>{/* , md: 5  */}
