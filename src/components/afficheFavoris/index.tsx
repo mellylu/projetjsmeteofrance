@@ -1,11 +1,10 @@
 import React, { useContext } from 'react';
-
-import { AiFillHeart } from "react-icons/ai"
-import FavorisContext from "@/context/favorisCountryContext"
-import { AiOutlineClose } from "react-icons/ai";
-import styles from "./index.module.scss"
 import { useRouter } from 'next/router';
-import { AiOutlineCaretUp } from "react-icons/ai";
+import { AiOutlineClose, AiOutlineCaretUp, AiFillHeart } from "react-icons/ai";
+
+import FavorisContext from "@/context/favorisCountryContext"
+
+import styles from "./index.module.scss"
 
 const Index = (props: { isVisible: any, setIsVisible: any, setIsVisibleIcon: any }) => {
 
@@ -23,7 +22,6 @@ const Index = (props: { isVisible: any, setIsVisible: any, setIsVisibleIcon: any
 
             <div className={styles.divTitre}>
                 <AiFillHeart color={"red"} size={40} style={{ marginRight: "2%" }} />
-                {/* <Image style={{ height: "50px", width: "50px" }} src={imageSoleil} alt="soleil icon" /> */}
                 <h1 className={styles.h1}>Météo Ville</h1>
             </div>
             <div className={styles.ligne}></div>

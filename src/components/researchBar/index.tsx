@@ -1,5 +1,7 @@
-import React, { useState, useEffect, useMemo } from "react"
+import React, { useState } from "react"
+
 import usePlacesAutocomplete, { getGeocode, getLatLng } from "use-places-autocomplete"
+
 import {
     Combobox,
     ComboboxInput,
@@ -8,15 +10,9 @@ import {
     ComboboxOption,
 } from "@reach/combobox"
 import "@reach/combobox/styles.css"
-import styles from "./index.module.scss"
 
 
 export default function Index(props: { setSearchVille: any, isLoaded: any }) {
-    // const { isLoaded } = useLoadScript({
-    //     // googleMapsApiKey: "AIzaSyDbr6FgqPsctO5kXmIFoYL7X7TuaXAGX_o",
-    //     libraries: ["places"],
-    // })
-    console.log(props.isLoaded, "isloadee")
     if (!props.isLoaded) return <div>Loading...</div>
     return <Map setSearchVille={props.setSearchVille} />
 }
@@ -41,11 +37,6 @@ const PlacesAutocomplete = (props: { selected: any; setSelected: any, setSearchV
     } = usePlacesAutocomplete({
         requestOptions: {
             types: ['geocode'],
-            // 
-            // componentRestrictions: {
-            //     country: 'fr',
-            // },
-            // types: ['(cities)', '(fr)'],
         }
     })
 
@@ -54,7 +45,6 @@ const PlacesAutocomplete = (props: { selected: any; setSelected: any, setSearchV
         clearSuggestions()
         const results = await getGeocode({ address })
         const { lat, lng } = getLatLng(results[0])
-        // props.setSelected({ lat, lng })
         props.setSearchVille(address.split(",")[0])
 
     }

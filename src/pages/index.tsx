@@ -1,12 +1,9 @@
 import Head from "next/head"
 import React, { useState, useEffect } from "react"
-import { GoogleMap, useLoadScript, OverlayView, Marker } from "@react-google-maps/api"
-import axios from "axios"
+import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api"
 
-import Navbar from "@/components/navbar1"
+import Navbar from "@/components/navbar"
 import BarButtons from "@/components/barButtons"
-import Button from "@/components/button"
-import ResearchBar from "@/components/researchBar"
 
 import OPTIONS from "@/utils/optionsMap"
 import MAPCONTAINERSTYLES from "@/utils/styleMap"
@@ -16,7 +13,6 @@ import { dayChoice } from "@/utils/dayChoice"
 import { fetchData } from "@/utils/fetchData"
 
 import styles from "./index.module.scss"
-import { Flex } from "@chakra-ui/react"
 import { weatherDescription } from "@/utils/weatherDescription"
 import { useRouter } from "next/router"
 
@@ -87,9 +83,6 @@ function Map(props: { isLoaded: any }) {
         setHoverInfo({ ...hoverInfo, show: false });
     };
 
-    const rechercherVilleMeteo = () => {
-        router.push(`/${searchVille}`)
-    }
 
     return (
         <>
@@ -100,8 +93,6 @@ function Map(props: { isLoaded: any }) {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <Navbar isLoaded={props.isLoaded} />
-            {/* <ResearchBar isLoaded={props.isLoaded} setSearchVille={setSearchVille} /> */}
-            {/* <button onClick={() => { rechercherVilleMeteo() }}>Rechercher</button> */}
             <main className={styles.main}>
                 <div className={styles.map}>
                     <h1 className={styles.h1}>METEO FRANCE</h1>
@@ -122,17 +113,6 @@ function Map(props: { isLoaded: any }) {
                         mapContainerStyle={MAPCONTAINERSTYLES}
                         options={OPTIONS}
                     >
-                        {/* <OverlayView
-                            position={{ lat: 49.6337308, lng: -1.622137 }}
-                            mapPaneName={OverlayView.OVERLAY_LAYER}
-                        >
-                            <div style={{ width: 100 }}>
-                                <p>Matin</p>
-                                <p>Après midi</p>
-                                <p>Soirée</p>
-                            </div>
-                        </OverlayView> */}
-
                         {temps && temps.map((v: any, k: any) => (
                             <Marker
                                 key={k}

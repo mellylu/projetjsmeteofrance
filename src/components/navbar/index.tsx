@@ -1,40 +1,59 @@
-"use client"
+import React, { useState } from "react"
+import { AiOutlineSearch, AiFillHeart } from "react-icons/ai";
+import { useRouter } from "next/router"
 
+import ResearchBar from "@/components/researchBar"
+import AfficherFavoris from "@/components/afficheFavoris"
+import Logo from "@/components/logo"
+
+import LogoMeteoFrance from "../../../public/logo.png"
+import LogoRepublique from "../../../public/logo2.png"
+
+import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons"
 import {
     Box,
     Flex,
-    Text,
     IconButton,
-    Button,
     Stack,
-    Collapse,
-    Icon,
-    Popover,
-    PopoverTrigger,
-    PopoverContent,
     useColorModeValue,
-    useBreakpointValue,
     useDisclosure,
 } from "@chakra-ui/react"
-import { HamburgerIcon, CloseIcon, ChevronDownIcon, ChevronRightIcon } from "@chakra-ui/icons"
-import Logo from "../../../public/logo.png"
-import { AiFillHeart, AiOutlineHeart } from "react-icons/ai"
 
-export default function Index() {
+export default function WithSubnavigation(props: { username?: string, isLoaded: any }) {
     const { isOpen, onToggle } = useDisclosure()
+    const router = useRouter()
+    const [searchVille, setSearchVille] = useState<any>("")
+    const [isVisible, setIsVisible] = useState<any>(false)
+    const [isVisibleIcon, setIsVisibleIcon] = useState<any>(true)
+
+    const rechercherVilleMeteo = () => {
+        router.push(`/${searchVille}`)
+    }
+
+    const afficheFavoris = async () => {
+        if (isVisibleIcon) {
+            setIsVisibleIcon(false)
+        }
+        if (isVisible) {
+            setIsVisible(false)
+        }
+        else {
+            setIsVisible(true)
+        }
+    }
 
     return (
         <Box>
             <Flex
-                bg={useColorModeValue("white", "gray.800")}
-                color={useColorModeValue("gray.600", "white")}
+                bg={useColorModeValue("white", "black")}
+                color={useColorModeValue("black", "white")}
                 minH={"60px"}
-                py={{ base: "2%" }}
-                px={{ base: "15%" }}
+                py={{ base: 2 }}
+                px={{ base: 4 }}
                 borderBottom={1}
-                borderStyle={"solid"}
-                borderColor={useColorModeValue("gray.200", "gray.900")}
                 align={"center"}
+                mr={"15%"}
+                ml={"15%"}
             >
                 <Flex
                     flex={{ base: 1, md: "auto" }}
@@ -48,222 +67,229 @@ export default function Index() {
                         aria-label={"Toggle Navigation"}
                     />
                 </Flex>
+                <Logo image={LogoRepublique} />
+                <Logo image={LogoMeteoFrance} />
 
-                <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
-                    <Flex display={{ base: "none", md: "flex" }} ml={10}>
-                        <DesktopNav />
+                {props.username ? (
+                    <p
+                        style={{
+                            marginLeft: "2%",
+                            color: "black",
+                            fontSize: 16,
+                            fontWeight: 500,
+                        }}
+                    >
+                        {`Bienvenue ${props.username.charAt(0).toUpperCase()}${props.username.slice(
+                            1,
+                        )}`}
+                    </p>
+                ) : (
+                    ""
+                )}
 
-                    </Flex>
+                <Flex id="ppp" flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
+                    <div style={{ display: "flex", position: "relative", marginLeft: "auto", marginRight: "auto" }}>
+                        <ResearchBar isLoaded={props.isLoaded} setSearchVille={setSearchVille} />
+                        <AiOutlineSearch onClick={() => { rechercherVilleMeteo() }} size={25} style={{ position: "absolute", right: 0, marginTop: "2%", marginRight: "2%" }} color={"grey"} />
+                    </div>
                 </Flex>
+                <Stack justify={"flex-end"} direction={"row"} spacing={6}>{/* , md: 5  */}
+                    {isVisibleIcon ?
+                        <button
+                            id="buttonhome"
+                            style={{
+                                padding: "5%",
+                                fontSize: "13px",
+                                fontFamily: "'Raleway', sans-serif",
+                            }}
+                            onClick={() => afficheFavoris()}
+                        >
+                            <AiFillHeart color={isVisible ? "red" : "#036ba1"} size={40} style={{ marginRight: "auto", marginLeft: "auto" }} />
+                            <p style={{ fontVariantCaps: "small-caps" }}>liste des favoris</p>
+                        </button>
+                        : ""}
+
+                </Stack>
+                {isVisible ? <AfficherFavoris isVisible={isVisible} setIsVisible={setIsVisible} setIsVisibleIcon={setIsVisibleIcon} /> : ""}
             </Flex>
 
-            <Collapse in={isOpen} animateOpacity>
+            {/* <Collapse in={isOpen} animateOpacity>
                 <MobileNav />
-            </Collapse>
+            </Collapse> */}
+            <div style={{ width: "100%", height: "20px", backgroundColor: "#036ba1" }}></div>
         </Box>
     )
 }
 
-const DesktopNav = () => {
-    const linkColor = useColorModeValue("gray.600", "gray.200")
-    const linkHoverColor = useColorModeValue("gray.800", "white")
-    const popoverContentBgColor = useColorModeValue("white", "gray.800")
+// const DesktopNav = () => {
+//     const linkColor = useColorModeValue("black", "black")
+//     const linkHoverColor = useColorModeValue("black", "white")
+//     const popoverContentBgColor = useColorModeValue("white", "black")
 
-    return (
-        <Stack direction={"row"} spacing={4}>
-            {NAV_ITEMS.map(navItem => (
-                <Box key={navItem.label}>
-                    <Popover trigger={"hover"} placement={"bottom-start"}>
-                        <PopoverTrigger>
-                            <Box
-                                as="a"
-                                p={2}
-                                href={navItem.href ?? "#"}
-                                fontSize={"sm"}
-                                fontWeight={500}
-                                color={linkColor}
-                                _hover={{
-                                    textDecoration: "none",
-                                    color: linkHoverColor,
-                                }}
-                            >
-                                {navItem.label}
-                            </Box>
-                        </PopoverTrigger>
+//     return (
+//         <Stack direction={"row"} spacing={20}>
+//             {NAV_ITEMS.map(navItem => (
+//                 <Box key={navItem.label}>
+//                     <Popover trigger={"hover"} placement={"bottom-start"}>
+//                         <PopoverTrigger>
+//                             <Box
+//                                 as="a"
+//                                 p={2}
+//                                 href={navItem.href ?? "#"}
+//                                 fontSize={"sm"}
+//                                 fontWeight={500}
+//                                 color={linkColor}
+//                                 margin="auto"
+//                                 _hover={{
+//                                     textDecoration: "none",
+//                                     color: linkHoverColor,
+//                                 }}
+//                             >
+//                                 {navItem.label}
+//                             </Box>
+//                         </PopoverTrigger>
 
-                        {navItem.children && (
-                            <PopoverContent
-                                border={0}
-                                boxShadow={"xl"}
-                                bg={popoverContentBgColor}
-                                p={4}
-                                rounded={"xl"}
-                                minW={"sm"}
-                            >
-                                <Stack>
-                                    {navItem.children.map(child => (
-                                        <DesktopSubNav key={child.label} {...child} />
-                                    ))}
-                                </Stack>
-                            </PopoverContent>
-                        )}
-                    </Popover>
-                </Box>
-            ))}
-            <Box>
-                <Popover trigger={"hover"} placement={"bottom-start"}>
-                    <PopoverTrigger>
-                        <Box
-                            as="a"
-                            p={2}
-                            fontSize={"sm"}
-                            fontWeight={500}
-                            color={linkColor}
-                            _hover={{
-                                textDecoration: "none",
-                                color: linkHoverColor,
-                            }}
-                        >
-                            <AiFillHeart color={"black"} size={25} />
-                            Liste des favoris
-                        </Box>
-                    </PopoverTrigger>
+//                         {navItem.children && (
+//                             <PopoverContent
+//                                 border={0}
+//                                 boxShadow={"xl"}
+//                                 bg={popoverContentBgColor}
+//                                 p={4}
+//                                 rounded={"xl"}
+//                                 minW={"sm"}
+//                             >
+//                                 <Stack>
+//                                     {navItem.children.map(child => (
+//                                         <DesktopSubNav key={child.label} {...child} />
+//                                     ))}
+//                                 </Stack>
+//                             </PopoverContent>
+//                         )}
+//                     </Popover>
+//                 </Box>
+//             ))}
+//         </Stack>
+//     )
+// }
 
+// const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
+//     return (
+//         <Box
+//             as="a"
+//             href={href}
+//             role={"group"}
+//             display={"block"}
+//             p={2}
+//             rounded={"md"}
+//             _hover={{ bg: useColorModeValue("black", "white") }}
+//         >
+//             <Stack direction={"row"} align={"center"}>
+//                 <Box>
+//                     <Text
+//                         transition={"all .3s ease"}
+//                         _groupHover={{ color: "black" }}
+//                         fontWeight={500}
+//                     >
+//                         {label}
+//                     </Text>
+//                     <Text fontSize={"sm"}>{subLabel}</Text>
+//                 </Box>
+//                 <Flex
+//                     transition={"all .3s ease"}
+//                     transform={"translateX(-10px)"}
+//                     opacity={0}
+//                     _groupHover={{ opacity: "100%", transform: "translateX(0)" }}
+//                     justify={"flex-end"}
+//                     align={"center"}
+//                     flex={1}
+//                 >
+//                     <Icon color={"black"} w={5} h={5} as={ChevronRightIcon} />
+//                 </Flex>
+//             </Stack>
+//         </Box>
+//     )
+// }
 
-                </Popover>
-            </Box>
-        </Stack>
-    )
-}
+// const MobileNav = () => {
+//     return (
+//         <Stack bg={useColorModeValue("white", "#3b250e")} p={4} display={{ md: "none" }}>
+//             {NAV_ITEMS.map(navItem => (
+//                 <MobileNavItem key={navItem.label} {...navItem} />
+//             ))}
+//         </Stack>
+//     )
+// }
 
-const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
-    return (
-        <Box
-            as="a"
-            href={href}
-            role={"group"}
-            display={"block"}
-            p={2}
-            rounded={"md"}
-            _hover={{ bg: useColorModeValue("pink.50", "gray.900") }}
-        >
-            <Stack direction={"row"} align={"center"}>
-                <Box>
-                    <Text
-                        transition={"all .3s ease"}
-                        _groupHover={{ color: "pink.400" }}
-                        fontWeight={500}
-                    >
-                        {label}
-                    </Text>
-                    <Text fontSize={"sm"}>{subLabel}</Text>
-                </Box>
-                <Flex
-                    transition={"all .3s ease"}
-                    transform={"translateX(-10px)"}
-                    opacity={0}
-                    _groupHover={{ opacity: "100%", transform: "translateX(0)" }}
-                    justify={"flex-end"}
-                    align={"center"}
-                    flex={1}
-                >
-                    <Icon color={"pink.400"} w={5} h={5} as={ChevronRightIcon} />
-                </Flex>
-            </Stack>
-        </Box>
-    )
-}
+// const MobileNavItem = ({ label, children, href }: NavItem) => {
+//     const { isOpen, onToggle } = useDisclosure()
 
-const MobileNav = () => {
-    return (
-        <Stack bg={useColorModeValue("white", "gray.800")} p={4} display={{ md: "none" }}>
-            {NAV_ITEMS.map(navItem => (
-                <MobileNavItem key={navItem.label} {...navItem} />
-            ))}
-        </Stack>
-    )
-}
+//     return (
+//         <Stack spacing={4} onClick={children && onToggle}>
+//             <Box
+//                 py={2}
+//                 as="a"
+//                 href={href ?? "#"}
+//                 justifyContent="space-between"
+//                 alignItems="center"
+//                 _hover={{
+//                     textDecoration: "none",
+//                 }}
+//             >
+//                 <Text fontWeight={600} color={useColorModeValue("#3b250e", "#3b250e")}>
+//                     {label}
+//                 </Text>
+//                 {children && (
+//                     <Icon
+//                         as={ChevronDownIcon}
+//                         transition={"all .25s ease-in-out"}
+//                         transform={isOpen ? "rotate(180deg)" : ""}
+//                         w={6}
+//                         h={6}
+//                     />
+//                 )}
+//             </Box>
 
-const MobileNavItem = ({ label, children, href }: NavItem) => {
-    const { isOpen, onToggle } = useDisclosure()
+//             <Collapse in={isOpen} animateOpacity style={{ marginTop: "0!important" }}>
+//                 <Stack
+//                     mt={2}
+//                     pl={4}
+//                     borderLeft={1}
+//                     borderStyle={"solid"}
+//                     borderColor={useColorModeValue("#3b250e", "#3b250e")}
+//                     align={"start"}
+//                 >
+//                     {children &&
+//                         children.map(child => (
+//                             <Box as="a" key={child.label} py={2} href={child.href}>
+//                                 {child.label}
+//                             </Box>
+//                         ))}
+//                 </Stack>
+//             </Collapse>
+//         </Stack>
+//     )
+// }
 
-    return (
-        <Stack spacing={4} onClick={children && onToggle}>
-            <Box
-                py={2}
-                as="a"
-                href={href ?? "#"}
-                justifyContent="space-between"
-                alignItems="center"
-                _hover={{
-                    textDecoration: "none",
-                }}
-            >
-                <Text fontWeight={600} color={useColorModeValue("gray.600", "gray.200")}>
-                    {label}
-                </Text>
-                {children && (
-                    <Icon
-                        as={ChevronDownIcon}
-                        transition={"all .25s ease-in-out"}
-                        transform={isOpen ? "rotate(180deg)" : ""}
-                        w={6}
-                        h={6}
-                    />
-                )}
-            </Box>
+// interface NavItem {
+//     label: string
+//     subLabel?: string
+//     children?: Array<NavItem>
+//     href?: string
+// }
 
-            <Collapse in={isOpen} animateOpacity style={{ marginTop: "0!important" }}>
-                <Stack
-                    mt={2}
-                    pl={4}
-                    borderLeft={1}
-                    borderStyle={"solid"}
-                    borderColor={useColorModeValue("gray.200", "gray.700")}
-                    align={"start"}
-                >
-                    {children &&
-                        children.map(child => (
-                            <Box as="a" key={child.label} py={2} href={child.href}>
-                                {child.label}
-                            </Box>
-                        ))}
-                </Stack>
-            </Collapse>
-        </Stack>
-    )
-}
+// const NAV_ITEMS: Array<NavItem> = [
+//     {
+//         label: "Nos services",
 
-interface NavItem {
-    label: string
-    subLabel?: string
-    children?: Array<NavItem>
-    href?: string
-}
+//         href: "/services",
+//     },
+//     {
+//         label: "A propos",
 
-const NAV_ITEMS: Array<NavItem> = [
-    {
-        label: "PREVISIONS",
-        href: "#",
-    },
-    {
-        label: "METEO MARITIME",
-        href: "#",
-    },
-    {
-        label: "METEO MONTAGNE",
-        href: "#",
-    },
-    {
-        label: "CLIMAT",
-        href: "#",
-    },
-    {
-        label: "ACTU ET DOSSIER",
-        href: "#",
-    },
-    {
-        label: "NOS SERVICES",
-        href: "#",
-    },
-]
+//         href: "#",
+//     },
+//     {
+//         label: "Contact",
+//         href: "#",
+//     },
+// ]
