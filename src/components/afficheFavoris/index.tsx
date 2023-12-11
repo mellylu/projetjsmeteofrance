@@ -8,27 +8,33 @@ import { useRouter } from 'next/router';
 import { AiOutlineCaretUp } from "react-icons/ai";
 
 const Index = (props: { isVisible: any, setIsVisible: any, setIsVisibleIcon: any }) => {
-    const { favoris } = useContext(FavorisContext)
+
+    const { addFavoris, favoris } = useContext(FavorisContext)
+
     const router = useRouter()
 
 
     return (
         <div className={styles.div}>
-            <AiOutlineCaretUp style={{ marginRight: "auto", marginLeft: "auto", marginTop: "3%" }} size={15} color={"white"} />
+            <AiOutlineCaretUp onClick={() => {
+                props.setIsVisibleIcon(true)
+                props.setIsVisible(false)
+            }} style={{ marginRight: "auto", marginLeft: "auto", marginTop: "3%" }} size={15} color={"white"} />
+
             <div className={styles.divTitre}>
-                <button onClick={() => { props.setIsVisibleIcon(false) }}>
-                    <AiFillHeart color={"red"} size={40} style={{ marginRight: "2%" }} /></button>
+                <AiFillHeart color={"red"} size={40} style={{ marginRight: "2%" }} />
                 {/* <Image style={{ height: "50px", width: "50px" }} src={imageSoleil} alt="soleil icon" /> */}
                 <h1 className={styles.h1}>Météo Ville</h1>
             </div>
-            {favoris ? favoris.map((el: any) => (
+            <div className={styles.ligne}></div>
+            {favoris.length > 0 ? favoris.map((el: any) => (
                 <div className={styles.divElement} key={el}>
                     <button onClick={() => { router.push(`/${el}`) }}>
-                        <p className={styles.p}>{decodeURIComponent(el)}</p>
+                        <p className={styles.pElement}>{decodeURIComponent(el)}</p>
                     </button>
-                    <AiOutlineClose className={styles.croix} color={"black"} onClick={() => props.setIsVisible(false)} />
+                    <AiOutlineClose className={styles.croix} color={"black"} onClick={() => addFavoris(el)} />
                 </div>
-            )) : "Pas de favoris trouvé"}
+            )) : <p className={styles.p}>Pas de favoris trouvé</p>}
         </div>
     );
 };

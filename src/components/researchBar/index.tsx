@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useMemo } from "react"
-import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api"
 import usePlacesAutocomplete, { getGeocode, getLatLng } from "use-places-autocomplete"
 import {
     Combobox,
@@ -9,6 +8,7 @@ import {
     ComboboxOption,
 } from "@reach/combobox"
 import "@reach/combobox/styles.css"
+import styles from "./index.module.scss"
 
 
 export default function Index(props: { setSearchVille: any, isLoaded: any }) {
@@ -66,7 +66,8 @@ const PlacesAutocomplete = (props: { selected: any; setSelected: any, setSearchV
                 onChange={e => setValue(e.target.value)}
                 disabled={!ready}
                 placeholder="Rechercher une ville ...."
-                style={{ width: "300px", padding: "3%", border: "1px solid grey", borderRadius: 5, fontSize: 12, paddingRight: "100%" }}
+                style={{ width: "300px", padding: "3%", border: "1px solid grey", borderRadius: 5, fontSize: 12 }}
+            // className={styles.placeholderBlack}
             />
             <ComboboxPopover>
                 <ComboboxList>
