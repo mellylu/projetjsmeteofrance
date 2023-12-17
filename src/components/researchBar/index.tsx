@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useMemo } from "react"
-import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api"
+import React, { useState } from "react"
+
 import usePlacesAutocomplete, { getGeocode, getLatLng } from "use-places-autocomplete"
+
 import {
     Combobox,
     ComboboxInput,
@@ -10,58 +11,71 @@ import {
 } from "@reach/combobox"
 import "@reach/combobox/styles.css"
 
-export default function Index() {
-    const { isLoaded } = useLoadScript({
-        googleMapsApiKey: "AIzaSyDbr6FgqPsctO5kXmIFoYL7X7TuaXAGX_o",
-        libraries: ["places"],
-    })
 
-    if (!isLoaded) return <div>Loading...</div>
-    return <Map />
+export default function Index(props: { setSearchVille: any, isLoaded: any }) {
+    if (!props.isLoaded) return <div>Loading...</div>
+    return <Map setSearchVille={props.setSearchVille} />
 }
-function Map() {
-    const [selected, setSelected] = useState(null)
+function Map(props: { setSearchVille: any }) {
+    const [selected, setSelected] = useState<any>("")
     return (
         <div>
             <div>
-                <PlacesAutocomplete selected={selected} setSelected={setSelected} />
+                <PlacesAutocomplete setSearchVille={props.setSearchVille} selected={selected} setSelected={setSelected} />
             </div>
         </div>
     )
 }
 
-const PlacesAutocomplete = (props: { selected: any; setSelected: any }) => {
+const PlacesAutocomplete = (props: { selected: any; setSelected: any, setSearchVille: any }) => {
     const {
         ready,
         value,
         setValue,
         suggestions: { status, data },
         clearSuggestions,
-    } = usePlacesAutocomplete()
+    } = usePlacesAutocomplete({
+        requestOptions: {
+            types: ['geocode'],
+        }
+    })
 
     const handleSelect = async (address: any) => {
         setValue(address, false)
         clearSuggestions()
         const results = await getGeocode({ address })
         const { lat, lng } = getLatLng(results[0])
-        props.setSelected({ lat, lng })
+        props.setSearchVille(address.split(",")[0])
+
     }
+
     return (
         <Combobox onSelect={handleSelect}>
             <ComboboxInput
                 value={value}
                 onChange={e => setValue(e.target.value)}
                 disabled={!ready}
-                placeholder="Search an adress"
+                placeholder="Rechercher une ville ...."
+                style={{ width: "300px", padding: "3%", border: "1px solid grey", borderRadius: 5, fontSize: 12, color: "grey" }}
             />
             <ComboboxPopover>
                 <ComboboxList>
                     {status === "OK" &&
-                        data.map(({ place_id, description }) => (
-                            <ComboboxOption key={place_id} value={description} />
-                        ))}
+                        data
+                            .filter(({ types }) =>
+                                types.includes("locality")
+                            )
+
+                            .filter(({ terms }) =>
+                                terms.some(obj => obj.value === 'France') == true
+                            )
+
+                            .map(({ place_id, description }) => (
+                                <ComboboxOption key={place_id} value={description} />
+                            ))}
                 </ComboboxList>
             </ComboboxPopover>
+
         </Combobox>
     )
 }

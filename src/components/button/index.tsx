@@ -1,5 +1,4 @@
 import React from "react"
-import { Button } from "@chakra-ui/react"
 import styles from "./index.module.scss"
 
 const Index = (props: { onClick: any; title?: string; className?: any; children?: any }) => {
