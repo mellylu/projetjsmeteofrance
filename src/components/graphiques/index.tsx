@@ -1,12 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Line } from 'react-chartjs-2';
 import { Chart, LineElement, PointElement, LinearScale, CategoryScale, BarElement, Tooltip, Legend } from 'chart.js';
 
 Chart.register(LineElement, PointElement, LinearScale, CategoryScale, BarElement, Tooltip, Legend);
-
-// const labels = ['13h', '14h', '15h', '16h', '17h', '18h', '19h', '20h', '21h', '22h', '13h', '14h', '15h', '16h', '17h', '18h', '19h', '20h', '21h', '22h', '13h', '14h', '15h', '16h', '17h', '18h', '19h', '20h', '21h', '22h', '13h', '14h', '15h', '16h', '17h', '18h', '19h', '20h', '21h', '22h'];
-
-
 
 
 const LineChart = (props: { donneesGraphique: any }) => {
@@ -23,8 +19,22 @@ const LineChart = (props: { donneesGraphique: any }) => {
     // const [bgImage, setBgImage] =
     let data: any = {}
 
-    const donneesGraphique = props.donneesGraphique
+    const donneesGraphiqueRef = useRef(props.donneesGraphique); // Utilisation d'une référence React
 
+
+    useEffect(() => {
+        donneesGraphiqueRef.current = props.donneesGraphique;
+
+        tabTemperature = [];
+        tabHoraire = [];
+        tabImage = [];
+        donneesGraphiqueRef.current.forEach((element: any) => {
+            tabTemperature.push(Math.round(element.main.temp));
+            tabHoraire.push(element.dt_txt);
+            tabImage.push(element.weather[0].icon);
+        });
+        setData3(donneesGraphiqueRef.current);
+    }, [props.donneesGraphique]);
 
     // let bgImage: any = {}
     const labels = tabHoraire
@@ -41,124 +51,62 @@ const LineChart = (props: { donneesGraphique: any }) => {
         ],
     }
 
-    // console.log(tabHoraire)
-
-    // bgImage = {
+    // const bgImage = {
     //     id: 'bgImage',
-    //     // let objDate: { [key: string]: string } = {}
-
-    //     //     objDate[`datePlus${i}`] = dateString
     //     beforeDatasetsDraw(chart: any, args: any, plugin: any) {
-    //         console.log(props.donneesGraphique)
     //         const { ctx } = chart;
-    //         let cpt: any = 0
-    //         const chartImage = new Image();
-    //         chartImage.onload = function () {
-    //             const imageWidth = 50;
-    //             const imageHeight = 50;
-    //             const xCoordinate = chart.scales.x.getPixelForValue("2023-12-22 18:00:00");
-    //             const yCoordinate = chart.scales.y.getPixelForValue(8);
-
-    //             ctx.drawImage(chartImage, xCoordinate - imageWidth / 2, yCoordinate - imageHeight / 2, imageWidth, imageHeight);
-    //         };
-    //         chartImage.src = 'https://st.depositphotos.com/1007168/1249/i/450/depositphotos_12492703-stock-photo-summer-hot-sun.jpg';
 
 
-    //         // const chartImages = tabImage.map((element: any) => {
-    //         //     const chartImage = new Image();
-    //         //     chartImage.src = `https://openweathermap.org/img/wn/${element}@4x.png`
-    //         //     return chartImage;
-    //         // })
-    //         // console.log(tabHoraire)
-
-    //         // console.log("111111111111111")
-    //         // const { ctx } = chart;
-    //         // console.log(props.donneesGraphique)
-    //         // props.donneesGraphique.forEach((element: any, index: number) => {
-    //         // console.log("ELEMENT")
-    //         //     const chartImage = chartImages[index]
-    //         //     chartImage.onload = function () {
-    //         //         console.log(element, "ELEMENT")
-    //         //         const imageWidth = 50;
-    //         //         const imageHeight = 50;
-    //         //         const xCoordinate = chart.scales.x.getPixelForValue(element.dt_txt);
-    //         //         const yCoordinate = chart.scales.y.getPixelForValue(element.main.temp);
-
-    //         //         ctx.drawImage(chartImage, xCoordinate - imageWidth / 2, yCoordinate - imageHeight / 2, imageWidth, imageHeight);
-    //         //     };
-    //         //    chartImage.src = "https://st.depositphotos.com/1007168/1249/i/450/depositphotos_12492703-stock-photo-summer-hot-sun.jpg"//`https://openweathermap.org/img/wn/${tabImage[cpt]}@4x.png`
-    //         //     cpt += 1
-    //         // })
-
-    //         // const chartImage = new Image();
-    //         // chartImage.onload = function () {
-    //         //     const imageWidth = 50;
-    //         //     const imageHeight = 50;
-    //         //     const xCoordinate = chart.scales.x.getPixelForValue("2023-12-22 18:00:00");
-    //         //     const yCoordinate = chart.scales.y.getPixelForValue(6);
-
-    //         //     ctx.drawImage(chartImage, xCoordinate - imageWidth / 2, yCoordinate - imageHeight / 2, imageWidth, imageHeight);
-    //         // };
-    //         // chartImage.src = 'https://st.depositphotos.com/1007168/1249/i/450/depositphotos_12492703-stock-photo-summer-hot-sun.jpg';
 
 
-    //         // const { ctx } = chart;
-    //         // const chartImage = new Image();
-    //         // chartImage.onload = function () {
-    //         //     const imageWidth = 50;
-    //         //     const imageHeight = 50;
-    //         //     const xCoordinate = chart.scales.x.getPixelForValue("2023-12-22 18:00:00");
-    //         //     const yCoordinate = chart.scales.y.getPixelForValue(6);
 
-    //         //     ctx.drawImage(chartImage, xCoordinate - imageWidth / 2, yCoordinate - imageHeight / 2, imageWidth, imageHeight);
-    //         // };
-    //         // chartImage.src = 'https://st.depositphotos.com/1007168/1249/i/450/depositphotos_12492703-stock-photo-summer-hot-sun.jpg';
+    //         donneesGraphiqueRef.current.forEach((element: any, index: number) => {
+    //             const chartImage = new Image();
+    //             chartImage.onload = function () {
+    //                 const imageWidth = 50;
+    //                 const imageHeight = 50;
 
-    //         // const chartImage2 = new Image();
-    //         // chartImage2.onload = function () {
-    //         //     const imageWidth = 50;
-    //         //     const imageHeight = 50;
-    //         //     const xCoordinate = chart.scales.x.getPixelForValue("2023-12-22 21:00:00");
-    //         //     const yCoordinate = chart.scales.y.getPixelForValue(6);
+    //                 const xCoordinate = chart.scales.x.getPixelForValue(element.dt_txt);
+    //                 const yCoordinate = chart.scales.y.getPixelForValue(Math.round(element.main.temps));
 
-    //         //     ctx.drawImage(chartImage2, xCoordinate - imageWidth / 2, yCoordinate - imageHeight / 2, imageWidth, imageHeight);
-    //         // };
-    //         // chartImage2.src = 'https://st.depositphotos.com/1007168/1249/i/450/depositphotos_12492703-stock-photo-summer-hot-sun.jpg';
+    //                 ctx.drawImage(chartImage, xCoordinate - imageWidth / 2, yCoordinate - imageHeight / 2, imageWidth, imageHeight);
+    //             };
+
+    //             console.log(chartImage, "CHARTIMAGE")
+    //             chartImage.src = `https://openweathermap.org/img/wn/${element.weather[0].icon}@4x.png`;
+    //         });
     //     }
-
-    //     //src={`https://openweathermap.org/img/wn/${icon}@4x.png`}
-    // }
-
+    // };
 
     const bgImage = {
         id: 'bgImage',
         beforeDatasetsDraw(chart: any, args: any, plugin: any) {
             const { ctx } = chart;
-            const chartImage = new Image();
-            const x = tabImage.map((element: any) => {
-                console.log("ELEMENT", element)
-            })
-            chartImage.onload = function () {
-                const imageWidth = 50;
-                const imageHeight = 50;
+            console.log(donneesGraphiqueRef)
+            const loadImages = async () => {
+                const images = donneesGraphiqueRef.current.map((element: any) => {
+                    return new Promise((resolve) => {
+                        const chartImage = new Image();
+                        chartImage.onload = () => resolve(chartImage);
 
-                const xCoordinate = chart.scales.x.getPixelForValue('2023-12-22 21:00:00');
-                const yCoordinate = chart.scales.y.getPixelForValue(8);
+                        chartImage.src = `https://openweathermap.org/img/wn/${element.weather[0].icon}@4x.png`;
+                    });
+                });
 
-                ctx.drawImage(chartImage, xCoordinate - imageWidth / 2, yCoordinate - imageHeight / 2, imageWidth, imageHeight);
+                const loadedImages = await Promise.all(images);
+
+                loadedImages.forEach((chartImage, index) => {
+                    const imageWidth = 50;
+                    const imageHeight = 50;
+
+                    const xCoordinate = chart.scales.x.getPixelForValue(donneesGraphiqueRef.current[index].dt_txt);
+                    const yCoordinate = chart.scales.y.getPixelForValue(Math.round(donneesGraphiqueRef.current[index].main.temp));
+
+                    ctx.drawImage(chartImage, xCoordinate - imageWidth / 2, yCoordinate - imageHeight / 2, imageWidth, imageHeight);
+                });
             };
-            chartImage.src = 'https://st.depositphotos.com/1007168/1249/i/450/depositphotos_12492703-stock-photo-summer-hot-sun.jpg';
 
-
-
-            const chartImage2 = new Image();
-            chartImage2.onload = function () {
-                const imageWidth = 50;
-                const imageHeight = 50;
-                console.log(tabImage)
-                ctx.drawImage(chartImage2, chart.scales.x.getPixelForValue('2023-12-23 00:00:00') - imageWidth / 2, chart.scales.y.getPixelForValue(8) - imageHeight / 2, imageWidth, imageHeight);
-            };
-            chartImage2.src = 'https://st.depositphotos.com/1007168/1249/i/450/depositphotos_12492703-stock-photo-summer-hot-sun.jpg';
+            loadImages();
         }
     };
 
@@ -166,9 +114,6 @@ const LineChart = (props: { donneesGraphique: any }) => {
 
 
 
-
-
-    //12 11 10 8 8 8 10 10
     return (
         <div>
             <Line data={data} plugins={[bgImage]} />
@@ -177,3 +122,5 @@ const LineChart = (props: { donneesGraphique: any }) => {
 };
 
 export default LineChart;
+
+
