@@ -37,8 +37,6 @@ export default function Index(props: { isLoaded: any }) {
         fetchData(setActualTemp)
     }, [])
 
-
-
     useEffect(() => {
         if (boutons.bouton1) setTemps(dayChoice(tempsFiveDay, 0))
         else if (boutons.bouton2) setTemps(dayChoice(tempsFiveDay, 1))
@@ -67,12 +65,11 @@ export default function Index(props: { isLoaded: any }) {
         setHoverInfo({ ...hoverInfo, show: false });
     };
 
-
     return (
         <>
             <main className={styles.main}>
                 <div className={styles.map}>
-                    <h1 className={styles.h1} onClick={() => console.log(tempsFiveDay)}>METEO FRANCE</h1>
+                    <h1 className={styles.h1}>METEO FRANCE</h1>
                     <BarButtons
                         boutons={boutons}
                         setBoutons={setBoutons}

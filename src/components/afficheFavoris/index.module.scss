@@ -50,36 +50,36 @@
         margin-right: auto;
         margin-bottom: 25%;
         background-color: white;
+    }
 
-        .divElement {
-            display: flex;
-            background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            margin: 5%;
-            padding: 3%;
-            width: 90%;
-            text-align: center;
-            transition: transform 0.3s ease-in-out;
-            position: relative;
-        }
+    .divElement {
+        display: flex;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        margin: 5%;
+        padding: 3%;
+        width: 90%;
+        text-align: center;
+        transition: transform 0.3s ease-in-out;
+        position: relative;
+    }
 
-        .divElement:hover {
-            transform: scale(1.05);
-        }
+    .divElement:hover {
+        transform: scale(1.05);
+    }
 
-        .pElement {
-            color: black;
-        }
+    .pElement {
+        color: black;
+    }
 
-        .croix {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            margin-left: auto;
-            right: 5%;
-            cursor: pointer;
-        }
+    .croix {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        margin-left: auto;
+        right: 5%;
+        cursor: pointer;
     }
 
     .p {

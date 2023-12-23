@@ -121,7 +121,6 @@ export const fetchDataFiveday = async (setData: any, url: string) => {
         sunset: result.city.sunset
       }
     })
-    console.log(transformData)
     setData(transformData)
   } catch (error) {
     console.error(error)
