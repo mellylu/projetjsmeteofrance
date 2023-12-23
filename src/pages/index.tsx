@@ -12,6 +12,7 @@ import { fetchData } from "@/utils/fetchData"
 
 import styles from "./index.module.scss"
 import { weatherDescription } from "@/utils/weatherDescription"
+import TimeDayButton from "@/components/timeDayButton"
 
 export default function Index(props: { isLoaded: any }) {
     const [temps, setTemps] = useState<any>([])
@@ -19,6 +20,7 @@ export default function Index(props: { isLoaded: any }) {
     const [tempsFiveDay, setTempsFiveDay] = useState<any>([])
     const [previsionsDate, setPrevisionsDate] = useState<any>({})
     const [boutons, setBoutons] = useState<any>({})
+    const [daySelected, setDaySelected] = useState<any>("AUJOURD'HUI")
 
     useEffect(() => {
         console.log("loaded", props.isLoaded)
@@ -31,14 +33,14 @@ export default function Index(props: { isLoaded: any }) {
             button5: false,
             button6: false,
         })
-        fetchDataFiveday(setTempsFiveDay)
+        fetchDataFiveday(setTempsFiveDay, "https://api.openweathermap.org/data/2.5/forecast?units=metric&lang=fr&appid=63ccd367e391125bbf9a581aab9e0ae5")
         fetchData(setActualTemp)
     }, [])
 
 
 
     useEffect(() => {
-        if (boutons.bouton1) setTemps(actualTemp)
+        if (boutons.bouton1) setTemps(dayChoice(tempsFiveDay, 0))
         else if (boutons.bouton2) setTemps(dayChoice(tempsFiveDay, 1))
         if (boutons.bouton3) setTemps(dayChoice(tempsFiveDay, 2))
         if (boutons.bouton4) setTemps(dayChoice(tempsFiveDay, 3))
@@ -70,7 +72,7 @@ export default function Index(props: { isLoaded: any }) {
         <>
             <main className={styles.main}>
                 <div className={styles.map}>
-                    <h1 className={styles.h1}>METEO FRANCE</h1>
+                    <h1 className={styles.h1} onClick={() => console.log(tempsFiveDay)}>METEO FRANCE</h1>
                     <BarButtons
                         boutons={boutons}
                         setBoutons={setBoutons}
@@ -81,6 +83,7 @@ export default function Index(props: { isLoaded: any }) {
                         datePlus4={previsionsDate.datePlus4}
                         datePlus5={previsionsDate.datePlus5}
                         setTemps={setTemps}
+                        setDaySelected={setDaySelected}
                     />
                     <GoogleMap
                         zoom={6}
@@ -127,6 +130,7 @@ export default function Index(props: { isLoaded: any }) {
                                 <div>{weatherDescription(hoverInfo.icon)}</div>
                             </div>
                         )}
+                        <TimeDayButton daySelected={daySelected} />
                     </GoogleMap>
                 </div>
             </main>

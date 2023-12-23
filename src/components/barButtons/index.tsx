@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 
 import Button from "@/components//button"
 
@@ -14,6 +14,7 @@ const Index = (props: {
     datePlus4: string
     datePlus5: string
     setTemps: any
+    setDaySelected: any
 }) => {
 
     const formatDate = (dateString: string) => {
@@ -23,7 +24,7 @@ const Index = (props: {
             month: 'short', // 'short' = nov.
         };
         const date = new Date(dateString);
-        return date.toLocaleDateString('fr-FR', options);
+        return date.toLocaleDateString('fr-FR', options).toUpperCase();
     };
 
     return (
@@ -40,6 +41,7 @@ const Index = (props: {
                         bouton5: false,
                         bouton6: false,
                     })
+                    props.setDaySelected("AUJOURD'HUI")
                 }}
             />
 
@@ -55,6 +57,7 @@ const Index = (props: {
                         bouton5: false,
                         bouton6: false,
                     })
+                    props.setDaySelected("DEMAIN")
                 }}
             />
             <Button
@@ -69,6 +72,7 @@ const Index = (props: {
                         bouton5: false,
                         bouton6: false,
                     })
+                    props.setDaySelected(formatDate(props.datePlus2))
                 }}
             />
             <Button
@@ -83,6 +87,7 @@ const Index = (props: {
                         bouton5: false,
                         bouton6: false,
                     })
+                    props.setDaySelected(formatDate(props.datePlus3))
                 }}
             />
             <Button
@@ -97,6 +102,7 @@ const Index = (props: {
                         bouton5: true,
                         bouton6: false,
                     })
+                    props.setDaySelected(formatDate(props.datePlus4))
                 }}
             />
             <Button
@@ -111,6 +117,7 @@ const Index = (props: {
                         bouton5: false,
                         bouton6: true,
                     })
+                    props.setDaySelected(formatDate(props.datePlus5))
                 }}
             />
         </div>
