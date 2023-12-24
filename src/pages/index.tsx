@@ -96,7 +96,7 @@ export default function Index(props: { isLoaded: any }) {
         <>
             <main className={styles.main}>
                 <div className={styles.map}>
-                    <h1 className={styles.h1} onClick={() => console.log(temps)}>METEO FRANCE</h1>
+                    <h1 className={styles.h1}>METEO FRANCE</h1>
                     <BarButtons
                         boutons={boutons}
                         setBoutons={setBoutons}

@@ -1,7 +1,6 @@
 // Création des fonctions pour les boutouns de choix de jour
 export const dayChoice = (tempsFiveDay: any, day: number, dayt: string) => {
     if (tempsFiveDay.length > 0) {
-        console.log(tempsFiveDay)
         let tempsplus: any = []
         tempsFiveDay.forEach((tempsDay: any) => {
             const forecastDaySelected = tempsDay.forecast.filter((td: any) => td.day === dayt)
