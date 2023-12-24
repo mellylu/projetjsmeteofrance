@@ -3,14 +3,11 @@ import styles from './index.module.scss';
 
 export default function TimeDayButton(props:
     {
-        matin?: any
-        apresMidi?: any
-        soiree?: any
-        nuit?: any
+        timeDaySelected: any
+        setTimeDaySelected: any
         daySelected: any
+        temps: any
     }) {
-
-
 
     return (
         <div className={styles.timeDayButton}>
@@ -18,18 +15,29 @@ export default function TimeDayButton(props:
                 {props.daySelected}
             </div>
             <div className={styles.timeDay}>
-                <button className={styles.selected}>
-                    Matin
-                </button>
-                <button>
-                    Après-midi
-                </button>
-                <button>
-                    Soirée
-                </button>
-                <button>
-                    Nuit
-                </button>
+                {props.timeDaySelected.nuit &&
+                    <button className={props.timeDaySelected.selected === 'nuit' ? `${styles.selected}` : ''} onClick={() => props.setTimeDaySelected({ ...props.timeDaySelected, selected: 'nuit' })}>
+                        Nuit
+                    </button>
+                }
+                {props.timeDaySelected.matin &&
+                    <button
+                        className={props.timeDaySelected.selected === 'matin' ? `${styles.selected}` : ''} onClick={() => props.setTimeDaySelected({ ...props.timeDaySelected, selected: 'matin' })}>
+                        Matin
+                    </button>
+                }
+                {props.timeDaySelected.apresMidi &&
+                    <button
+                        className={props.timeDaySelected.selected === 'apresMidi' ? `${styles.selected}` : ''} onClick={() => props.setTimeDaySelected({ ...props.timeDaySelected, selected: 'apresMidi' })}>
+                        Après-midi
+                    </button>
+                }
+                {props.timeDaySelected.soiree &&
+                    <button
+                        className={props.timeDaySelected.selected === 'soiree' ? `${styles.selected}` : ''} onClick={() => props.setTimeDaySelected({ ...props.timeDaySelected, selected: 'soiree' })}>
+                        Soirée
+                    </button>
+                }
             </div>
         </div>
     );
