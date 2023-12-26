@@ -2,24 +2,29 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Line } from 'react-chartjs-2';
 import { Chart, LineElement, PointElement, LinearScale, CategoryScale, BarElement, Tooltip, Legend } from 'chart.js';
 
+import styles from "./index.module.scss"
+
 Chart.register(LineElement, PointElement, LinearScale, CategoryScale, BarElement, Tooltip, Legend);
 
 
 const LineChart = (props: { donneesGraphique: any }) => {
-    const [data3, setData3] = useState<any>(props.donneesGraphique)
-    // console.log(props.donneesGraphique)
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 10;
+
+    const startIdx = (currentPage - 1) * itemsPerPage;
+    const endIdx = startIdx + itemsPerPage;
+
+
     let tabTemperature: any = []
     let tabHoraire: any = []
-    let tabImage: any = []
     props.donneesGraphique.forEach((element: any) => {
         tabTemperature.push(Math.round(element.main.temp))
-        tabHoraire.push(element.dt_txt)
-        tabImage.push(element.weather[0].icon)
+        tabHoraire.push(element.dt_txt.split(" ")[0].split("-")[2] + "/" + element.dt_txt.split(" ")[0].split("-")[1] + "/" + element.dt_txt.split(" ")[0].split("-")[0] + " " + element.dt_txt.split(" ")[1].split(":")[0] + "h");
     })
-    // const [bgImage, setBgImage] =
     let data: any = {}
-
-    const donneesGraphiqueRef = useRef(props.donneesGraphique); // Utilisation d'une référence React
+    const labels = tabHoraire.slice(startIdx, endIdx);
+    const dataSubset = tabTemperature.slice(startIdx, endIdx);
+    const donneesGraphiqueRef = useRef(props.donneesGraphique);
 
 
     useEffect(() => {
@@ -27,56 +32,73 @@ const LineChart = (props: { donneesGraphique: any }) => {
 
         tabTemperature = [];
         tabHoraire = [];
-        tabImage = [];
         donneesGraphiqueRef.current.forEach((element: any) => {
             tabTemperature.push(Math.round(element.main.temp));
-            tabHoraire.push(element.dt_txt);
-            tabImage.push(element.weather[0].icon);
+            tabHoraire.push(element.dt_txt.split(" ")[0].split("-")[2] + "/" + element.dt_txt.split(" ")[0].split("-")[1] + "/" + element.dt_txt.split(" ")[0].split("-")[0] + " " + element.dt_txt.split(" ")[1].split(":")[0] + "h");
         });
-        setData3(donneesGraphiqueRef.current);
     }, [props.donneesGraphique]);
-
-    // let bgImage: any = {}
-    const labels = tabHoraire
 
 
     data = {
         labels,
         datasets: [
             {
-                label: 'Dataset 1',
-                data: tabTemperature,
+                label: 'Température',
+                data: dataSubset,
                 pointRadius: 0,
             },
         ],
     }
 
-    // const bgImage = {
-    //     id: 'bgImage',
-    //     beforeDatasetsDraw(chart: any, args: any, plugin: any) {
-    //         const { ctx } = chart;
+    const options = {
+        scales: {
+            x: {
+                display: true,
+                grid: {
+                    display: false,
+                },
+            },
+            y: {
+                display: false,
+                grid: {
+                    display: false,
+                },
+                min: Math.min(...tabTemperature) - 1,
+                max: Math.max(...tabTemperature) + 1,
+            },
+        },
+        plugins: {
+            legend: {
+                display: false,
+            },
+        },
+        layout: {
+            padding: {
+                top: 50,
+                right: 50,
+                bottom: 0,
+                left: 50,
+            },
+        },
+        maintainAspectRatio: false,
+        responsive: true,
+        aspectRatio: 1,
+    };
 
+    const totalPages = Math.ceil(tabTemperature.length / itemsPerPage);
 
+    const nextPage = () => {
+        if (currentPage < totalPages) {
+            setCurrentPage(currentPage + 1);
+        }
+    };
 
+    const prevPage = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+        }
+    };
 
-
-    //         donneesGraphiqueRef.current.forEach((element: any, index: number) => {
-    //             const chartImage = new Image();
-    //             chartImage.onload = function () {
-    //                 const imageWidth = 50;
-    //                 const imageHeight = 50;
-
-    //                 const xCoordinate = chart.scales.x.getPixelForValue(element.dt_txt);
-    //                 const yCoordinate = chart.scales.y.getPixelForValue(Math.round(element.main.temps));
-
-    //                 ctx.drawImage(chartImage, xCoordinate - imageWidth / 2, yCoordinate - imageHeight / 2, imageWidth, imageHeight);
-    //             };
-
-    //             console.log(chartImage, "CHARTIMAGE")
-    //             chartImage.src = `https://openweathermap.org/img/wn/${element.weather[0].icon}@4x.png`;
-    //         });
-    //     }
-    // };
 
     const bgImage = {
         id: 'bgImage',
@@ -99,9 +121,19 @@ const LineChart = (props: { donneesGraphique: any }) => {
                     const imageWidth = 50;
                     const imageHeight = 50;
 
-                    const xCoordinate = chart.scales.x.getPixelForValue(donneesGraphiqueRef.current[index].dt_txt);
-                    const yCoordinate = chart.scales.y.getPixelForValue(Math.round(donneesGraphiqueRef.current[index].main.temp));
+                    let horaires = donneesGraphiqueRef.current[index].dt_txt.split(" ")[0].split("-")[2] + "/" + donneesGraphiqueRef.current[index].dt_txt.split(" ")[0].split("-")[1] + "/" + donneesGraphiqueRef.current[index].dt_txt.split(" ")[0].split("-")[0] + " " + donneesGraphiqueRef.current[index].dt_txt.split(" ")[1].split(":")[0] + "h"
 
+                    const xCoordinate = chart.scales.x.getPixelForValue(horaires);
+                    const yCoordinate = chart.scales.y.getPixelForValue(Math.round(donneesGraphiqueRef.current[index].main.temp));
+                    const legendText = Math.round(donneesGraphiqueRef.current[index].main.temp) + "°C";
+
+                    ctx.fillStyle = 'black';
+                    ctx.font = '12px Arial';
+
+                    const textXCoordinate = xCoordinate - imageWidth / 2 + imageWidth / 4;
+                    const textYCoordinate = yCoordinate - imageHeight / 2;
+
+                    ctx.fillText(legendText, textXCoordinate, textYCoordinate);
                     ctx.drawImage(chartImage, xCoordinate - imageWidth / 2, yCoordinate - imageHeight / 2, imageWidth, imageHeight);
                 });
             };
@@ -111,12 +143,13 @@ const LineChart = (props: { donneesGraphique: any }) => {
     };
 
 
-
-
-
     return (
-        <div>
-            <Line data={data} plugins={[bgImage]} />
+        <div className={styles.graphiqueLine}>
+            <Line className={styles.Line} data={data} options={options} plugins={[bgImage]} />
+            <div>
+                {currentPage === 1 ? "" : <button onClick={prevPage}>Précédent</button>}
+                {currentPage === totalPages ? "" : <button onClick={nextPage}>Suivant</button>}
+            </div>
         </div>
     );
 };
