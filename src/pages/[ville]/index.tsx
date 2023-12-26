@@ -7,25 +7,20 @@ const Index = () => {
     const [ville, setVille] = useState<string>('');
     const [temperature, setTemperature] = useState<number | null>(null);
     const [icon, setIcon] = useState<string | null>(null);
+    const [forecast, setForecast] = useState<any[]>([]);
 
     useEffect(() => {
-        // Obtenez la dernière partie de l'URL en tant que ville
-        // window.location.reload()
         const villeFromURL = window.location.pathname.split('/').pop();
-
-        // Mettez à jour l'état de la ville
         setVille(villeFromURL || '');
 
-        // Vous pouvez également ajouter une condition pour ne faire la requête API que si villeFromURL est défini
         if (villeFromURL) {
-            // Appeler votre API avec la villeFromURL ici
             fetchWeatherData(villeFromURL);
         }
     }, []);
 
     useEffect(() => {
-        console.log(ville, "ville")
-    }, [ville])
+        console.log(ville, "ville");
+    }, [ville]);
 
     const fetchWeatherData = async (city: string) => {
         const apiKey = 'dcea80cba359684c8af702c1b42982ba';
@@ -35,15 +30,20 @@ const Index = () => {
             const response = await fetch(apiUrl);
             const data = await response.json();
 
-            // Extraire la température de la première entrée de la liste des prévisions
             const temperatureData = data.list[0].main.temp;
             setTemperature(temperatureData);
 
-            // Extraire l'icône de la première entrée de la liste des prévisions
             const iconData = data.list[0].weather[0].icon;
             setIcon(iconData);
 
-            // Faites quelque chose avec les données de la météo
+            // Extrayez ici les données de prévisions météorologiques pour les 7 prochains jours
+            const forecastData = data.list.slice(1, 8).map((item: { main: { temp: any; }; weather: { icon: any; }[]; dt: any; }) => ({
+                temperature: item.main.temp,
+                icon: item.weather[0].icon,
+                timestamp: item.dt,
+            }));
+            setForecast(forecastData);
+
             console.log('Données de la météo :', data);
         } catch (error) {
             console.error('Erreur lors de la récupération des données météo :', error);
@@ -67,6 +67,18 @@ const Index = () => {
                         </div>
                     ) : (
                         <p>Chargement de la température...</p>
+                    )}
+
+                    {forecast.length > 0 && (
+                        <div>
+                            <h2>Prévisions des 7 prochains jours :</h2>
+                            {forecast.map((forecastDay, index) => (
+                                <div key={index}>
+                                    <p>Jour {index + 1}: {forecastDay.temperature} °C</p>
+                                    <img src={`https://openweathermap.org/img/wn/${forecastDay.icon}@4x.png`} alt="Weather Icon" />
+                                </div>
+                            ))}
+                        </div>
                     )}
                 </div>
             ) : (
