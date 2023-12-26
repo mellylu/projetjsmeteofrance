@@ -2,12 +2,19 @@
     padding-bottom: 1%;
     margin-left: 5%;
 }
+
 .buttonClic {
     color: white;
     background-color: rgb(224, 38, 137);
     border-radius: 5px;
 }
+
 .buttonNonClic {
     color: #036ba1;
     background-color: white;
+
+    &:hover {
+        background-color: rgb(224, 38, 137, .5);
+        color: white;
+    }
 }

@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { AiOutlineSearch, AiFillHeart } from "react-icons/ai";
+import { AiOutlineSearch, AiFillHeart, AiOutlineClose } from "react-icons/ai";
 import { useRouter } from "next/router"
 
 import ResearchBar from "@/components/researchBar"
@@ -36,6 +36,7 @@ export default function WithSubnavigation(props: { username?: string, isLoaded: 
         }
         if (isVisible) {
             setIsVisible(false)
+            setIsVisibleIcon(true)
         }
         else {
             setIsVisible(true)
@@ -94,23 +95,22 @@ export default function WithSubnavigation(props: { username?: string, isLoaded: 
                     </div>
                 </Flex>
                 <Stack justify={"flex-end"} direction={"row"} spacing={6}>{/* , md: 5  */}
-                    {isVisibleIcon ?
-                        <button
-                            id="buttonhome"
-                            style={{
-                                padding: "5%",
-                                fontSize: "13px",
-                                fontFamily: "'Raleway', sans-serif",
-                            }}
-                            onClick={() => afficheFavoris()}
-                        >
-                            <AiFillHeart color={isVisible ? "red" : "#036ba1"} size={40} style={{ marginRight: "auto", marginLeft: "auto" }} />
-                            <p style={{ fontVariantCaps: "small-caps" }}>liste des favoris</p>
-                        </button>
-                        : ""}
+
+                    <button
+                        id="buttonhome"
+                        style={{
+                            padding: "5%",
+                            fontSize: "13px",
+                            fontFamily: "'Raleway', sans-serif",
+                        }}
+                        onClick={() => afficheFavoris()}
+                    >
+                        {isVisibleIcon ? <AiFillHeart color={"#036ba1"} size={40} style={{ marginRight: "auto", marginLeft: "auto" }} /> : <AiOutlineClose color={"red"} size={40} style={{ marginRight: "auto", marginLeft: "auto" }} />}
+                        <p style={{ fontVariantCaps: "small-caps" }}>liste des favoris</p>
+                    </button>
 
                 </Stack>
-                {isVisible ? <AfficherFavoris isVisible={isVisible} setIsVisible={setIsVisible} setIsVisibleIcon={setIsVisibleIcon} /> : ""}
+                <AfficherFavoris isVisible={isVisible} setIsVisible={setIsVisible} setIsVisibleIcon={setIsVisibleIcon} />
             </Flex>
 
             {/* <Collapse in={isOpen} animateOpacity>
