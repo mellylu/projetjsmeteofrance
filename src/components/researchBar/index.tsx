@@ -11,42 +11,41 @@ import {
 } from "@reach/combobox"
 import "@reach/combobox/styles.css"
 
+export default function Index() {
+    const { isLoaded } = useLoadScript({
+        googleMapsApiKey: "AIzaSyDbr6FgqPsctO5kXmIFoYL7X7TuaXAGX_o",
+        libraries: ["places"],
+    })
 
-export default function Index(props: { setSearchVille: any, isLoaded: any }) {
-    if (!props.isLoaded) return <div>Loading...</div>
-    return <Map setSearchVille={props.setSearchVille} />
+    if (!isLoaded) return <div>Loading...</div>
+    return <Map />
 }
-function Map(props: { setSearchVille: any }) {
-    const [selected, setSelected] = useState<any>("")
+function Map() {
+    const [selected, setSelected] = useState(null)
     return (
         <div>
             <div>
-                <PlacesAutocomplete setSearchVille={props.setSearchVille} selected={selected} setSelected={setSelected} />
+                <PlacesAutocomplete setSearchVille={props.setSearchVille} setSearchVille={props.setSearchVille} selected={selected} setSelected={setSelected} />
             </div>
         </div>
     )
 }
 
-const PlacesAutocomplete = (props: { selected: any; setSelected: any, setSearchVille: any }) => {
+const PlacesAutocomplete = (props: { selected: any; setSelected: any }) => {
     const {
         ready,
         value,
         setValue,
         suggestions: { status, data },
         clearSuggestions,
-    } = usePlacesAutocomplete({
-        requestOptions: {
-            types: ['geocode'],
-        }
-    })
+    } = usePlacesAutocomplete()
 
     const handleSelect = async (address: any) => {
         setValue(address, false)
         clearSuggestions()
         const results = await getGeocode({ address })
         const { lat, lng } = getLatLng(results[0])
-        props.setSearchVille(address.split(",")[0])
-
+        props.setSelected({ lat, lng })
     }
 
     return (
