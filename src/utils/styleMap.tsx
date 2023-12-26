@@ -1,6 +1,6 @@
 const MAPCONTAINERSTYLES = {
-    height: "75%",
-    width: "90%",
+    height: "100%",
+    width: "900px",
     borderRadius: "1%",
     margin: "auto",
 }
