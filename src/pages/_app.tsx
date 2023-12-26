@@ -4,6 +4,7 @@ import { useLoadScript } from "@react-google-maps/api"
 
 import { FavorisCountryContextProvider } from "@/context/favorisCountryContext"
 import Navbar from "@/components/navbar"
+import Footer from "@/components/footer"
 
 import { ChakraProvider } from "@chakra-ui/react"
 
@@ -27,7 +28,10 @@ export default function Index({ Component, pageProps }: AppProps) {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <Navbar isLoaded={isLoaded} />
+            {/* <div style={{ width: "100%", height: "100%", paddingBottom: "5%", backgroundColor: "red" }}> */}
             <Component {...pageProps} isLoaded={isLoaded} />
+            {/* </div> */}
+            <Footer />
         </FavorisCountryContextProvider>
     </ChakraProvider>)
 }
