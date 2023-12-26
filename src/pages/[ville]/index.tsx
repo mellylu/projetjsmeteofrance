@@ -5,7 +5,6 @@ import Graphique from "@/components/graphiques"
 
 
 const Index = () => {
-    const router = useRouter();
     const [ville, setVille] = useState<string>('');
     const [temperature, setTemperature] = useState<number | null>(null);
     const [icon, setIcon] = useState<string | null>(null);
@@ -21,9 +20,6 @@ const Index = () => {
         }
     }, []);
 
-    useEffect(() => {
-        // console.log(ville, "ville")
-    }, [ville])
 
     useEffect(() => {
         const villeFromURL = window.location.pathname.split('/').pop()
@@ -31,7 +27,6 @@ const Index = () => {
         if (villeFromURL) {
             fetchWeatherData(villeFromURL);
         }
-        console.log("FFFFFFFFFFF")
     }, [window.location.pathname.split('/').pop()])
 
     const fetchWeatherData = async (city: string) => {
@@ -47,8 +42,6 @@ const Index = () => {
 
             const iconData = data.list[0].weather[0].icon;
             setIcon(iconData);
-
-            // console.log('Données de la météo :', data);
         } catch (error) {
             console.error('Erreur lors de la récupération des données météo :', error);
         }

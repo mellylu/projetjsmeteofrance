@@ -2,17 +2,17 @@ import React, { useState, useEffect } from "react"
 import { GoogleMap, Marker } from "@react-google-maps/api"
 
 import BarButtons from "@/components/barButtons"
+import TimeDayButton from "@/components/timeDayButton"
 
 import OPTIONS from "@/utils/optionsMap"
 import MAPCONTAINERSTYLES from "@/utils/styleMap"
 import { chooseDate } from "@/utils/chooseDate"
 import { fetchDataFiveday } from "@/utils/fetchDataFiveDay"
 import { dayChoice } from "@/utils/dayChoice"
+import { weatherDescription } from "@/utils/weatherDescription"
+import { timeDayChoice } from "@/utils/timeDayChoice"
 
 import styles from "./index.module.scss"
-import { weatherDescription } from "@/utils/weatherDescription"
-import TimeDayButton from "@/components/timeDayButton"
-import { timeDayChoice } from "@/utils/timeDayChoice"
 
 export default function Index(props: { isLoaded: any }) {
     const [hoverInfo, setHoverInfo] = useState({ show: false, x: 0, y: 0, ville: '', temperature: '', icon: '' });
@@ -109,53 +109,55 @@ export default function Index(props: { isLoaded: any }) {
                         setTemps={setTemps}
                         setDaySelected={setDaySelected}
                     />
-                    <GoogleMap
-                        zoom={6}
-                        center={{ lat: 46.6167, lng: 1.85 }}
-                        mapContainerStyle={MAPCONTAINERSTYLES}
-                        options={OPTIONS}
-                    >
-                        {temps && temps.map((v: any, k: any) => (
-                            <Marker
-                                key={k}
-                                position={{ lat: v.lat, lng: v.lng }}
-                                icon={{
-                                    url: `https://openweathermap.org/img/wn/${v.temps}@2x.png`,
-                                    scaledSize: new window.google.maps.Size(60, 60), // Taille de l'image
-                                    anchor: new window.google.maps.Point(30, 30) // Le point d'ancrage au bas de l'image
-                                }}
-                                label={{
-                                    text: `${v.degres}°`, // Texte à afficher sur le marqueur
-                                    fontWeight: '500',
-                                    className: styles.marker__label
-                                }}
-                                onMouseOver={(e) => handleMouseOver(e, v.ville, v.degres, v.temps)}
-                                onMouseOut={handleMouseLeave}
-                            />
-                        ))}
-                        {hoverInfo.show && (
-                            <div
-                                style={{
-                                    left: hoverInfo.x,
-                                    top: hoverInfo.y,
-                                }}
-                                className={styles.overlay}
-                            >
-                                <div>{hoverInfo.ville}</div>
-                                <div className={styles.overlay__container}>
-                                    <img
-                                        src={`https://openweathermap.org/img/wn/${hoverInfo.icon}@4x.png`}
-                                        alt="Green double couch with wooden legs"
-                                        width={60}
-                                        height={60}
-                                    />
-                                    <div className={styles.ovelay__temp}>{hoverInfo.temperature}°</div>
+                    <div style={{ width: "100%", height: "100%" }}>
+                        <GoogleMap
+                            zoom={6}
+                            center={{ lat: 46.6167, lng: 1.85 }}
+                            mapContainerStyle={MAPCONTAINERSTYLES}
+                            options={OPTIONS}
+                        >
+                            {temps && temps.map((v: any, k: any) => (
+                                <Marker
+                                    key={k}
+                                    position={{ lat: v.lat, lng: v.lng }}
+                                    icon={{
+                                        url: `https://openweathermap.org/img/wn/${v.temps}@2x.png`,
+                                        scaledSize: new window.google.maps.Size(60, 60), // Taille de l'image
+                                        anchor: new window.google.maps.Point(30, 30) // Le point d'ancrage au bas de l'image
+                                    }}
+                                    label={{
+                                        text: `${v.degres}°`, // Texte à afficher sur le marqueur
+                                        fontWeight: '500',
+                                        className: styles.marker__label
+                                    }}
+                                    onMouseOver={(e) => handleMouseOver(e, v.ville, v.degres, v.temps)}
+                                    onMouseOut={handleMouseLeave}
+                                />
+                            ))}
+                            {hoverInfo.show && (
+                                <div
+                                    style={{
+                                        left: hoverInfo.x,
+                                        top: hoverInfo.y,
+                                    }}
+                                    className={styles.overlay}
+                                >
+                                    <div>{hoverInfo.ville}</div>
+                                    <div className={styles.overlay__container}>
+                                        <img
+                                            src={`https://openweathermap.org/img/wn/${hoverInfo.icon}@4x.png`}
+                                            alt="Green double couch with wooden legs"
+                                            width={60}
+                                            height={60}
+                                        />
+                                        <div className={styles.ovelay__temp}>{hoverInfo.temperature}°</div>
+                                    </div>
+                                    <div>{weatherDescription(hoverInfo.icon)}</div>
                                 </div>
-                                <div>{weatherDescription(hoverInfo.icon)}</div>
-                            </div>
-                        )}
-                        <TimeDayButton daySelected={daySelected} temps={temps} timeDaySelected={timeDaySelected} setTimeDaySelected={setTimeDaySelected} />
-                    </GoogleMap>
+                            )}
+                            <TimeDayButton daySelected={daySelected} temps={temps} timeDaySelected={timeDaySelected} setTimeDaySelected={setTimeDaySelected} />
+                        </GoogleMap>
+                    </div>
                 </div>
             </main>
         </>

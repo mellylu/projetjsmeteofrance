@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Line } from 'react-chartjs-2';
 import { Chart, LineElement, PointElement, LinearScale, CategoryScale, BarElement, Tooltip, Legend } from 'chart.js';
 
+import { AiFillCaretRight, AiFillCaretLeft } from "react-icons/ai";
+
 import styles from "./index.module.scss"
 
 Chart.register(LineElement, PointElement, LinearScale, CategoryScale, BarElement, Tooltip, Legend);
@@ -75,9 +77,9 @@ const LineChart = (props: { donneesGraphique: any }) => {
         layout: {
             padding: {
                 top: 50,
-                right: 50,
+                right: 20,
                 bottom: 0,
-                left: 50,
+                left: 0,
             },
         },
         maintainAspectRatio: false,
@@ -144,11 +146,16 @@ const LineChart = (props: { donneesGraphique: any }) => {
 
 
     return (
-        <div className={styles.graphiqueLine}>
-            <Line className={styles.Line} data={data} options={options} plugins={[bgImage]} />
-            <div>
-                {currentPage === 1 ? "" : <button onClick={prevPage}>Précédent</button>}
-                {currentPage === totalPages ? "" : <button onClick={nextPage}>Suivant</button>}
+        <div className={styles.divMain}>
+            <div className={styles.divNext}>
+                {currentPage === 1 ? "" : <AiFillCaretLeft onClick={prevPage}></AiFillCaretLeft >}
+            </div>
+            <div className={styles.graphiqueLine}>
+                <Line className={styles.Line} data={data} options={options} plugins={[bgImage]} />
+            </div>
+
+            <div className={styles.divNext}>
+                {currentPage === totalPages ? "" : <AiFillCaretRight onClick={nextPage}></AiFillCaretRight>}
             </div>
         </div>
     );
