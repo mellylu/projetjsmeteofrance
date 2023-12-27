@@ -16,7 +16,7 @@ import Graphique from "@/components/graphiques"
 import OPTIONS from "@/utils/optionsMap"
 import Favoris from '@/components/favoris';
 
-
+import styles from "../index.module.scss"
 
 
 export default function CityPage(props: { isLoaded: any }) {
@@ -52,7 +52,7 @@ export default function CityPage(props: { isLoaded: any }) {
             button6: false,
         })
         fetchDataFiveday(setTempsFiveDay, `https://api.openweathermap.org/data/2.5/forecast?units=metric&lang=fr&appid=63ccd367e391125bbf9a581aab9e0ae5&q=${ville}`)
-    }, [])
+    }, [ville])
 
     useEffect(() => {
         if (boutons.bouton1) { setTemps(dayChoice(tempsFiveDay, 0, tempsFiveDay[0]?.forecast[0]?.day)), setButtonSelected(0) }
@@ -145,42 +145,42 @@ export default function CityPage(props: { isLoaded: any }) {
     console.log(tempsFiveDay)
     console.log(daySelected)
     return (
-
-        <div>
-            {ville ? (
-                <div>
-                    <h1>AFFICHER METEO VILLE {ville}</h1>
-                    <Favoris ville={ville} />
-                    <BarButtons
-                        boutons={boutons}
-                        setBoutons={setBoutons}
-                        dateAujourdhui={previsionsDate.datePlus0}
-                        dateDemain={previsionsDate.datePlus1}
-                        datePlus2={previsionsDate.datePlus2}
-                        datePlus3={previsionsDate.datePlus3}
-                        datePlus4={previsionsDate.datePlus4}
-                        datePlus5={previsionsDate.datePlus5}
-                        setTemps={setTemps}
-                        setDaySelected={setDaySelected}
-                    />
-                    {temperature !== null && icon !== null ? (
-                        <div>
-                            <p>Température : {temps[0]?.degres} °C </p>
-                            <img
-                                src={`https://openweathermap.org/img/wn/${temps[0]?.temps}@4x.png`}
-                                alt="Weather Icon"
-                            />
-                        </div>
-                    ) : (
-                        <p>Chargement de la température...</p>
-                    )}
-                </div>
-            ) : (
-                <p>La ville n'est pas spécifiée dans l'URL.</p>
-            )}
-            {donneesGraphique ? <Graphique donneesGraphique={donneesGraphique} />
-                : ""}
-        </div>
-
+        <main className={styles.main}>
+            <div className={styles.map}>
+                {ville ? (
+                    <div>
+                        <h1 className={styles.h1}>METEO {ville}</h1>
+                        <Favoris ville={ville} />
+                        <BarButtons
+                            boutons={boutons}
+                            setBoutons={setBoutons}
+                            dateAujourdhui={previsionsDate.datePlus0}
+                            dateDemain={previsionsDate.datePlus1}
+                            datePlus2={previsionsDate.datePlus2}
+                            datePlus3={previsionsDate.datePlus3}
+                            datePlus4={previsionsDate.datePlus4}
+                            datePlus5={previsionsDate.datePlus5}
+                            setTemps={setTemps}
+                            setDaySelected={setDaySelected}
+                        />
+                        {temperature !== null && icon !== null ? (
+                            <div>
+                                <p>Température : {temps[0]?.degres} °C </p>
+                                <img
+                                    src={`https://openweathermap.org/img/wn/${temps[0]?.temps}@4x.png`}
+                                    alt="Weather Icon"
+                                />
+                            </div>
+                        ) : (
+                            <p>Chargement de la température...</p>
+                        )}
+                    </div>
+                ) : (
+                    <p>La ville n'est pas spécifiée dans l'URL.</p>
+                )}
+                {donneesGraphique ? <Graphique donneesGraphique={donneesGraphique} />
+                    : ""}
+            </div>
+        </main>
     );
 };
