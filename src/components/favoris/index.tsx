@@ -1,11 +1,13 @@
-import React, { useState, useContext, useEffect } from "react"
+import React, { useContext, useEffect } from "react"
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai"
 
-import Button from "../button"
+import FavorisContext from "@/context/favorisCountryContext"
+
+import Button from "@/components//button"
 
 import styles from "./favoris.module.scss"
 
-import FavorisContext from "@/context/favorisCountryContext"
+
 
 
 const Favoris = (props: { ville: any }) => {
