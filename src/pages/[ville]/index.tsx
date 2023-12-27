@@ -16,7 +16,7 @@ import Graphique from "@/components/graphiques"
 import OPTIONS from "@/utils/optionsMap"
 import Favoris from '@/components/favoris';
 
-import styles from "./api/index.module.scss"
+
 
 
 export default function CityPage(props: { isLoaded: any }) {
@@ -145,42 +145,42 @@ export default function CityPage(props: { isLoaded: any }) {
     console.log(tempsFiveDay)
     console.log(daySelected)
     return (
-        <main className={styles.main}>
-            <div>
-                {ville ? (
-                    <div>
-                        <h1>AFFICHER METEO VILLE {ville}</h1>
-                        <Favoris ville={ville} />
-                        <BarButtons
-                            boutons={boutons}
-                            setBoutons={setBoutons}
-                            dateAujourdhui={previsionsDate.datePlus0}
-                            dateDemain={previsionsDate.datePlus1}
-                            datePlus2={previsionsDate.datePlus2}
-                            datePlus3={previsionsDate.datePlus3}
-                            datePlus4={previsionsDate.datePlus4}
-                            datePlus5={previsionsDate.datePlus5}
-                            setTemps={setTemps}
-                            setDaySelected={setDaySelected}
-                        />
-                        {temperature !== null && icon !== null ? (
-                            <div>
-                                <p>Température : {temps[0]?.degres} °C </p>
-                                <img
-                                    src={`https://openweathermap.org/img/wn/${temps[0]?.temps}@4x.png`}
-                                    alt="Weather Icon"
-                                />
-                            </div>
-                        ) : (
-                            <p>Chargement de la température...</p>
-                        )}
-                    </div>
-                ) : (
-                    <p>La ville n'est pas spécifiée dans l'URL.</p>
-                )}
-                {donneesGraphique ? <Graphique donneesGraphique={donneesGraphique} />
-                    : ""}
-            </div>
-        </main>
+
+        <div>
+            {ville ? (
+                <div>
+                    <h1>AFFICHER METEO VILLE {ville}</h1>
+                    <Favoris ville={ville} />
+                    <BarButtons
+                        boutons={boutons}
+                        setBoutons={setBoutons}
+                        dateAujourdhui={previsionsDate.datePlus0}
+                        dateDemain={previsionsDate.datePlus1}
+                        datePlus2={previsionsDate.datePlus2}
+                        datePlus3={previsionsDate.datePlus3}
+                        datePlus4={previsionsDate.datePlus4}
+                        datePlus5={previsionsDate.datePlus5}
+                        setTemps={setTemps}
+                        setDaySelected={setDaySelected}
+                    />
+                    {temperature !== null && icon !== null ? (
+                        <div>
+                            <p>Température : {temps[0]?.degres} °C </p>
+                            <img
+                                src={`https://openweathermap.org/img/wn/${temps[0]?.temps}@4x.png`}
+                                alt="Weather Icon"
+                            />
+                        </div>
+                    ) : (
+                        <p>Chargement de la température...</p>
+                    )}
+                </div>
+            ) : (
+                <p>La ville n'est pas spécifiée dans l'URL.</p>
+            )}
+            {donneesGraphique ? <Graphique donneesGraphique={donneesGraphique} />
+                : ""}
+        </div>
+
     );
 };
