@@ -75,7 +75,6 @@ const PlacesAutocomplete = (props: { selected: any; setSelected: any, setSearchV
                             ))}
                 </ComboboxList>
             </ComboboxPopover>
-
         </Combobox>
     )
 }
