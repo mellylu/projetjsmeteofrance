@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useContext } from "react"
 import { AiOutlineSearch, AiFillHeart, AiOutlineClose } from "react-icons/ai";
 import { useRouter } from "next/router"
 
@@ -8,6 +8,8 @@ import Logo from "@/components/logo"
 
 import LogoMeteoFrance from "../../../public/logo.png"
 import LogoRepublique from "../../../public/logo2.png"
+
+import FavorisContext from "@/context/favorisCountryContext"
 
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons"
 import {
@@ -25,8 +27,23 @@ export default function WithSubnavigation(props: { username?: string, isLoaded: 
     const [searchVille, setSearchVille] = useState<any>("")
     const [isVisible, setIsVisible] = useState<any>(false)
     const [isVisibleIcon, setIsVisibleIcon] = useState<any>(true)
+    const { addFavoris, favoris, setIsExist, isExist } = useContext(FavorisContext)
 
     const rechercherVilleMeteo = () => {
+        let test = false
+        favoris.forEach(element => {
+            if (decodeURIComponent(element) == searchVille) {
+                test = true
+            }
+
+        });
+
+        if (test) {
+            setIsExist(true)
+        }
+        else {
+            setIsExist(false)
+        }
         router.push(`/${searchVille}`)
     }
 

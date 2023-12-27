@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useContext } from "react"
 
 import usePlacesAutocomplete, { getGeocode, getLatLng } from "use-places-autocomplete"
 
@@ -46,7 +46,6 @@ const PlacesAutocomplete = (props: { selected: any; setSelected: any, setSearchV
         const results = await getGeocode({ address })
         const { lat, lng } = getLatLng(results[0])
         props.setSearchVille(address.split(",")[0])
-
     }
 
     return (

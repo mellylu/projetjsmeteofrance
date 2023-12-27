@@ -10,17 +10,40 @@ import styles from "./favoris.module.scss"
 
 
 
-const Favoris = (props: { ville: any }) => {
+const Favoris = (props: { ville: any, isFavoris: any, setIsFavoris: any }) => {
     const { addFavoris, favoris, setIsExist, isExist } = useContext(FavorisContext)
 
     useEffect(() => {
-        console.log(favoris)
+        console.log(favoris, "FAVORIS")
+        console.log(isExist, "isexiste")
+        let test = false
         favoris.forEach(element => {
             if (element == props.ville) {
+                test = true
+            }
+            // else {
+            //     setIsExist(false)
+            // }
+            if (test) {
                 setIsExist(true)
             }
         });
+
     }, [])
+
+    // useEffect(() => {
+    //     console.log("DDDDDDDDDDDDDDDDDDD")
+    //     favoris.forEach(element => {
+    //         if (element == props.ville) {
+    //             setIsExist(true)
+    //         }
+    //         else {
+    //             setIsExist(false)
+    //         }
+    //     });
+    // }, [favoris])
+
+
 
 
     return (

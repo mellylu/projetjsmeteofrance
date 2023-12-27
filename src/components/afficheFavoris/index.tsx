@@ -8,7 +8,7 @@ import styles from "./index.module.scss"
 
 const Index = (props: { isVisible: any, setIsVisible: any, setIsVisibleIcon: any }) => {
 
-    const { addFavoris, favoris } = useContext(FavorisContext)
+    const { addFavoris, favoris, setIsExist, isExist } = useContext(FavorisContext)
     const [diplayContent, setDisplayContent] = React.useState(false)
 
     const router = useRouter()
@@ -23,6 +23,22 @@ const Index = (props: { isVisible: any, setIsVisible: any, setIsVisibleIcon: any
         }
     }, [props.isVisible])
 
+    const clickVille = (el: any) => {
+        let test = false
+        favoris.forEach(element => {
+            if (element == el) {
+                console.log("element", element)
+                console.log("el", el)
+                test = true
+            }
+
+        })
+        if (test) {
+            setIsExist(true)
+        }
+        router.push(`/${el}`)
+    }
+
     return (
         <div className={`${styles.div} ${props.isVisible ? styles.animateWidth : ''}`}>
             <div className={`${diplayContent ? '' : styles.dnone}`}>
@@ -33,7 +49,7 @@ const Index = (props: { isVisible: any, setIsVisible: any, setIsVisibleIcon: any
                 <div className={styles.ligne}></div>
                 {favoris.length > 0 ? favoris.map((el: any) => (
                     <div className={styles.divElement} key={el}>
-                        <button onClick={() => { router.push(`/${el}`) }}>
+                        <button onClick={() => clickVille(el)}>
                             <p className={styles.pElement}>{decodeURIComponent(el)}</p>
                         </button>
                         <AiOutlineClose className={styles.croix} color={"black"} onClick={() => addFavoris(el)} />

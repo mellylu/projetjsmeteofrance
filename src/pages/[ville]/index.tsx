@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useRouter } from 'next/router';
 import Favoris from '@/components/favoris';
 import Graphique from "@/components/graphiques"
@@ -9,10 +9,11 @@ const Index = () => {
     const [temperature, setTemperature] = useState<number | null>(null);
     const [icon, setIcon] = useState<string | null>(null);
     const [donneesGraphique, setDonneesGraphique] = useState<any>([])
+    const [isFavoris, setIsFavoris] = useState<any>(false)
 
     useEffect(() => {
         const villeFromURL = window.location.pathname.split('/').pop();
-        console.log(window.location.pathname.split('/').pop(), "HHHHHHHHHHH")
+        // console.log(window.location.pathname.split('/').pop(), "HHHHHHHHHHH")
         setVille(villeFromURL || '');
 
         if (villeFromURL) {
@@ -52,7 +53,7 @@ const Index = () => {
             {ville ? (
                 <div>
                     <h1>AFFICHER METEO VILLE {ville}</h1>
-                    <Favoris ville={ville} />
+                    <Favoris ville={ville} isFavoris={isFavoris} setIsFavoris={setIsFavoris} />
 
                     {temperature !== null && icon !== null ? (
                         <div>

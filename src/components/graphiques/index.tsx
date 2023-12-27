@@ -106,7 +106,6 @@ const LineChart = (props: { donneesGraphique: any }) => {
         id: 'bgImage',
         beforeDatasetsDraw(chart: any, args: any, plugin: any) {
             const { ctx } = chart;
-            console.log(donneesGraphiqueRef)
             const loadImages = async () => {
                 const images = donneesGraphiqueRef.current.map((element: any) => {
                     return new Promise((resolve) => {
