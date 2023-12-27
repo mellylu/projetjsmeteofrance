@@ -28,7 +28,7 @@ export default function Index({ Component, pageProps }: AppProps) {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <Navbar isLoaded={isLoaded} />
-            <div style={{ width: "100%", height: "100%", paddingBottom: "5%", backgroundColor: "rgb(217, 220, 221)" }}>
+            <div style={{ width: "100%", height: "120vh", paddingBottom: "5vh", backgroundColor: "rgb(217, 220, 221)" }}>
                 <Component {...pageProps} isLoaded={isLoaded} />
             </div>
             <Footer />

@@ -109,7 +109,7 @@ export default function Index(props: { isLoaded: any }) {
                         setTemps={setTemps}
                         setDaySelected={setDaySelected}
                     />
-                    <div style={{ width: "100%", height: "100%" }}>
+                    <div style={{ width: "100%", height: "120vh" }}>
                         <GoogleMap
                             zoom={6}
                             center={{ lat: 46.6167, lng: 1.85 }}
