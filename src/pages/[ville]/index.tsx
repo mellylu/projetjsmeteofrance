@@ -39,9 +39,13 @@ export default function CityPage(props: { isLoaded: any }) {
         apresMidi: false,
         soiree: false,
     })
+    const router = useRouter()
+    const [coordonnees, setCoordonnees] = useState<any>({})
 
     useEffect(() => {
-        console.log("loaded", props.isLoaded)
+        // console.log("loaded", props.isLoaded)
+        console.log(router, "ROUTER")
+        setCoordonnees({ lat: Number(router.query.lat), lng: Number(router.query.lng) })
         setPrevisionsDate(chooseDate())
         setBoutons({
             bouton1: true,
@@ -108,7 +112,7 @@ export default function CityPage(props: { isLoaded: any }) {
 
     useEffect(() => {
         const villeFromURL = window.location.pathname.split('/').pop();
-        console.log(window.location.pathname.split('/').pop(), "HHHHHHHHHHH")
+        // console.log(window.location.pathname.split('/').pop(), "HHHHHHHHHHH")
         setVille(villeFromURL || '');
 
         if (villeFromURL) {
@@ -142,8 +146,8 @@ export default function CityPage(props: { isLoaded: any }) {
         }
     };
 
-    console.log(tempsFiveDay)
-    console.log(daySelected)
+    // console.log(tempsFiveDay)
+    // console.log(daySelected)
     return (
         <main className={styles.main}>
             <div className={styles.map}>
@@ -180,6 +184,11 @@ export default function CityPage(props: { isLoaded: any }) {
                 )}
                 {donneesGraphique ? <Graphique donneesGraphique={donneesGraphique} />
                     : ""}
+
+                {coordonnees ? <GoogleMap zoom={15} center={coordonnees} mapContainerClassName={styles.mapcontainer}>
+                    <Marker position={coordonnees} />
+                </GoogleMap> : ""}
+
             </div>
         </main>
     );
