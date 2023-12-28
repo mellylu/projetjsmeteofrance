@@ -154,7 +154,9 @@ export default function CityPage(props: { isLoaded: any }) {
                 {ville ? (
                     <div>
                         <h1 className={styles.h1}>METEO {ville}</h1>
-                        <Favoris ville={ville} />
+                        <div className={styles.favorisContainer}>
+                            <Favoris ville={ville} />
+                        </div>
                         <BarButtons
                             boutons={boutons}
                             setBoutons={setBoutons}
@@ -167,29 +169,50 @@ export default function CityPage(props: { isLoaded: any }) {
                             setTemps={setTemps}
                             setDaySelected={setDaySelected}
                         />
-                        {temperature !== null && icon !== null ? (
-                            <div>
-                                <p>Température : {temps[0]?.degres} °C </p>
-                                <img
-                                    src={`https://openweathermap.org/img/wn/${temps[0]?.temps}@4x.png`}
-                                    alt="Weather Icon"
-                                />
+
+                        <div className={styles.rectangle}>
+
+                            <div className={styles.zone}>
+                                {temperature !== null && icon !== null ? (
+                                    <div className={styles.weatherContainer}>
+                                        <div className={styles.texteSize}>
+                                            <p className={styles.temperature}>{temps[0]?.degres} °C </p>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <p>Chargement de la température...</p>
+                                )}
                             </div>
-                        ) : (
-                            <p>Chargement de la température...</p>
-                        )}
+                            <div className={styles.zone}>
+                                <div className={styles.weatherContainer}>
+                                    <div className={styles.iconContainer}>
+                                        <center>
+                                            <img
+                                                src={`https://openweathermap.org/img/wn/${temps[0]?.temps}@4x.png`}
+                                                alt="Weather Icon"
+                                                className={styles.weatherIcon}
+                                            />
+                                        </center>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
                     </div>
+
                 ) : (
                     <p>La ville n'est pas spécifiée dans l'URL.</p>
                 )}
-                {donneesGraphique ? <Graphique donneesGraphique={donneesGraphique} />
-                    : ""}
-
+                <center>
+                    {donneesGraphique ? <Graphique donneesGraphique={donneesGraphique} />
+                        : ""}
+                </center>
                 {coordonnees ? <GoogleMap zoom={15} center={coordonnees} mapContainerClassName={styles.mapcontainer}>
                     <Marker position={coordonnees} />
                 </GoogleMap> : ""}
 
             </div>
-        </main>
+        </main >
     );
 };

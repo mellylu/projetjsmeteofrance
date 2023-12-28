@@ -8,7 +8,7 @@
     // position: relative;
     // overflow: hidden;
     // box-sizing: border-box;
-    // position: relative;
+    position: relative;
 }
 
 .h1 {
@@ -84,4 +84,36 @@
     height: 100%;
     margin-left: auto;
     margin-right: auto;
+}
+
+.rectangle {
+    width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.zone {
+    width: 50%;
+    float: left;
+    box-sizing: border-box;
+    text-align: center;
+    border: 1px solid #ffffff;
+    box-shadow: 2px 2px 5px rgba(255, 255, 255, 0);
+}
+
+
+.texteSize {
+    font-size: 1em;
+}
+
+.zone p {
+    margin: 0;
+    line-height: 12.5;
+    /* Ajustez cette valeur selon vos besoins, par exemple, 1.5 ou 1.2 */
+    height: 100%;
+    /* Ajustez cette valeur selon vos besoins, par exemple, 100% */
+}
+
+.favorisContainer {
+    text-align: right;
 }
