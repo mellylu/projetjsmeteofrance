@@ -1,15 +1,24 @@
 .graphiqueLine {
     height: 300px;
-    width: 60%;
+    width: 80%;
     // border: 20px solid #036ba1;
-    padding: 2%;
+    // padding: 2%;
+    margin-left: 0%;
+    // margin-right: auto;
 }
 
 .divMain {
     display: flex;
+    justify-content: center;
 }
 
+.divPrevious,
 .divNext {
     margin-top: auto;
     margin-bottom: auto;
+
+}
+
+.divNext {
+    margin-left: 6%;
 }

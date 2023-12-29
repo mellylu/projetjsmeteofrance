@@ -44,7 +44,6 @@ export default function CityPage(props: { isLoaded: any }) {
     const [coordonnees, setCoordonnees] = useState<any>({})
 
     useEffect(() => {
-        // console.log("loaded", props.isLoaded)
         console.log(router, "ROUTER")
         setCoordonnees({ lat: Number(router.query.lat), lng: Number(router.query.lng) })
         setPrevisionsDate(chooseDate())
@@ -86,9 +85,6 @@ export default function CityPage(props: { isLoaded: any }) {
         });
     }, [tempsFiveDay, boutons, buttonSelected])
 
-    useEffect(() => {
-        // Votre logique pour mettre à jour les prévisions en fonction des boutons et des jours sélectionnés
-    }, [tempsFiveDay, boutons, buttonSelected]);
 
     useEffect(() => {
         setTemps(timeDayChoice(timeDaySelected, temps));
@@ -154,8 +150,11 @@ export default function CityPage(props: { isLoaded: any }) {
             <div className={styles.map}>
                 {ville ? (
                     <div>
-                        <h1 className={styles.h1}>METEO {ville}</h1>
-                        <div className={styles.favorisContainer}>
+                        <div style={{ display: "flex", alignItems: "center", marginBottom: "4%" }}>
+
+                            <h1 className={styles.h1} style={{ marginRight: "2%" }} >METEO {ville}</h1>
+
+                            {/* <div className={styles.favorisContainer}> */}
                             <Favoris ville={ville} isFavoris={isFavoris} setIsFavoris={setIsFavoris} />
                         </div>
                         <BarButtons
@@ -170,49 +169,43 @@ export default function CityPage(props: { isLoaded: any }) {
                             setTemps={setTemps}
                             setDaySelected={setDaySelected}
                         />
+                        {temperature !== null && icon !== null ? (
+                            <div className={styles.rectangle}>
 
-                        <div className={styles.rectangle}>
+                                <div className={styles.zone1}>
+                                    <p className={styles.temperature}>{temps[0]?.degres}°</p>
 
-                            <div className={styles.zone}>
-                                {temperature !== null && icon !== null ? (
-                                    <div className={styles.weatherContainer}>
-                                        <div className={styles.texteSize}>
-                                            <p className={styles.temperature}>{temps[0]?.degres} °C </p>
-                                        </div>
-                                    </div>
-                                ) : (
-                                    <p>Chargement de la température...</p>
-                                )}
-                            </div>
-                            <div className={styles.zone}>
-                                <div className={styles.weatherContainer}>
-                                    <div className={styles.iconContainer}>
-                                        <center>
-                                            <img
-                                                src={`https://openweathermap.org/img/wn/${temps[0]?.temps}@4x.png`}
-                                                alt="Weather Icon"
-                                                className={styles.weatherIcon}
-                                            />
-                                        </center>
-                                    </div>
                                 </div>
-                            </div>
+                                <div className={styles.zoneligne}></div>
+                                <div className={styles.zone2}>
+                                    <center>
+                                        <img
+                                            src={`https://openweathermap.org/img/wn/${temps[0]?.temps}@4x.png`}
+                                            alt="Weather Icon"
+                                            className={styles.weatherIcon}
+                                        />
+                                    </center>
+                                </div>
 
+                            </div>
+                        ) : <div style={{ marginLeft: "5%", marginTop: "5%" }}><p>Chargement de la température...</p></div>}
+
+                        <div>
+                            {donneesGraphique ? <Graphique donneesGraphique={donneesGraphique} />
+                                : ""}
                         </div>
+                        {coordonnees ?
+                            (
+                                <GoogleMap zoom={15} center={{ lat: 49.1198819, lng: -1.1131279 }} mapContainerClassName={styles.mapcontainer}>
+                                    <Marker position={{ lat: 49.1198819, lng: -1.1131279 }} />
+                                </GoogleMap>
+                            )
+                            : ""}
+
+
 
                     </div>
-
-                ) : (
-                    <p>La ville n'est pas spécifiée dans l'URL.</p>
-                )}
-                <center>
-                    {donneesGraphique ? <Graphique donneesGraphique={donneesGraphique} />
-                        : ""}
-                </center>
-                {coordonnees ? <GoogleMap zoom={15} center={coordonnees} mapContainerClassName={styles.mapcontainer}>
-                    <Marker position={coordonnees} />
-                </GoogleMap> : ""}
-
+                ) : <div><p>La ville n'est pas spécifiée dans l'URL.</p></div>}
             </div>
         </main >
     );

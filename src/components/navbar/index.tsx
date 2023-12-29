@@ -76,10 +76,11 @@ export default function WithSubnavigation(props: { username?: string, isLoaded: 
                 mr={"15%"}
                 ml={"15%"}
             >
-
-                <Logo image={LogoRepublique} />
-                <Logo image={LogoMeteoFrance} />
-
+                <div id="navBar">
+                    <Logo image={LogoRepublique} />
+                </div> <div id="navBar">
+                    <Logo image={LogoMeteoFrance} />
+                </div>
                 {props.username ? (
                     <p
                         style={{
@@ -98,9 +99,15 @@ export default function WithSubnavigation(props: { username?: string, isLoaded: 
                 )}
 
                 <Flex id="ppp" flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
-                    <div style={{ display: "flex", position: "relative", marginLeft: "auto", marginRight: "auto" }}>
+
+                    <div id="divNavBar" style={{ display: "flex", position: "relative", marginLeft: "auto", marginRight: "auto" }}>
+
                         <ResearchBar isLoaded={props.isLoaded} setSearchVille={setSearchVille} setCoordonnees={setCoordonnees} />
                         <AiOutlineSearch onClick={() => { rechercherVilleMeteo() }} size={25} style={{ position: "absolute", right: 0, marginTop: "2%", marginRight: "2%", cursor: "pointer" }} color={"grey"} />
+                        {/* <div id="navBar2">
+                            {isVisibleIcon ? <AiFillHeart color={"#036ba1"} size={40} style={{ marginRight: "auto", marginLeft: "auto" }} /> : <AiOutlineClose color={"red"} size={40} style={{ marginRight: "auto", marginLeft: "auto" }} />}
+
+                        </div> */}
                     </div>
                 </Flex>
                 <Stack justify={"flex-end"} direction={"row"} spacing={6}>{/* , md: 5  */}
@@ -114,8 +121,10 @@ export default function WithSubnavigation(props: { username?: string, isLoaded: 
                         }}
                         onClick={() => afficheFavoris()}
                     >
-                        {isVisibleIcon ? <AiFillHeart color={"#036ba1"} size={40} style={{ marginRight: "auto", marginLeft: "auto" }} /> : <AiOutlineClose color={"red"} size={40} style={{ marginRight: "auto", marginLeft: "auto" }} />}
-                        <p style={{ fontVariantCaps: "small-caps" }}>liste des favoris</p>
+                        <div id="navBar">
+                            {isVisibleIcon ? <AiFillHeart color={"#036ba1"} size={40} style={{ marginRight: "auto", marginLeft: "auto" }} /> : <AiOutlineClose color={"red"} size={40} style={{ marginRight: "auto", marginLeft: "auto" }} />}
+                            <p style={{ fontVariantCaps: "small-caps" }}>liste des favoris</p>
+                        </div>
                     </button>
 
                 </Stack>

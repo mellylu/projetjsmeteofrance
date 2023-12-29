@@ -146,18 +146,25 @@ const LineChart = (props: { donneesGraphique: any }) => {
 
 
     return (
-        <div className={styles.divMain}>
-            <div className={styles.divNext}>
-                {currentPage === 1 ? "" : <AiFillCaretLeft onClick={prevPage}></AiFillCaretLeft >}
-            </div>
-            <div className={styles.graphiqueLine}>
-                <Line className={styles.Line} data={data} options={options} plugins={[bgImage]} />
-            </div>
+        <>
+            {props.donneesGraphique ? (
+                <div className={styles.divMain}>
 
-            <div className={styles.divNext}>
-                {currentPage === totalPages ? "" : <AiFillCaretRight onClick={nextPage}></AiFillCaretRight>}
-            </div>
-        </div>
+                    <div className={styles.divPrevious}>
+                        {currentPage === 1 ? "" : <AiFillCaretLeft onClick={prevPage}></AiFillCaretLeft >}
+                    </div>
+                    <div className={styles.graphiqueLine}>
+                        <Line className={styles.Line} data={data} options={options} plugins={[bgImage]} />
+                    </div>
+
+                    <div className={styles.divNext}>
+                        {currentPage === totalPages ? "" : <AiFillCaretRight onClick={nextPage}></AiFillCaretRight>}
+                    </div>
+                </div>) : ""
+
+            }
+        </>
+
     );
 };
 
