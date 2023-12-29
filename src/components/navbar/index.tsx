@@ -28,6 +28,7 @@ export default function WithSubnavigation(props: { username?: string, isLoaded: 
     const [isVisible, setIsVisible] = useState<any>(false)
     const [isVisibleIcon, setIsVisibleIcon] = useState<any>(true)
     const { addFavoris, favoris, setIsExist, isExist } = useContext(FavorisContext)
+    const [coordonnees, setCoordonnees] = useState<any>({})
 
     const rechercherVilleMeteo = () => {
         let test = false
@@ -44,8 +45,10 @@ export default function WithSubnavigation(props: { username?: string, isLoaded: 
         else {
             setIsExist(false)
         }
-        router.push(`/${searchVille}`)
+        router.push(`/${searchVille}?lat=${coordonnees.lat}&lng=${coordonnees.lng}`)
     }
+
+
 
     const afficheFavoris = async () => {
         if (isVisibleIcon) {
@@ -96,7 +99,7 @@ export default function WithSubnavigation(props: { username?: string, isLoaded: 
 
                 <Flex id="ppp" flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
                     <div style={{ display: "flex", position: "relative", marginLeft: "auto", marginRight: "auto" }}>
-                        <ResearchBar isLoaded={props.isLoaded} setSearchVille={setSearchVille} />
+                        <ResearchBar isLoaded={props.isLoaded} setSearchVille={setSearchVille} setCoordonnees={setCoordonnees} />
                         <AiOutlineSearch onClick={() => { rechercherVilleMeteo() }} size={25} style={{ position: "absolute", right: 0, marginTop: "2%", marginRight: "2%", cursor: "pointer" }} color={"grey"} />
                     </div>
                 </Flex>
