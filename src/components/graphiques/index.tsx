@@ -146,7 +146,7 @@ const LineChart = (props: { donneesGraphique: any }) => {
 
 
     return (
-        <>
+        <div style={{ zIndex: 1 }}>
             {props.donneesGraphique ? (
                 <div className={styles.divMain}>
 
@@ -163,7 +163,7 @@ const LineChart = (props: { donneesGraphique: any }) => {
                 </div>) : ""
 
             }
-        </>
+        </div>
 
     );
 };

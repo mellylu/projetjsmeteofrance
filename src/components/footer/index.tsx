@@ -7,11 +7,11 @@ import LogoMeteoFrance from "../../../public/logo.png"
 import LogoRepublique from "../../../public/logo2.png"
 import Image from "next/image"
 
-
+import styles from "./index.module.scss"
 
 export default function SmallCentered() {
     return (
-        <Box>
+        <Box className={styles.box}>
 
             <Box
                 borderTopWidth={1}

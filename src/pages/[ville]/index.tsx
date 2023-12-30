@@ -18,6 +18,8 @@ import Favoris from '@/components/favoris';
 
 import styles from "../index.module.scss"
 
+import EmplacementVille from "@/components/emplacementVille"
+
 
 export default function CityPage(props: { isLoaded: any }) {
     const [ville, setVille] = useState<string>('');
@@ -39,7 +41,6 @@ export default function CityPage(props: { isLoaded: any }) {
     useEffect(() => {
         console.log(ville, "VILLLLLLLE")
         setIsError(false)
-        setCoordonnees({ lat: Number(router.query.lat), lng: Number(router.query.lng) })
         setPrevisionsDate(chooseDate())
         setBoutons({
             bouton1: true,
@@ -79,6 +80,7 @@ export default function CityPage(props: { isLoaded: any }) {
     };
 
     useEffect(() => {
+        setCoordonnees({ lat: Number(router.query.lat), lng: Number(router.query.lng) })
         const villeFromURL = window.location.pathname.split('/').pop();
         console.log(villeFromURL, "VILLE FROM URL")
         // console.log(window.location.pathname.split('/').pop(), "HHHHHHHHHHH")
@@ -88,6 +90,10 @@ export default function CityPage(props: { isLoaded: any }) {
             fetchWeatherData(villeFromURL);
         }
     }, []);
+
+    useEffect(() => {
+        console.log(coordonnees, "COORDONNEES")
+    }, [coordonnees])
 
     useEffect(() => {
         const villeFromURL = window.location.pathname.split('/').pop()
@@ -115,18 +121,16 @@ export default function CityPage(props: { isLoaded: any }) {
         }
     };
 
-    // console.log(tempsFiveDay)
-    // console.log(daySelected)
     return (
         <main className={styles.main}>
-            <div className={styles.map}>
+
+            <div className={styles.map2}>
                 {ville ? (
                     <div>
                         <div style={{ display: "flex", alignItems: "center", marginBottom: "4%" }}>
 
                             <h1 className={styles.h1} style={{ marginRight: "2%" }} >METEO {decodeURIComponent(ville)}</h1>
 
-                            {/* <div className={styles.favorisContainer}> */}
                             <Favoris ville={ville} isFavoris={isFavoris} setIsFavoris={setIsFavoris} setIsError={setIsError} />
                             {isError ? <p style={{ marginLeft: "2%", color: "red" }}><i>Impossible : nombre maximum de favoris atteins</i></p> : ""}
                         </div>
@@ -167,19 +171,13 @@ export default function CityPage(props: { isLoaded: any }) {
                             {donneesGraphique ? <Graphique donneesGraphique={donneesGraphique} />
                                 : ""}
                         </div>
-                        {coordonnees ?
-                            (
-                                <GoogleMap zoom={15} center={{ lat: 49.1198819, lng: -1.1131279 }} mapContainerClassName={styles.mapcontainer}>
-                                    <Marker position={{ lat: 49.1198819, lng: -1.1131279 }} />
-                                </GoogleMap>
-                            )
-                            : ""}
-
+                        <EmplacementVille isLoaded={props.isLoaded} coordonnees={coordonnees} />
 
 
                     </div>
                 ) : <div><p>La ville n'est pas spécifiée dans l'URL.</p></div>}
             </div>
+
         </main >
     );
 };
