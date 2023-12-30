@@ -19,6 +19,7 @@ import {
     useDisclosure,
 } from "@chakra-ui/react"
 
+
 export default function WithSubnavigation(props: { username?: string, isLoaded: any }) {
     const { isOpen, onToggle } = useDisclosure()
     const router = useRouter()
