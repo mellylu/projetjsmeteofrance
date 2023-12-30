@@ -28,8 +28,6 @@ export default function CityPage(props: { isLoaded: any }) {
     const [donneesGraphique, setDonneesGraphique] = useState<any>([])
     const [isFavoris, setIsFavoris] = useState<any>(false)
     const [isError, setIsError] = useState<any>(false)
-
-    const [hoverInfo, setHoverInfo] = useState({ show: false, x: 0, y: 0, ville: '', temperature: '', icon: '' });
     const [temps, setTemps] = useState<any>([])
     const [tempsFiveDay, setTempsFiveDay] = useState<any>([])
     const [previsionsDate, setPrevisionsDate] = useState<any>({})
@@ -39,7 +37,6 @@ export default function CityPage(props: { isLoaded: any }) {
     const [daySelected, setDaySelected] = useState<any>("AUJOURD'HUI")
 
     useEffect(() => {
-        console.log(ville, "VILLLLLLLE")
         setIsError(false)
         setPrevisionsDate(chooseDate())
         setBoutons({
@@ -50,7 +47,7 @@ export default function CityPage(props: { isLoaded: any }) {
             button5: false,
             button6: false,
         })
-        fetchDataFiveday(setTempsFiveDay, `https://api.openweathermap.org/data/2.5/forecast?units=metric&lang=fr&appid=63ccd367e391125bbf9a581aab9e0ae5&q=${ville}`)
+        if (ville.length > 0) fetchDataFiveday(setTempsFiveDay, `https://api.openweathermap.org/data/2.5/forecast?units=metric&lang=fr&appid=63ccd367e391125bbf9a581aab9e0ae5&q=${ville}`)
     }, [ville])
 
     useEffect(() => {
@@ -62,28 +59,9 @@ export default function CityPage(props: { isLoaded: any }) {
         else if (boutons.bouton6) { setTemps(dayChoice(tempsFiveDay, 5, tempsFiveDay[0]?.forecast[5]?.day)) }
     }, [tempsFiveDay, boutons])
 
-    const handleMouseOver = (e: any, ville: string, temperature: any, icon: string) => {
-        const x = e.domEvent.x;
-        const y = e.domEvent.y;
-        setHoverInfo({
-            show: true,
-            x,
-            y,
-            ville,
-            temperature,
-            icon,
-        });
-    };
-
-    const handleMouseLeave = () => {
-        setHoverInfo({ ...hoverInfo, show: false });
-    };
-
     useEffect(() => {
         setCoordonnees({ lat: Number(router.query.lat), lng: Number(router.query.lng) })
         const villeFromURL = window.location.pathname.split('/').pop();
-        console.log(villeFromURL, "VILLE FROM URL")
-        // console.log(window.location.pathname.split('/').pop(), "HHHHHHHHHHH")
         setVille(villeFromURL || '');
 
         if (villeFromURL) {

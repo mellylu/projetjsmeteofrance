@@ -11,7 +11,7 @@ import styles from "./index.module.scss"
 
 export default function SmallCentered() {
     return (
-        <Box className={styles.box}>
+        <Box>
 
             <Box
                 borderTopWidth={1}

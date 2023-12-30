@@ -31,7 +31,6 @@ export default function Index(props: { isLoaded: any }) {
     })
 
     useEffect(() => {
-        console.log("loaded", props.isLoaded)
         setPrevisionsDate(chooseDate())
         setBoutons({
             bouton1: true,
