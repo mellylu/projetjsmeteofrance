@@ -1,0 +1,23 @@
+/* index.module.scss */
+.logoButton {
+    min-width: 50px;
+    width: 20%;
+    height: auto;
+}
+
+.logoContainer {
+
+    width: 100%;
+    height: 100%;
+    max-width: 90px;
+    max-height: 90px;
+    margin: 0 auto;
+    /* Centrer horizontalement */
+    overflow: hidden;
+    /* Cacher le dépassement d'image */
+}
+
+.logoImage {
+    width: 100%;
+    height: 100%;
+}

@@ -1,0 +1,18 @@
+@media (max-width: 600px) {
+    .search-bar {
+        width: 50%;
+        /* Ajustez la taille de la barre de recherche selon vos besoins */
+    }
+
+    #buttonhome {
+        padding: 2%;
+        /* Ajustez l'espace autour du bouton des favoris */
+        font-size: 10px;
+        /* Ajustez la taille du texte du bouton des favoris */
+    }
+
+    .favorite-heart {
+        font-size: 20px;
+        /* Ajustez la taille du cœur des favoris */
+    }
+}
