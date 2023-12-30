@@ -5,7 +5,8 @@ const FavorisContext = createContext({
     favoris: [],
     addFavoris: (ville: any) => { },
     isExist: false,
-    setIsExist: (x: any) => { }
+    setIsExist: (x: any) => { },
+    count: 0,
     //fonction pour remove un favoris
     //fonction pour remove tous les favoris
 })
@@ -22,6 +23,8 @@ export const FavorisCountryContextProvider = (props: { children: any }) => {
     const count = favoris && favoris.length || 0;
 
     const addFavoris = (ville: any) => {
+        // if (count < 10){
+
         if (count > 0) {
             let isExist = false
             favoris.forEach((element: any) => {
@@ -44,11 +47,15 @@ export const FavorisCountryContextProvider = (props: { children: any }) => {
             setFavoris([ville])
             setIsExist(true)
         }
+        // }
+        // else{
+
+        // }
     }
 
 
 
-    const context = { addFavoris, favoris, isExist, setIsExist }
+    const context = { addFavoris, favoris, isExist, setIsExist, count }
 
     useEffect(() => {
         console.log(favoris)

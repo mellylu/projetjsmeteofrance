@@ -25,6 +25,7 @@ export default function CityPage(props: { isLoaded: any }) {
     const [icon, setIcon] = useState<string | null>(null);
     const [donneesGraphique, setDonneesGraphique] = useState<any>([])
     const [isFavoris, setIsFavoris] = useState<any>(false)
+    const [isError, setIsError] = useState<any>(false)
 
     const [hoverInfo, setHoverInfo] = useState({ show: false, x: 0, y: 0, ville: '', temperature: '', icon: '' });
     const [temps, setTemps] = useState<any>([])
@@ -44,7 +45,8 @@ export default function CityPage(props: { isLoaded: any }) {
     const [coordonnees, setCoordonnees] = useState<any>({})
 
     useEffect(() => {
-        console.log(router, "ROUTER")
+        console.log(ville, "VILLLLLLLE")
+        setIsError(false)
         setCoordonnees({ lat: Number(router.query.lat), lng: Number(router.query.lng) })
         setPrevisionsDate(chooseDate())
         setBoutons({
@@ -109,6 +111,7 @@ export default function CityPage(props: { isLoaded: any }) {
 
     useEffect(() => {
         const villeFromURL = window.location.pathname.split('/').pop();
+        console.log(villeFromURL, "VILLE FROM URL")
         // console.log(window.location.pathname.split('/').pop(), "HHHHHHHHHHH")
         setVille(villeFromURL || '');
 
@@ -152,10 +155,11 @@ export default function CityPage(props: { isLoaded: any }) {
                     <div>
                         <div style={{ display: "flex", alignItems: "center", marginBottom: "4%" }}>
 
-                            <h1 className={styles.h1} style={{ marginRight: "2%" }} >METEO {ville}</h1>
+                            <h1 className={styles.h1} style={{ marginRight: "2%" }} >METEO {decodeURIComponent(ville)}</h1>
 
                             {/* <div className={styles.favorisContainer}> */}
-                            <Favoris ville={ville} isFavoris={isFavoris} setIsFavoris={setIsFavoris} />
+                            <Favoris ville={ville} isFavoris={isFavoris} setIsFavoris={setIsFavoris} setIsError={setIsError} />
+                            {isError ? <p style={{ marginLeft: "2%", color: "red" }}><i>Impossible : nombre maximum de favoris atteins</i></p> : ""}
                         </div>
                         <BarButtons
                             boutons={boutons}

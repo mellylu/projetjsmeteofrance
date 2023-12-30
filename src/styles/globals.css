@@ -9,14 +9,7 @@ main {
 }
 
 @media screen and (max-width: 700px) {
-    /* #headingform {
-        color: red;
-    }
-    #form {
-        visibility: "hidden";
-        position: "absolute";
-    } */
-    #navBar {
+    /* #navBar {
         visibility: hidden;
         position: absolute;
     }
@@ -24,13 +17,17 @@ main {
         visibility: visible;
         left: 0px;
         /* position: absolute; */
-    }
+    /* }
     #divNavBar {
         margin-right: 150px;
     }
+    #afficheFavoris {
+        visibility: hidden;
+        position: absolute;
+    }  */
 }
 
-@media screen and (min-width: 700px) {
+/* @media screen and (min-width: 700px) {
     /* #headingform {
         color: red;
     }
@@ -38,8 +35,44 @@ main {
         visibility: "hidden";
         position: "absolute";
     } */
-    #navBar2 {
+/* #navBar2 {
+        visibility: hidden;
+        position: absolute;
+    }
+} */
+
+@media screen and (max-width: 780px) {
+    #comboboxInput {
+        width: 200px;
+    }
+    #navBar {
+        visibility: hidden;
+        position: absolute;
+    }
+    #iconFavoris {
         visibility: hidden;
         position: absolute;
     }
 }
+@media screen and (min-width: 780px) {
+    #comboboxInput {
+        width: 300px;
+    }
+    #iconFavoris2 {
+        visibility: hidden;
+        position: absolute;
+    }
+    #divNavBar {
+        margin-left: auto;
+    }
+    #flexNavBar {
+        margin-right: 15%;
+        margin-left: 15%;
+    }
+}
+/* 
+@media screen and (min-width: 780px) {
+    #afficheFavoris {
+        visibility: visible;
+    }
+} */

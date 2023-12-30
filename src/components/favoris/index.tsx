@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai"
 
 import FavorisContext from "@/context/favorisCountryContext"
@@ -10,12 +10,13 @@ import styles from "./favoris.module.scss"
 
 
 
-const Favoris = (props: { ville: any, isFavoris: any, setIsFavoris: any }) => {
-    const { addFavoris, favoris, setIsExist, isExist } = useContext(FavorisContext)
+const Favoris = (props: { ville: any, isFavoris: any, setIsFavoris: any, setIsError: any }) => {
+    const { addFavoris, favoris, setIsExist, isExist, count } = useContext(FavorisContext)
+
 
     useEffect(() => {
-        console.log(favoris, "FAVORIS")
-        console.log(isExist, "isexiste")
+        // console.log(favoris, "FAVORIS")
+        // console.log(isExist, "isexiste")
         let test = false
         favoris.forEach(element => {
             if (element == props.ville) {
@@ -31,17 +32,15 @@ const Favoris = (props: { ville: any, isFavoris: any, setIsFavoris: any }) => {
 
     }, [])
 
-    // useEffect(() => {
-    //     console.log("DDDDDDDDDDDDDDDDDDD")
-    //     favoris.forEach(element => {
-    //         if (element == props.ville) {
-    //             setIsExist(true)
-    //         }
-    //         else {
-    //             setIsExist(false)
-    //         }
-    //     });
-    // }, [favoris])
+    const ajouterFavoris = () => {
+        if (count < 10) {
+            props.setIsError(false)
+            addFavoris(props.ville)
+        }
+        else {
+            props.setIsError(true)
+        }
+    }
 
 
 
@@ -50,7 +49,8 @@ const Favoris = (props: { ville: any, isFavoris: any, setIsFavoris: any }) => {
         <div className={styles.divmain}>
             <Button
                 onClick={() => {
-                    addFavoris(props.ville)
+                    ajouterFavoris()
+
                 }}
             >
                 {isExist ? (
@@ -63,6 +63,7 @@ const Favoris = (props: { ville: any, isFavoris: any, setIsFavoris: any }) => {
                     </div>
                 )}
             </Button>
+
         </div>
     )
 }

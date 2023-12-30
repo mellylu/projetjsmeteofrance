@@ -67,6 +67,7 @@ export default function WithSubnavigation(props: { username?: string, isLoaded: 
     return (
         <Box>
             <Flex
+                id="flexNavBar"
                 bg={useColorModeValue("white", "black")}
                 color={useColorModeValue("black", "white")}
                 minH={"60px"}
@@ -74,8 +75,9 @@ export default function WithSubnavigation(props: { username?: string, isLoaded: 
                 px={{ base: 4 }}
                 borderBottom={1}
                 align={"center"}
-                mr={"15%"}
-                ml={"15%"}
+            // mr={"15%"}
+            // ml={"15%"}
+            // bgColor={"red"}
             >
                 <div id="navBar">
                     <Logo image={LogoRepublique} />
@@ -98,10 +100,27 @@ export default function WithSubnavigation(props: { username?: string, isLoaded: 
                 ) : (
                     ""
                 )}
+                <div id="iconFavoris2">
+                    <button
+                        id="buttonhome"
+                        style={{
+                            padding: "5%",
+                            fontSize: "13px",
+                            fontFamily: "'Raleway', sans-serif",
+                        }}
+                        onClick={() => afficheFavoris()}
+                    >
 
+                        {isVisibleIcon ? <AiFillHeart color={"#036ba1"} size={40} style={{ marginRight: "auto", marginLeft: "auto" }} /> : <AiOutlineClose color={"red"} size={40} style={{ marginRight: "auto", marginLeft: "auto" }} />}
+                        <p style={{ fontVariantCaps: "small-caps" }}>liste des favoris</p>
+
+                    </button>
+
+
+                </div>
                 <Flex id="ppp" flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
 
-                    <div id="divNavBar" style={{ display: "flex", position: "relative", marginLeft: "auto", marginRight: "auto" }}>
+                    <div id="divNavBar" style={{ display: "flex", position: "relative", marginRight: "auto" }}>
 
                         <ResearchBar isLoaded={props.isLoaded} setSearchVille={setSearchVille} setCoordonnees={setCoordonnees} />
                         <AiOutlineSearch onClick={() => { rechercherVilleMeteo() }} size={25} style={{ position: "absolute", right: 0, marginTop: "2%", marginRight: "2%", cursor: "pointer" }} color={"grey"} />
@@ -112,24 +131,26 @@ export default function WithSubnavigation(props: { username?: string, isLoaded: 
                     </div>
                 </Flex>
                 <Stack justify={"flex-end"} direction={"row"} spacing={6}>{/* , md: 5  */}
+                    <div id="iconFavoris">
+                        <button
+                            id="buttonhome"
+                            style={{
+                                padding: "5%",
+                                fontSize: "13px",
+                                fontFamily: "'Raleway', sans-serif",
+                            }}
+                            onClick={() => afficheFavoris()}
+                        >
 
-                    <button
-                        id="buttonhome"
-                        style={{
-                            padding: "5%",
-                            fontSize: "13px",
-                            fontFamily: "'Raleway', sans-serif",
-                        }}
-                        onClick={() => afficheFavoris()}
-                    >
-                        <div id="navBar">
                             {isVisibleIcon ? <AiFillHeart color={"#036ba1"} size={40} style={{ marginRight: "auto", marginLeft: "auto" }} /> : <AiOutlineClose color={"red"} size={40} style={{ marginRight: "auto", marginLeft: "auto" }} />}
                             <p style={{ fontVariantCaps: "small-caps" }}>liste des favoris</p>
-                        </div>
-                    </button>
+
+                        </button></div>
 
                 </Stack>
-                <AfficherFavoris isVisible={isVisible} setIsVisible={setIsVisible} setIsVisibleIcon={setIsVisibleIcon} />
+                <div id="afficheFavoris">
+                    <AfficherFavoris isVisible={isVisible} setIsVisible={setIsVisible} setIsVisibleIcon={setIsVisibleIcon} />
+                </div>
             </Flex>
 
             {/* <Collapse in={isOpen} animateOpacity>
