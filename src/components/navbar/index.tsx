@@ -80,7 +80,7 @@ export default function WithSubnavigation(props: { username?: string, isLoaded: 
             // ml={"15%"}
             // bgColor={"red"}
             >
-                <div id="navBar" style={{ marginRight: '20px' }}>
+                <div id="navBar">
                     <Logo image={LogoRepublique} />
                 </div> <div id="navBar">
                     <Logo image={LogoMeteoFrance} />
