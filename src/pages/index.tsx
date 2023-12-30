@@ -57,9 +57,9 @@ export default function Index(props: { isLoaded: any }) {
         const isSoiree = tempsFiveDay[0]?.forecastSoiree?.some((m: any) => m.day === tempsFiveDay[0]?.forecast[buttonSelected]?.day);
 
         let selected = 'soiree';
-        if (isNuit) selected = 'nuit';
         if (isApresMidi) selected = 'apresMidi';
         if (isMatin) selected = 'matin';
+        if (isNuit) selected = 'nuit';
 
         setTimeDaySelected({
             ...timeDaySelected,
