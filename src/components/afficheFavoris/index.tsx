@@ -40,7 +40,7 @@ const Index = (props: { isVisible: any, setIsVisible: any, setIsVisibleIcon: any
     }
 
     return (
-        <div className={`${styles.div} ${props.isVisible ? styles.animateWidth : ''}`}>
+        <div id="animateWidth" className={`${styles.div} ${props.isVisible ? styles.animateWidth : ''}`}>
             <div className={`${diplayContent ? '' : styles.dnone}`}>
                 <div className={styles.divTitre}>
                     <AiFillHeart color={"red"} size={40} style={{ marginRight: "2%" }} />

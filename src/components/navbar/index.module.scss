@@ -16,3 +16,15 @@
 //         /* Ajustez la taille du cœur des favoris */
 //     }
 // }
+
+#ppp {
+    flex: 1;
+    justify-content: center;
+}
+
+@media (min-width: 48em) {
+    #ppp {
+        justify-content: start;
+        /* pour les écrans de taille moyenne (md) */
+    }
+}

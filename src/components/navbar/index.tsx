@@ -75,6 +75,7 @@ export default function WithSubnavigation(props: { username?: string, isLoaded: 
                 px={{ base: 4 }}
                 borderBottom={1}
                 align={"center"}
+
             // mr={"15%"}
             // ml={"15%"}
             // bgColor={"red"}
@@ -84,22 +85,7 @@ export default function WithSubnavigation(props: { username?: string, isLoaded: 
                 </div> <div id="navBar">
                     <Logo image={LogoMeteoFrance} />
                 </div>
-                {props.username ? (
-                    <p
-                        style={{
-                            marginLeft: "2%",
-                            color: "black",
-                            fontSize: 16,
-                            fontWeight: 500,
-                        }}
-                    >
-                        {`Bienvenue ${props.username.charAt(0).toUpperCase()}${props.username.slice(
-                            1,
-                        )}`}
-                    </p>
-                ) : (
-                    ""
-                )}
+                {/* <div style={{ display: "flex" }}> */}
                 <div id="iconFavoris2">
                     <button
                         id="buttonhome"
@@ -115,10 +101,8 @@ export default function WithSubnavigation(props: { username?: string, isLoaded: 
                         <p style={{ fontVariantCaps: "small-caps" }}>liste des favoris</p>
 
                     </button>
-
-
                 </div>
-                <Flex id="ppp" flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
+                <Flex id="ppp" justify={{ base: "center", md: "start" }}>{/*flex={{ base: 1 }} */}
 
                     <div id="divNavBar" style={{ display: "flex", position: "relative", marginRight: "auto" }}>
 
@@ -130,6 +114,7 @@ export default function WithSubnavigation(props: { username?: string, isLoaded: 
                         </div> */}
                     </div>
                 </Flex>
+                {/* </div> */}
                 <Stack justify={"flex-end"} direction={"row"} spacing={6}>{/* , md: 5  */}
                     <div id="iconFavoris">
                         <button

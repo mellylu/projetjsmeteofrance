@@ -6,6 +6,7 @@ import FavorisContext from "@/context/favorisCountryContext"
 import Button from "@/components//button"
 
 import styles from "./favoris.module.scss"
+import { elements } from "chart.js"
 
 
 
@@ -15,16 +16,11 @@ const Favoris = (props: { ville: any, isFavoris: any, setIsFavoris: any, setIsEr
 
 
     useEffect(() => {
-        // console.log(favoris, "FAVORIS")
-        // console.log(isExist, "isexiste")
         let test = false
         favoris.forEach(element => {
             if (element == props.ville) {
                 test = true
             }
-            // else {
-            //     setIsExist(false)
-            // }
             if (test) {
                 setIsExist(true)
             }
@@ -33,13 +29,19 @@ const Favoris = (props: { ville: any, isFavoris: any, setIsFavoris: any, setIsEr
     }, [])
 
     const ajouterFavoris = () => {
-        if (count < 10) {
-            props.setIsError(false)
+        if (isExist) {
             addFavoris(props.ville)
         }
         else {
-            props.setIsError(true)
+            if (count < 10) {
+                props.setIsError(false)
+                addFavoris(props.ville)
+            }
+            else {
+                props.setIsError(true)
+            }
         }
+
     }
 
 
