@@ -69,11 +69,9 @@ export default function CityPage(props: { isLoaded: any }) {
         }
     }, []);
 
-    useEffect(() => {
-        console.log(coordonnees, "COORDONNEES")
-    }, [coordonnees])
 
     useEffect(() => {
+        setCoordonnees({ lat: Number(router.query.lat), lng: Number(router.query.lng) })
         const villeFromURL = window.location.pathname.split('/').pop()
         setVille(villeFromURL || '')
         if (villeFromURL) {
@@ -105,7 +103,7 @@ export default function CityPage(props: { isLoaded: any }) {
             <div className={styles.map2}>
                 {ville ? (
                     <div>
-                        <div style={{ display: "flex", alignItems: "center", marginBottom: "4%" }}>
+                        <div style={{ display: "flex", alignItems: "center", marginBottom: "2%" }}>
 
                             <h1 className={styles.h1} style={{ marginRight: "2%" }} >METEO {decodeURIComponent(ville)}</h1>
 
@@ -143,9 +141,9 @@ export default function CityPage(props: { isLoaded: any }) {
                                 </div>
 
                             </div>
-                        ) : <div style={{ marginLeft: "5%", marginTop: "5%" }}><p>Chargement de la température...</p></div>}
+                        ) : <div style={{ marginLeft: "5%", marginTop: "3%" }}><p>Chargement de la température...</p></div>}
 
-                        <div>
+                        <div style={{ marginTop: "2%" }}>
                             {donneesGraphique ? <Graphique donneesGraphique={donneesGraphique} />
                                 : ""}
                         </div>

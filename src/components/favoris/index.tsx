@@ -33,7 +33,7 @@ const Favoris = (props: { ville: any, isFavoris: any, setIsFavoris: any, setIsEr
             addFavoris(props.ville)
         }
         else {
-            if (count < 10) {
+            if (count < 15) {
                 props.setIsError(false)
                 addFavoris(props.ville)
             }

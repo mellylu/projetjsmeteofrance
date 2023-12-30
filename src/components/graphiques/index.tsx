@@ -127,7 +127,7 @@ const LineChart = (props: { donneesGraphique: any }) => {
 
                     const xCoordinate = chart.scales.x.getPixelForValue(horaires);
                     const yCoordinate = chart.scales.y.getPixelForValue(Math.round(donneesGraphiqueRef.current[index].main.temp));
-                    const legendText = Math.round(donneesGraphiqueRef.current[index].main.temp) + "°C";
+                    const legendText = Math.round(donneesGraphiqueRef.current[index].main.temp) + "°";
 
                     ctx.fillStyle = 'black';
                     ctx.font = '12px Arial';

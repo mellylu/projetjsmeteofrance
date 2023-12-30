@@ -23,8 +23,6 @@ export const FavorisCountryContextProvider = (props: { children: any }) => {
     const count = favoris && favoris.length || 0;
 
     const addFavoris = (ville: any) => {
-        // if (count < 10){
-
         if (count > 0) {
             let isExist = false
             favoris.forEach((element: any) => {
@@ -47,10 +45,6 @@ export const FavorisCountryContextProvider = (props: { children: any }) => {
             setFavoris([ville])
             setIsExist(true)
         }
-        // }
-        // else{
-
-        // }
     }
 
 

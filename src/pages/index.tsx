@@ -95,7 +95,7 @@ export default function Index(props: { isLoaded: any }) {
         <>
             <main className={styles.main}>
                 <div className={styles.map}>
-                    <h1 className={styles.h1}>METEO FRANCE</h1>
+                    <h1 className={styles.h11}>METEO FRANCE</h1>
                     <BarButtons
                         boutons={boutons}
                         setBoutons={setBoutons}
@@ -108,7 +108,7 @@ export default function Index(props: { isLoaded: any }) {
                         setTemps={setTemps}
                         setDaySelected={setDaySelected}
                     />
-                    <div style={{ width: "100%", height: "120vh" }}>
+                    <div style={{ width: "100%", height: "120vh", marginTop: "1%" }}>
                         <GoogleMap
                             zoom={6}
                             center={{ lat: 46.6167, lng: 1.85 }}

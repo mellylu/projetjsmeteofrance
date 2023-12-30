@@ -4,7 +4,7 @@
         padding: 3%;
         // border-radius: 10px;
         width: 0%;
-        height: 100%;
+        height: 158vh;
         position: absolute;
         top: 0%;
         right: 0%;
@@ -98,13 +98,14 @@
         padding: 3%;
         // border-radius: 10px;
         width: 0%;
-        height: 100%;
+        height: 157vh;
         position: absolute;
         top: 0%;
         right: 0%;
         list-style: none;
         padding: 0;
         transition: width 0.5s ease-in-out;
+
 
         &.animateWidth {
             // height: 100%;
