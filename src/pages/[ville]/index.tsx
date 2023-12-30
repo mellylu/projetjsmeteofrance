@@ -34,6 +34,7 @@ export default function CityPage(props: { isLoaded: any }) {
     const [boutons, setBoutons] = useState<any>({})
     const router = useRouter()
     const [coordonnees, setCoordonnees] = useState<any>({})
+    const [daySelected, setDaySelected] = useState<any>("AUJOURD'HUI")
 
     useEffect(() => {
         console.log(ville, "VILLLLLLLE")
@@ -139,6 +140,7 @@ export default function CityPage(props: { isLoaded: any }) {
                             datePlus4={previsionsDate.datePlus4}
                             datePlus5={previsionsDate.datePlus5}
                             setTemps={setTemps}
+                            setDaySelected={setDaySelected}
                         />
                         {temps && temperature !== null && icon !== null ? (
                             <div className={styles.rectangle}>

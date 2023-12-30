@@ -14,7 +14,7 @@ const Index = (props: {
     datePlus4: string
     datePlus5: string
     setTemps: any
-    setDaySelected?: any
+    setDaySelected: any
 }) => {
 
     const formatDate = (dateString: string) => {
