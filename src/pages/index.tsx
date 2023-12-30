@@ -122,7 +122,7 @@ export default function Index(props: { isLoaded: any }) {
                                     icon={{
                                         url: `https://openweathermap.org/img/wn/${v.temps}@2x.png`,
                                         scaledSize: new window.google.maps.Size(60, 60), // Taille de l'image
-                                        anchor: new window.google.maps.Point(30, 30) // Le point d'ancrage au bas de l'image
+                                        anchor: new window.google.maps.Point(30, 30) // Le point d'ancrage au bas de l'image 
                                     }}
                                     label={{
                                         text: `${v.degres}°`, // Texte à afficher sur le marqueur
