@@ -58,7 +58,6 @@ export const FavorisCountryContextProvider = (props: { children: any }) => {
     const context = { addFavoris, favoris, isExist, setIsExist, count }
 
     useEffect(() => {
-        console.log(favoris)
         Cookies.set('favoris', JSON.stringify(favoris), { expires: 7 }) //si il y a rien dans mon cookie storage
         return () => {
             Cookies.set('favoris', JSON.stringify(favoris), { expires: 7 })
