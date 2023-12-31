@@ -104,7 +104,7 @@ export default function WithSubnavigation(props: { username?: string, isLoaded: 
                 </div>
                 {/* <div style={{ display: "flex" }}> */}
                 <div id="iconFavoris2" style={{ display: "flex" }}>
-                    <Image id="imageLogo" src={LogoMeteoFrance} alt="return home" onClick={() => { router.push("/") }} />
+                    <Image id="imageLogo" src={LogoMeteoFrance} alt="return home" onClick={() => { router.push("/") }} style={{ cursor: "pointer" }} />
                     <button
                         id="buttonhome"
                         style={{
