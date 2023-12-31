@@ -9,6 +9,7 @@ import Footer from "@/components/footer"
 import { ChakraProvider } from "@chakra-ui/react"
 
 import "@/styles/globals.css"
+import React from "react"
 
 
 export default function Index({ Component, pageProps }: AppProps) {

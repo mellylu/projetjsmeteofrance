@@ -7,6 +7,8 @@ const FavorisContext = createContext({
     isExist: false,
     setIsExist: (x: any) => { },
     count: 0,
+    isVisibleIcon: true,
+    setIsVisibleIcon: (x: any) => { },
     //fonction pour remove un favoris
     //fonction pour remove tous les favoris
 })
@@ -20,6 +22,7 @@ export const FavorisCountryContextProvider = (props: { children: any }) => {
 
     const [favoris, setFavoris] = useState<any>(typeof window !== "undefined" ? getFavorisCookieValue() : [])
     const [isExist, setIsExist] = useState<any>(false)
+    const [isVisibleIcon, setIsVisibleIcon] = React.useState<any>(true)
     const count = favoris && favoris.length || 0;
 
     const addFavoris = (ville: any, lat: any, lng: any) => {
@@ -48,7 +51,7 @@ export const FavorisCountryContextProvider = (props: { children: any }) => {
     }
 
 
-    const context = { addFavoris, favoris, isExist, setIsExist, count }
+    const context = { addFavoris, favoris, isExist, setIsExist, count, isVisibleIcon, setIsVisibleIcon }
 
     useEffect(() => {
         Cookies.set('favoris', JSON.stringify(favoris), { expires: 7 }) //si il y a rien dans mon cookie storage

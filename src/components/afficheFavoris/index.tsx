@@ -8,7 +8,7 @@ import styles from "./index.module.scss"
 
 const Index = (props: { isVisible: any, setIsVisible: any, setIsVisibleIcon: any }) => {
 
-    const { addFavoris, favoris, setIsExist, isExist } = useContext(FavorisContext)
+    const { addFavoris, favoris, setIsExist, isExist, isVisibleIcon, setIsVisibleIcon } = useContext(FavorisContext)
     const [diplayContent, setDisplayContent] = React.useState(false)
 
     const router = useRouter()
@@ -36,6 +36,7 @@ const Index = (props: { isVisible: any, setIsVisible: any, setIsVisibleIcon: any
         }
         router.push(`/${el.ville}?lat=${el.lat}&lng=${el.lng}`)
         props.setIsVisible(false)
+        setIsVisibleIcon(true)
     }
 
     return (
