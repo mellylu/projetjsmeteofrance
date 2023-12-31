@@ -111,7 +111,7 @@ export default function WithSubnavigation(props: { username?: string, isLoaded: 
 
                     </button>
                 </div>
-                <Flex id="ppp" justify={{ base: "center", md: "start" }}>{/*flex={{ base: 1 }} */}
+                <Flex id="ppp" justify={{ base: "center", md: "start" }}>
 
                     <div id="divNavBar" style={{ display: "flex", position: "relative", marginRight: "auto" }}>
                         <div>
@@ -121,13 +121,9 @@ export default function WithSubnavigation(props: { username?: string, isLoaded: 
                         <AiOutlineSearch onClick={() => { rechercherVilleMeteo() }} size={25} style={{ position: "absolute", right: 0, marginTop: "2%", marginRight: "2%", cursor: "pointer" }} color={"grey"} />
 
                     </div>
-                    {/* <div style={{ marginRight: "auto" }}>
-                        
-                    </div> */}
 
                 </Flex>
-                {/* </div> */}
-                <Stack justify={"flex-end"} direction={"row"} spacing={6}>{/* , md: 5  */}
+                <Stack justify={"flex-end"} direction={"row"} spacing={6}>
                     <div id="iconFavoris">
                         <button
                             id="buttonhome"

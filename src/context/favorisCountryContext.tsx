@@ -50,11 +50,6 @@ export const FavorisCountryContextProvider = (props: { children: any }) => {
         }
     }
 
-    useEffect(() => {
-        console.log(favoris, "FAVORIS")
-    }, [favoris])
-
-
 
     const context = { addFavoris, favoris, isExist, setIsExist, count }
 

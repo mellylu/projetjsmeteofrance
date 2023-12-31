@@ -48,7 +48,7 @@ const Index = (props: { isVisible: any, setIsVisible: any, setIsVisibleIcon: any
                 </div>
                 <div className={styles.ligne}></div>
                 {favoris.length > 0 ? favoris.map((el: any) => (
-                    <div className={styles.divElement} key={el}>
+                    <div className={styles.divElement} key={el.ville}>
                         <button onClick={() => clickVille(el)}>
                             <p className={styles.pElement}>{decodeURIComponent(el.ville)}</p>
                         </button>
