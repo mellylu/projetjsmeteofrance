@@ -110,7 +110,7 @@ export default function Index(props: { isLoaded: any }) {
                     />
                     <div style={{ width: "100%", height: "120vh", marginTop: "1%" }}>
                         <GoogleMap
-                            zoom={6}
+                            zoom={window.innerWidth > 780 ? 6 : 5}
                             center={{ lat: 46.6167, lng: 1.85 }}
                             mapContainerStyle={MAPCONTAINERSTYLES}
                             options={OPTIONS}
@@ -121,8 +121,8 @@ export default function Index(props: { isLoaded: any }) {
                                     position={{ lat: v.lat, lng: v.lng }}
                                     icon={{
                                         url: `https://openweathermap.org/img/wn/${v.temps}@2x.png`,
-                                        scaledSize: new window.google.maps.Size(60, 60),
-                                        anchor: new window.google.maps.Point(30, 30)
+                                        scaledSize: window.innerWidth > 780 ? new window.google.maps.Size(60, 60) : new window.google.maps.Size(40, 40),
+                                        anchor: window.innerWidth > 780 ? new window.google.maps.Point(30, 30) : new window.google.maps.Point(20, 20),
                                     }}
                                     label={{
                                         text: `${v.degres}°`,

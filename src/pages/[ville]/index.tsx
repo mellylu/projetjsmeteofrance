@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext, useMemo } from 'react';
 import { useRouter } from 'next/router';
 import { GoogleMap, Marker } from "@react-google-maps/api"
 
@@ -97,6 +97,8 @@ export default function CityPage(props: { isLoaded: any }) {
         }
     };
 
+    const memoizedGraphique = useMemo(() => <Graphique donneesGraphique={donneesGraphique} />, [donneesGraphique]);
+
     return (
         <main className={styles.main}>
 
@@ -144,7 +146,7 @@ export default function CityPage(props: { isLoaded: any }) {
                         ) : <div style={{ marginLeft: "5%", marginTop: "3%" }}><p>Chargement de la température...</p></div>}
 
                         <div style={{ marginTop: "2%" }}>
-                            {donneesGraphique ? <Graphique donneesGraphique={donneesGraphique} />
+                            {donneesGraphique ? memoizedGraphique
                                 : ""}
                         </div>
                         <EmplacementVille isLoaded={props.isLoaded} coordonnees={coordonnees} />

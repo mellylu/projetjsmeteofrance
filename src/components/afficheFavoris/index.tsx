@@ -35,6 +35,7 @@ const Index = (props: { isVisible: any, setIsVisible: any, setIsVisibleIcon: any
             setIsExist(true)
         }
         router.push(`/${el.ville}?lat=${el.lat}&lng=${el.lng}`)
+        props.setIsVisible(false)
     }
 
     return (

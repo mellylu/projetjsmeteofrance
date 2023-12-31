@@ -147,6 +147,12 @@
     padding: 0 0 40px 40px;
 }
 
+@media (max-width: 780px) {
+    .marker__label {
+        padding: 0 0 30px 30px;
+    }
+}
+
 .overlay {
     position: fixed;
     background-color: white;
