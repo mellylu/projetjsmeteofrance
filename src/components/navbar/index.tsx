@@ -116,7 +116,7 @@ export default function WithSubnavigation(props: { username?: string, isLoaded: 
                     >
 
                         {isVisibleIcon ? <AiFillHeart color={"#036ba1"} size={40} style={{ marginRight: "auto", marginLeft: "auto" }} /> : <AiOutlineClose color={"red"} size={40} style={{ marginRight: "auto", marginLeft: "auto" }} />}
-                        <p style={{ fontVariantCaps: "small-caps" }}>liste des favoris</p>
+                        <p style={{ fontVariantCaps: "small-caps" }}>liste favoris</p>
 
                     </button>
                 </div>
