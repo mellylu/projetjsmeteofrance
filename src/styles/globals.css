@@ -85,6 +85,9 @@ main {
         width: 60px;
         object-fit: contain;
     }
+    #comboboxInput {
+        width: 160px;
+    }
 }
 @media screen and (min-width: 400px) {
     #imageLogo {
