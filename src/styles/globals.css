@@ -80,16 +80,16 @@ main {
     }
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 500px) {
     #imageLogo {
-        width: 60px;
+        width: 30%;
         object-fit: contain;
     }
     #comboboxInput {
         width: 160px;
     }
 }
-@media screen and (min-width: 400px) {
+@media screen and (min-width: 500px) {
     #imageLogo {
         width: 100px;
     }
