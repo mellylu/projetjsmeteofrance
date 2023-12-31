@@ -112,7 +112,7 @@ export default function Index(props: { isLoaded: any }) {
                         <GoogleMap
                             zoom={window.innerWidth > 780 ? 6 : 5}
                             center={{ lat: 46.6167, lng: 1.85 }}
-                            mapContainerStyle={MAPCONTAINERSTYLES}
+                            mapContainerStyle={window.innerWidth < 391 ? MAPCONTAINERSTYLES.MAPCONTAINERSTYLES2 : MAPCONTAINERSTYLES.MAPCONTAINERSTYLES}
                             options={OPTIONS}
                         >
                             {temps && temps.map((v: any, k: any) => (
