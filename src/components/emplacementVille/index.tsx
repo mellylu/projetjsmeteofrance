@@ -14,7 +14,7 @@ export default Index;
 function Map(props: { coordonnees: any }) {
     return (
         <div className={styles.map}>
-            <GoogleMap zoom={15} center={props.coordonnees} mapContainerClassName={styles.mapcontainer}>
+            <GoogleMap zoom={11} center={props.coordonnees} mapContainerClassName={styles.mapcontainer}>
                 <Marker
                     key={props.coordonnees.lat}
                     position={props.coordonnees}

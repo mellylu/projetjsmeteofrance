@@ -12,22 +12,22 @@ import {
 import "@reach/combobox/styles.css"
 
 
-export default function Index(props: { setSearchVille: any, isLoaded: any, setCoordonnees: any }) {
+export default function Index(props: { setSearchVille: any, isLoaded: any, setCoordonnees: any, setSelected: any }) {
     if (!props.isLoaded) return <div>Loading...</div>
-    return <Map setSearchVille={props.setSearchVille} setCoordonnees={props.setCoordonnees} />
+    return <Map setSearchVille={props.setSearchVille} setCoordonnees={props.setCoordonnees} setSelected={props.setSelected} />
 }
-function Map(props: { setSearchVille: any, setCoordonnees: any }) {
-    const [selected, setSelected] = useState<any>("")
+function Map(props: { setSearchVille: any, setCoordonnees: any, setSelected: any }) {
+    // const [selected, setSelected] = useState<any>(false)
     return (
         <div>
             <div>
-                <PlacesAutocomplete setSearchVille={props.setSearchVille} selected={selected} setSelected={setSelected} setCoordonnees={props.setCoordonnees} />
+                <PlacesAutocomplete setSearchVille={props.setSearchVille} setSelected={props.setSelected} setCoordonnees={props.setCoordonnees} />
             </div>
         </div>
     )
 }
 
-const PlacesAutocomplete = (props: { selected: any; setSelected: any, setSearchVille: any, setCoordonnees: any }) => {
+const PlacesAutocomplete = (props: { setSelected: any, setSearchVille: any, setCoordonnees: any }) => {
     const {
         ready,
         value,
@@ -47,6 +47,7 @@ const PlacesAutocomplete = (props: { selected: any; setSelected: any, setSearchV
         const { lat, lng } = getLatLng(results[0])
         props.setSearchVille(address.split(",")[0])
         props.setCoordonnees({ "lat": lat, "lng": lng })
+        props.setSelected(true)
     }
 
     return (

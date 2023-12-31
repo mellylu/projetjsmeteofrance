@@ -107,7 +107,7 @@ export default function CityPage(props: { isLoaded: any }) {
 
                             <h1 className={styles.h1} style={{ marginRight: "2%" }} >METEO {decodeURIComponent(ville)}</h1>
 
-                            <Favoris ville={ville} isFavoris={isFavoris} setIsFavoris={setIsFavoris} setIsError={setIsError} />
+                            <Favoris ville={ville} isFavoris={isFavoris} setIsFavoris={setIsFavoris} setIsError={setIsError} lat={coordonnees.lat} lng={coordonnees.lng} />
                             {isError ? <p style={{ marginLeft: "2%", color: "red" }}><i>Impossible : nombre maximum de favoris atteins</i></p> : ""}
                         </div>
                         <BarButtons

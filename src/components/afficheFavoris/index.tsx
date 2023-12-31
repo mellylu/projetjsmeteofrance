@@ -36,7 +36,7 @@ const Index = (props: { isVisible: any, setIsVisible: any, setIsVisibleIcon: any
         if (test) {
             setIsExist(true)
         }
-        router.push(`/${el}`)
+        router.push(`/${el.ville}?lat=${el.lat}&lng=${el.lng}`)
     }
 
     return (
@@ -50,7 +50,7 @@ const Index = (props: { isVisible: any, setIsVisible: any, setIsVisibleIcon: any
                 {favoris.length > 0 ? favoris.map((el: any) => (
                     <div className={styles.divElement} key={el}>
                         <button onClick={() => clickVille(el)}>
-                            <p className={styles.pElement}>{decodeURIComponent(el)}</p>
+                            <p className={styles.pElement}>{decodeURIComponent(el.ville)}</p>
                         </button>
                         {/* <AiOutlineClose className={styles.croix} color={"black"} onClick={() => addFavoris(el)} /> */}
                     </div>

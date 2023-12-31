@@ -11,14 +11,14 @@ import { elements } from "chart.js"
 
 
 
-const Favoris = (props: { ville: any, isFavoris: any, setIsFavoris: any, setIsError: any }) => {
+const Favoris = (props: { ville: any, lat: any, lng: any, isFavoris: any, setIsFavoris: any, setIsError: any }) => {
     const { addFavoris, favoris, setIsExist, isExist, count } = useContext(FavorisContext)
 
 
     useEffect(() => {
         let test = false
-        favoris.forEach(element => {
-            if (element == props.ville) {
+        favoris.forEach((element: any) => {
+            if (element.ville == props.ville) {
                 test = true
             }
             if (test) {
@@ -30,12 +30,12 @@ const Favoris = (props: { ville: any, isFavoris: any, setIsFavoris: any, setIsEr
 
     const ajouterFavoris = () => {
         if (isExist) {
-            addFavoris(props.ville)
+            addFavoris(props.ville, props.lat, props.lng)
         }
         else {
             if (count < 15) {
                 props.setIsError(false)
-                addFavoris(props.ville)
+                addFavoris(props.ville, props.lat, props.lng)
             }
             else {
                 props.setIsError(true)

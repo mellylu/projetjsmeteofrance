@@ -30,23 +30,32 @@ export default function WithSubnavigation(props: { username?: string, isLoaded: 
     const [isVisibleIcon, setIsVisibleIcon] = useState<any>(true)
     const { addFavoris, favoris, setIsExist, isExist } = useContext(FavorisContext)
     const [coordonnees, setCoordonnees] = useState<any>({})
+    const [selected, setSelected] = useState<any>(false)
+    const [isError, setIsError] = useState<any>(false)
 
     const rechercherVilleMeteo = () => {
-        let test = false
-        favoris.forEach(element => {
-            if (decodeURIComponent(element) == searchVille) {
-                test = true
+        if (selected) {
+            setIsError(false)
+            let test = false
+            favoris.forEach((element: any) => {
+                if (decodeURIComponent(element.ville) == searchVille) {
+                    test = true
+                }
+
+            });
+
+            if (test) {
+                setIsExist(true)
             }
+            else {
+                setIsExist(false)
+            }
+            router.push(`/${searchVille}?lat=${coordonnees.lat}&lng=${coordonnees.lng}`)
 
-        });
-
-        if (test) {
-            setIsExist(true)
         }
         else {
-            setIsExist(false)
+            setIsError(true)
         }
-        router.push(`/${searchVille}?lat=${coordonnees.lat}&lng=${coordonnees.lng}`)
     }
 
 
@@ -105,14 +114,17 @@ export default function WithSubnavigation(props: { username?: string, isLoaded: 
                 <Flex id="ppp" justify={{ base: "center", md: "start" }}>{/*flex={{ base: 1 }} */}
 
                     <div id="divNavBar" style={{ display: "flex", position: "relative", marginRight: "auto" }}>
-
-                        <ResearchBar isLoaded={props.isLoaded} setSearchVille={setSearchVille} setCoordonnees={setCoordonnees} />
+                        <div>
+                            <ResearchBar isLoaded={props.isLoaded} setSearchVille={setSearchVille} setCoordonnees={setCoordonnees} setSelected={setSelected} />
+                            {isError ? <p style={{ color: "red", fontSize: "10px" }}><i>Vous n'avez pas sélectionné une ville</i></p> : ""}
+                        </div>
                         <AiOutlineSearch onClick={() => { rechercherVilleMeteo() }} size={25} style={{ position: "absolute", right: 0, marginTop: "2%", marginRight: "2%", cursor: "pointer" }} color={"grey"} />
-                        {/* <div id="navBar2">
-                            {isVisibleIcon ? <AiFillHeart color={"#036ba1"} size={40} style={{ marginRight: "auto", marginLeft: "auto" }} /> : <AiOutlineClose color={"red"} size={40} style={{ marginRight: "auto", marginLeft: "auto" }} />}
 
-                        </div> */}
                     </div>
+                    {/* <div style={{ marginRight: "auto" }}>
+                        
+                    </div> */}
+
                 </Flex>
                 {/* </div> */}
                 <Stack justify={"flex-end"} direction={"row"} spacing={6}>{/* , md: 5  */}
