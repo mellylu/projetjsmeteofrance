@@ -79,3 +79,15 @@ main {
         padding-bottom: 5vh;
     }
 }
+
+@media screen and (max-width: 400px) {
+    #imageLogo {
+        width: 60px;
+        object-fit: contain;
+    }
+}
+@media screen and (min-width: 400px) {
+    #imageLogo {
+        width: 100px;
+    }
+}

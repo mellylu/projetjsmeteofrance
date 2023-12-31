@@ -20,6 +20,7 @@ import {
     useColorModeValue,
     useDisclosure,
 } from "@chakra-ui/react"
+import Image from "next/image";
 
 
 export default function WithSubnavigation(props: { username?: string, isLoaded: any }) {
@@ -75,12 +76,20 @@ export default function WithSubnavigation(props: { username?: string, isLoaded: 
     return (
         <Box>
             <Flex
+                // id="flexNavBar"
+                // bg={useColorModeValue("white", "black")}
+                // color={useColorModeValue("black", "white")}
+                // minH={"60px"}
+                // py={{ base: 2 }}
+                // px={{ base: 4 }}
+                // borderBottom={1}
+                // align={"center"}
                 id="flexNavBar"
                 bg={useColorModeValue("white", "black")}
                 color={useColorModeValue("black", "white")}
                 minH={"60px"}
                 py={{ base: 2 }}
-                px={{ base: 4 }}
+                // px={{ base: -3 }}
                 borderBottom={1}
                 align={"center"}
 
@@ -95,7 +104,7 @@ export default function WithSubnavigation(props: { username?: string, isLoaded: 
                 </div>
                 {/* <div style={{ display: "flex" }}> */}
                 <div id="iconFavoris2" style={{ display: "flex" }}>
-                    <Logo image={LogoMeteoFrance} />
+                    <Image id="imageLogo" src={LogoMeteoFrance} alt="return home" onClick={() => { router.push("/") }} />
                     <button
                         id="buttonhome"
                         style={{
