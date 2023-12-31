@@ -93,7 +93,7 @@ export default function CityPage(props: { isLoaded: any }) {
             const iconData = data.list[0].weather[0].icon;
             setIcon(iconData);
         } catch (error) {
-            console.error('Erreur lors de la récupération des données météo :', error);
+            // console.error('Erreur lors de la récupération des données météo :', error);
         }
     };
 

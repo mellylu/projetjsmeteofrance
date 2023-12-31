@@ -27,8 +27,6 @@ const Index = (props: { isVisible: any, setIsVisible: any, setIsVisibleIcon: any
         let test = false
         favoris.forEach(element => {
             if (element == el) {
-                console.log("element", element)
-                console.log("el", el)
                 test = true
             }
 

@@ -28,6 +28,6 @@ export const fetchData = async (setActualTemp: any) => {
 
         setActualTemp(results)
     } catch (error) {
-        console.error(error)
+        // console.error(error)
     }
 }

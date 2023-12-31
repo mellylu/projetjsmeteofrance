@@ -123,6 +123,6 @@ export const fetchDataFiveday = async (setData: any, url: string) => {
     })
     setData(transformData)
   } catch (error) {
-    console.error("ERRRREURRR", error)
+    // console.error("ERRRREURRR", error)
   }
 }
