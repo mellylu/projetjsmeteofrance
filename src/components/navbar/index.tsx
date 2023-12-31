@@ -94,7 +94,8 @@ export default function WithSubnavigation(props: { username?: string, isLoaded: 
                     <Logo image={LogoMeteoFrance} />
                 </div>
                 {/* <div style={{ display: "flex" }}> */}
-                <div id="iconFavoris2">
+                <div id="iconFavoris2" style={{ display: "flex" }}>
+                    <Logo image={LogoMeteoFrance} />
                     <button
                         id="buttonhome"
                         style={{

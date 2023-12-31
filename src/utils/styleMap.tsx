@@ -7,7 +7,7 @@ const MAPCONTAINERSTYLES = {
     // padding: "10%",
 }
 const MAPCONTAINERSTYLES2 = {
-    height: "60vh",
+    height: "75vh",
     // height: "100vh",
     width: "90%",
     borderRadius: "1%",
