@@ -54,12 +54,28 @@ const LineChart = (props: { donneesGraphique: any }) => {
 
     const options = {
         scales: {
-            x: {
-                display: true,
+            // x: {
+            //     display: true,
+            //     grid: {
+            //         display: false,
+            //     },
+            //     ticks: {
+            //         fontSize: 24, // Ajustez la taille de la police ici
+            //     },
+
+            // },
+            x:
+            {
+                ticks: {
+                    font: {
+                        size: 8, // Ajustez la taille de la police ici
+                    },
+                },
                 grid: {
                     display: false,
                 },
             },
+
             y: {
                 display: false,
                 grid: {
@@ -77,7 +93,7 @@ const LineChart = (props: { donneesGraphique: any }) => {
         layout: {
             padding: {
                 top: 50,
-                right: 20,
+                right: 15,
                 bottom: 0,
                 left: 0,
             },
