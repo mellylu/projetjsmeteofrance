@@ -1,4 +1,5 @@
-export const timeDayChoice = (timeDaySelected: any, temps: any) => {
+export const timeDayChoice = (timeDaySelected: { apresMidi: boolean, matin: boolean, nuit: boolean, soiree: boolean, selected: string }, temps: Array<object>) => {
+
     return temps?.map((t: any) => {
         if (t.nuit && timeDaySelected.selected === "nuit") {
             return {

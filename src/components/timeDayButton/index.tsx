@@ -1,11 +1,12 @@
 import React from 'react';
 import styles from './index.module.scss';
+import { timeDayChoice } from '@/utils/timeDayChoice';
 
 export default function TimeDayButton(props:
     {
-        timeDaySelected: any
+        timeDaySelected: { apresMidi: boolean, matin: boolean, nuit: boolean, soiree: boolean, selected: string }
         setTimeDaySelected: any
-        daySelected: any
+        daySelected: string
         temps: any
     }) {
 

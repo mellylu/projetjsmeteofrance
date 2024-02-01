@@ -26,12 +26,12 @@ import Image from "next/image";
 export default function WithSubnavigation(props: { username?: string, isLoaded: any }) {
     const { isOpen, onToggle } = useDisclosure()
     const router = useRouter()
-    const [searchVille, setSearchVille] = useState<any>("")
-    const [isVisible, setIsVisible] = useState<any>(false)
+    const [searchVille, setSearchVille] = useState<string>("")
+    const [isVisible, setIsVisible] = useState<boolean>(false)
     const { addFavoris, favoris, setIsExist, isExist, isVisibleIcon, setIsVisibleIcon } = useContext(FavorisContext)
     const [coordonnees, setCoordonnees] = useState<any>({})
-    const [selected, setSelected] = useState<any>(false)
-    const [isError, setIsError] = useState<any>(false)
+    const [selected, setSelected] = useState<boolean>(false)
+    const [isError, setIsError] = useState<boolean>(false)
 
     const rechercherVilleMeteo = () => {
         if (selected) {

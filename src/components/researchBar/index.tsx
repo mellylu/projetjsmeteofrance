@@ -12,11 +12,11 @@ import {
 import "@reach/combobox/styles.css"
 
 
-export default function Index(props: { setSearchVille: any, isLoaded: any, setCoordonnees: any, setSelected: any }) {
+export default function Index(props: { setSearchVille: React.Dispatch<React.SetStateAction<string>>, isLoaded: boolean, setCoordonnees: React.Dispatch<React.SetStateAction<object>>, setSelected: React.Dispatch<React.SetStateAction<boolean>> }) {
     if (!props.isLoaded) return <div>Loading...</div>
     return <Map setSearchVille={props.setSearchVille} setCoordonnees={props.setCoordonnees} setSelected={props.setSelected} />
 }
-function Map(props: { setSearchVille: any, setCoordonnees: any, setSelected: any }) {
+function Map(props: { setSearchVille: React.Dispatch<React.SetStateAction<string>>, setCoordonnees: React.Dispatch<React.SetStateAction<object>>, setSelected: React.Dispatch<React.SetStateAction<boolean>> }) {
     // const [selected, setSelected] = useState<any>(false)
     return (
         <div>
@@ -27,7 +27,7 @@ function Map(props: { setSearchVille: any, setCoordonnees: any, setSelected: any
     )
 }
 
-const PlacesAutocomplete = (props: { setSelected: any, setSearchVille: any, setCoordonnees: any }) => {
+const PlacesAutocomplete = (props: { setSelected: React.Dispatch<React.SetStateAction<boolean>>, setSearchVille: React.Dispatch<React.SetStateAction<string>>, setCoordonnees: React.Dispatch<React.SetStateAction<object>> }) => {
     const {
         ready,
         value,
@@ -40,7 +40,7 @@ const PlacesAutocomplete = (props: { setSelected: any, setSearchVille: any, setC
         }
     })
 
-    const handleSelect = async (address: any) => {
+    const handleSelect = async (address: string) => {
         setValue(address, false)
         clearSuggestions()
         const results = await getGeocode({ address })

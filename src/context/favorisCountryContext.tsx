@@ -1,19 +1,19 @@
-import React, { createContext, useState, useEffect } from "react"
+import React, { createContext, useState, useEffect, ReactNode } from "react"
 import Cookies from "js-cookie"
 
 const FavorisContext = createContext({
     favoris: [],
-    addFavoris: (ville: any, lat: any, lng: any) => { },
+    addFavoris: (ville: string, lat: number, lng: number) => { },
     isExist: false,
-    setIsExist: (x: any) => { },
+    setIsExist: (x: boolean) => { },
     count: 0,
     isVisibleIcon: true,
-    setIsVisibleIcon: (x: any) => { },
+    setIsVisibleIcon: (x: boolean) => { },
     //fonction pour remove un favoris
     //fonction pour remove tous les favoris
 })
 
-export const FavorisCountryContextProvider = (props: { children: any }) => {
+export const FavorisCountryContextProvider = (props: { children: ReactNode }) => {
 
     const getFavorisCookieValue = (): any[] => {
         const cookieValue = Cookies.get('favoris');
@@ -21,11 +21,11 @@ export const FavorisCountryContextProvider = (props: { children: any }) => {
     };
 
     const [favoris, setFavoris] = useState<any>(typeof window !== "undefined" ? getFavorisCookieValue() : [])
-    const [isExist, setIsExist] = useState<any>(false)
-    const [isVisibleIcon, setIsVisibleIcon] = React.useState<any>(true)
+    const [isExist, setIsExist] = useState<boolean>(false)
+    const [isVisibleIcon, setIsVisibleIcon] = React.useState<boolean>(true)
     const count = favoris && favoris.length || 0;
 
-    const addFavoris = (ville: any, lat: any, lng: any) => {
+    const addFavoris = (ville: string, lat: number, lng: number) => {
         if (count > 0) {
             let isExist = false
             favoris.forEach((element: any) => {

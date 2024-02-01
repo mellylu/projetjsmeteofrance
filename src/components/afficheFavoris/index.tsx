@@ -6,10 +6,10 @@ import FavorisContext from "@/context/favorisCountryContext"
 
 import styles from "./index.module.scss"
 
-const Index = (props: { isVisible: any, setIsVisible: any, setIsVisibleIcon: any }) => {
+const Index = (props: { isVisible: boolean, setIsVisible: React.Dispatch<React.SetStateAction<boolean>>, setIsVisibleIcon: (x: boolean) => void }) => {
 
     const { addFavoris, favoris, setIsExist, isExist, isVisibleIcon, setIsVisibleIcon } = useContext(FavorisContext)
-    const [diplayContent, setDisplayContent] = React.useState(false)
+    const [diplayContent, setDisplayContent] = React.useState<boolean>(false)
 
     const router = useRouter()
 
@@ -24,6 +24,7 @@ const Index = (props: { isVisible: any, setIsVisible: any, setIsVisibleIcon: any
     }, [props.isVisible])
 
     const clickVille = (el: any) => {
+        console.log("type of el", typeof el)
         let test = false
         favoris.forEach(element => {
             if (element == el) {

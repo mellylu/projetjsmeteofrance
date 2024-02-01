@@ -10,6 +10,7 @@ Chart.register(LineElement, PointElement, LinearScale, CategoryScale, BarElement
 
 
 const LineChart = (props: { donneesGraphique: any }) => {
+
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 10;
 

@@ -14,7 +14,7 @@ import React from "react"
 
 export default function Index({ Component, pageProps }: AppProps) {
     const { isLoaded } = useLoadScript({
-        googleMapsApiKey: "AIzaSyDbr6FgqPsctO5kXmIFoYL7X7TuaXAGX_o",
+        googleMapsApiKey: "AIzaSyB8jSTHSpmqZDIl3wz5Nyz8FJfAL0bYvVE",
         libraries: ["places"],
     })
 

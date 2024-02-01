@@ -11,7 +11,7 @@ import { elements } from "chart.js"
 
 
 
-const Favoris = (props: { ville: any, lat: any, lng: any, isFavoris: any, setIsFavoris: any, setIsError: any }) => {
+const Favoris = (props: { ville: string, lat: number, lng: number, isFavoris: boolean, setIsFavoris: React.Dispatch<React.SetStateAction<boolean>>, setIsError: React.Dispatch<React.SetStateAction<boolean>> }) => {
     const { addFavoris, favoris, setIsExist, isExist, count } = useContext(FavorisContext)
 
 

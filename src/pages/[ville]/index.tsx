@@ -25,16 +25,16 @@ export default function CityPage(props: { isLoaded: any }) {
     const [ville, setVille] = useState<string>('');
     const [temperature, setTemperature] = useState<number | null>(null);
     const [icon, setIcon] = useState<string | null>(null);
-    const [donneesGraphique, setDonneesGraphique] = useState<any>([])
-    const [isFavoris, setIsFavoris] = useState<any>(false)
-    const [isError, setIsError] = useState<any>(false)
+    const [donneesGraphique, setDonneesGraphique] = useState<Array<object>>([])
+    const [isFavoris, setIsFavoris] = useState<boolean>(false)
+    const [isError, setIsError] = useState<boolean>(false)
     const [temps, setTemps] = useState<any>([])
     const [tempsFiveDay, setTempsFiveDay] = useState<any>([])
     const [previsionsDate, setPrevisionsDate] = useState<any>({})
     const [boutons, setBoutons] = useState<any>({})
     const router = useRouter()
-    const [coordonnees, setCoordonnees] = useState<any>({})
-    const [daySelected, setDaySelected] = useState<any>("AUJOURD'HUI")
+    const [coordonnees, setCoordonnees] = useState<{ lat: number, lng: number }>({ lat: 0, lng: 0 })
+    const [daySelected, setDaySelected] = useState<string>("AUJOURD'HUI")
 
     useEffect(() => {
         setIsError(false)
@@ -49,6 +49,10 @@ export default function CityPage(props: { isLoaded: any }) {
         })
         if (ville.length > 0) fetchDataFiveday(setTempsFiveDay, `https://api.openweathermap.org/data/2.5/forecast?units=metric&lang=fr&appid=63ccd367e391125bbf9a581aab9e0ae5&q=${ville}`)
     }, [ville])
+
+    useEffect(() => {
+        console.log(previsionsDate, "boutons")
+    }, [previsionsDate])
 
     useEffect(() => {
         if (boutons.bouton1) { setTemps(dayChoice(tempsFiveDay, 0, tempsFiveDay[0]?.forecast[0]?.day)) }

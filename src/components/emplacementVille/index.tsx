@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { GoogleMap, Marker } from "@react-google-maps/api"
 import styles from "./index.module.scss"
 
-const Index = (props: { isLoaded: any, coordonnees: any }) => {
+const Index = (props: { isLoaded: boolean, coordonnees: object }) => {
     if (!props.isLoaded) return <div>Loading...</div>
     return <Map coordonnees={props.coordonnees} />
 

@@ -14,15 +14,15 @@ import { timeDayChoice } from "@/utils/timeDayChoice"
 
 import styles from "./index.module.scss"
 
-export default function Index(props: { isLoaded: any }) {
+export default function Index(props: { isLoaded: boolean }) {
     const [hoverInfo, setHoverInfo] = useState({ show: false, x: 0, y: 0, ville: '', temperature: '', icon: '' });
-    const [temps, setTemps] = useState<any>([])
+    const [temps, setTemps] = useState<Array<object>>([])
     const [tempsFiveDay, setTempsFiveDay] = useState<any>([])
     const [previsionsDate, setPrevisionsDate] = useState<any>({})
     const [boutons, setBoutons] = useState<any>({})
-    const [daySelected, setDaySelected] = useState<any>("AUJOURD'HUI")
+    const [daySelected, setDaySelected] = useState<string>("AUJOURD'HUI")
     const [buttonSelected, setButtonSelected] = useState<number>(0)
-    const [timeDaySelected, setTimeDaySelected] = useState<any>({
+    const [timeDaySelected, setTimeDaySelected] = useState<{ apresMidi: boolean, matin: boolean, nuit: boolean, soiree: boolean, selected: string }>({
         selected: 'matin',
         nuit: false,
         matin: false,
