@@ -9,8 +9,6 @@ const FavorisContext = createContext({
     count: 0,
     isVisibleIcon: true,
     setIsVisibleIcon: (x: any) => { },
-    //fonction pour remove un favoris
-    //fonction pour remove tous les favoris
 })
 
 export const FavorisCountryContextProvider = (props: { children: any }) => {

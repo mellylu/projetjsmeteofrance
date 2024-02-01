@@ -76,33 +76,19 @@ export default function WithSubnavigation(props: { username?: string, isLoaded: 
     return (
         <Box>
             <Flex
-                // id="flexNavBar"
-                // bg={useColorModeValue("white", "black")}
-                // color={useColorModeValue("black", "white")}
-                // minH={"60px"}
-                // py={{ base: 2 }}
-                // px={{ base: 4 }}
-                // borderBottom={1}
-                // align={"center"}
                 id="flexNavBar"
                 bg={useColorModeValue("white", "black")}
                 color={useColorModeValue("black", "white")}
                 minH={"60px"}
                 py={{ base: 2 }}
-                // px={{ base: -3 }}
                 borderBottom={1}
                 align={"center"}
-
-            // mr={"15%"}
-            // ml={"15%"}
-            // bgColor={"red"}
             >
                 <div id="navBar" style={{ marginRight: "1%" }}>
                     <Logo image={LogoRepublique} />
                 </div> <div id="navBar" style={{ marginRight: "1%" }}>
                     <Logo image={LogoMeteoFrance} />
                 </div>
-                {/* <div style={{ display: "flex" }}> */}
                 <div id="iconFavoris2" style={{ display: "flex" }}>
                     <Image id="imageLogo" src={LogoMeteoFrance} alt="return home" onClick={() => { router.push("/") }} style={{ cursor: "pointer" }} />
                     <button

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import COORDONNEES_REGION from './coordonnees_region';
 import { start } from 'repl';
+import { enqueueSnackbar } from 'notistack';
 
 export const fetchDataFiveday = async (setData: any, url: string) => {
 
@@ -122,7 +123,7 @@ export const fetchDataFiveday = async (setData: any, url: string) => {
       }
     })
     setData(transformData)
-  } catch (error) {
-    // console.error("ERRRREURRR", error)
+  } catch (error: any) {
+    enqueueSnackbar(error.message, { variant: 'error' })
   }
 }

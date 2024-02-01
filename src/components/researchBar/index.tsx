@@ -17,7 +17,6 @@ export default function Index(props: { setSearchVille: any, isLoaded: any, setCo
     return <Map setSearchVille={props.setSearchVille} setCoordonnees={props.setCoordonnees} setSelected={props.setSelected} />
 }
 function Map(props: { setSearchVille: any, setCoordonnees: any, setSelected: any }) {
-    // const [selected, setSelected] = useState<any>(false)
     return (
         <div>
             <div>

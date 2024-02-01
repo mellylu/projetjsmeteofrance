@@ -52,7 +52,6 @@ const Index = (props: { isVisible: any, setIsVisible: any, setIsVisibleIcon: any
                         <button onClick={() => clickVille(el)}>
                             <p className={styles.pElement}>{decodeURIComponent(el.ville)}</p>
                         </button>
-                        {/* <AiOutlineClose className={styles.croix} color={"black"} onClick={() => addFavoris(el)} /> */}
                     </div>
                 )) : <p className={styles.p}>Pas de favoris trouvé</p>}
             </div>

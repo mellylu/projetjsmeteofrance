@@ -8,8 +8,6 @@ import LogoRepublique from "../../../public/logo2.png"
 import Image from "next/image"
 import { useRouter } from "next/router"
 
-import styles from "./index.module.scss"
-
 export default function SmallCentered() {
     const router = useRouter()
     return (
@@ -23,15 +21,9 @@ export default function SmallCentered() {
                 <Container as={Stack} maxW={"6xl"} py={4} spacing={4} align={"center"}>
                     <Stack direction={"row"} spacing={6} >
                         <div>
-                            {/* <SocialButton label={"Logo meteo france"} href={"/"}  > */}
                             <Image src={LogoMeteoFrance} alt="img meteo france" style={{ width: "100px", height: "100px" }} onClick={() => { router.push("/") }} />
-
-                            {/* </SocialButton> */}
                         </div>
-                        {/* <SocialButton label={"logo republique française"} href={"/"}> */}
                         <Image src={LogoRepublique} alt="img republique" style={{ width: "100px", height: "100px" }} onClick={() => { router.push("/") }} />
-
-                        {/* </SocialButton> */}
                     </Stack>
                 </Container>
             </Box>
