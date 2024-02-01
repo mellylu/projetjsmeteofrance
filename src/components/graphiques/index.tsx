@@ -55,16 +55,6 @@ const LineChart = (props: { donneesGraphique: any }) => {
 
     const options = {
         scales: {
-            // x: {
-            //     display: true,
-            //     grid: {
-            //         display: false,
-            //     },
-            //     ticks: {
-            //         fontSize: 24, // Ajustez la taille de la police ici
-            //     },
-
-            // },
             x:
             {
                 ticks: {
@@ -123,7 +113,6 @@ const LineChart = (props: { donneesGraphique: any }) => {
         id: 'bgImage',
         beforeDatasetsDraw(chart: any, args: any, plugin: any) {
             const { ctx } = chart;
-            // console.log(donneesGraphiqueRef)
             const loadImages = async () => {
                 const images = donneesGraphiqueRef.current.map((element: any) => {
                     return new Promise((resolve) => {

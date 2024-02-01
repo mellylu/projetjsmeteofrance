@@ -1,24 +1,14 @@
 import React, { useEffect, useState, useContext, useMemo } from 'react';
 import { useRouter } from 'next/router';
-import { GoogleMap, Marker } from "@react-google-maps/api"
-
 import BarButtons from "@/components/barButtons"
-import TimeDayButton from "@/components/timeDayButton"
-import MAPCONTAINERSTYLES from "@/utils/styleMap"
 import { fetchDataFiveday } from "@/utils/fetchDataFiveDay"
 import { dayChoice } from "@/utils/dayChoice";
-import { timeDayChoice } from "@/utils/timeDayChoice";
-import { weatherDescription } from "@/utils/weatherDescription";
-
 import { chooseDate } from '@/utils/chooseDate';
 import Graphique from "@/components/graphiques"
-
-import OPTIONS from "@/utils/optionsMap"
 import Favoris from '@/components/favoris';
-
 import styles from "../index.module.scss"
-
 import EmplacementVille from "@/components/emplacementVille"
+import { enqueueSnackbar } from 'notistack';
 
 
 export default function CityPage(props: { isLoaded: any }) {
@@ -97,7 +87,7 @@ export default function CityPage(props: { isLoaded: any }) {
             const iconData = data.list[0].weather[0].icon;
             setIcon(iconData);
         } catch (error) {
-            // console.error('Erreur lors de la récupération des données météo :', error);
+            enqueueSnackbar("La requete météo a échoué : " + error, { variant: "error" })
         }
     };
 

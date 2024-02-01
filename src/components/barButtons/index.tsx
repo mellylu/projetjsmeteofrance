@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
 
 import Button from "@/components//button"
 
@@ -16,6 +16,7 @@ const Index = (props: {
     setTemps: any
     setDaySelected: any
 }) => {
+
 
     const formatDate = (dateString: string) => {
         const options: Intl.DateTimeFormatOptions = {
