@@ -1,5 +1,5 @@
 .timeDayButton {
-    background-color: white;
+    background-color: var(--arrière-plan-principale);
     position: absolute;
     left: 10px;
     top: 10px;
@@ -7,8 +7,8 @@
     padding: 5px;
 
     .daySelected {
-        border-bottom: solid 1px #036ba1;
-        color: #036ba1;
+        border-bottom: solid 1px var(--bleu-clair);
+        color: var(--bleu-clair);
         padding: 5px;
     }
 
@@ -17,15 +17,15 @@
     }
 
     .timeDay button {
-        color: #036ba1;
+        color: var(--bleu-clair);
         padding: 5px;
         margin: 5px 0;
         display: flex;
         width: 100%;
 
         &:hover {
-            color: white;
-            background-color: rgb(224, 38, 137, 0.5);
+            color: var(--arrière-plan-principale);
+            background-color: var(--mauve-hover);
             cursor: pointer;
             border-radius: 5px;
         }

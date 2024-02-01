@@ -4,17 +4,17 @@
 }
 
 .buttonClic {
-    color: white;
-    background-color: rgb(224, 38, 137);
+    color: var(--arrière-plan-principale);
+    background-color: var(--mauve);
     border-radius: 5px;
 }
 
 .buttonNonClic {
-    color: #036ba1;
-    background-color: white;
+    color: var(--bleu-clair);
+    background-color: var(--arrière-plan-principale);
 
     &:hover {
-        background-color: rgb(224, 38, 137, .5);
-        color: white;
+        background-color: var(--mauve-hover);
+        color: var(--arrière-plan-principale);
     }
 }

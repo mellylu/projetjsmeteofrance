@@ -5,6 +5,8 @@
     --bleu-clair: #036ba1;
     --noir: rgba(0, 0, 0, 0.5);
     --gris: rgb(217, 220, 221);
+    --mauve: rgb(224, 38, 137);
+    --mauve-hover: rgb(224, 38, 137, .5)
 }
 html,
 body {
