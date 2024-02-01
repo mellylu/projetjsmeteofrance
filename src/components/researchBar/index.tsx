@@ -17,7 +17,6 @@ export default function Index(props: { setSearchVille: React.Dispatch<React.SetS
     return <Map setSearchVille={props.setSearchVille} setCoordonnees={props.setCoordonnees} setSelected={props.setSelected} />
 }
 function Map(props: { setSearchVille: React.Dispatch<React.SetStateAction<string>>, setCoordonnees: React.Dispatch<React.SetStateAction<object>>, setSelected: React.Dispatch<React.SetStateAction<boolean>> }) {
-    // const [selected, setSelected] = useState<any>(false)
     return (
         <div>
             <div>
