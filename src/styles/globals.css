@@ -1,4 +1,13 @@
 #__next,
+.root {
+    --arrière-plan-principale: rgb(255, 255, 255); /*Blanc*/
+    --arrière-plan-secondaire: rgb(217, 220, 221);
+    --bleu-clair: #036ba1;
+    --noir: rgba(0, 0, 0, 0.5);
+    --gris: rgb(217, 220, 221);
+    --mauve: rgb(224, 38, 137);
+    --mauve-hover: rgb(224, 38, 137, .5)
+}
 html,
 body {
     width: 100%;
@@ -69,7 +78,7 @@ main {
     #appDiv {
         width: 100%;
         height: 130vh;
-        background-color: rgb(217, 220, 221);
+        background-color: var(--gris);
     }
 }
 @media screen and (min-width: 390.5px) {
